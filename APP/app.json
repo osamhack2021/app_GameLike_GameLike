@@ -1,11 +1,4 @@
 {
-  "expo": {
-    "name": "learning",
-    "slug": "learning_0915_1",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  },
-  "name": "learning"
+  "name": "wasans",
+  "displayName": "wasans"
 }
