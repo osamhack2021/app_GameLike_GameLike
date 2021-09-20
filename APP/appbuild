@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+npm run bundle
+./android/gradlew
+cp android/app/build/outputs/apk/debug/app-debug.apk __tests__/apk-debug.apk

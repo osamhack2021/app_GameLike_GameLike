@@ -10,8 +10,7 @@
     "lint": "eslint .",
     "bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "build-react": "webpack --mode production",
-    "start-react": "webpack serve --config ./webpack.config.js --mode development",
-    "wpv": "webpack -v"
+    "start-react": "webpack serve --config ./webpack.config.js --mode development"
   },
   "dependencies": {
     "fork-ts-checker-webpack-plugin": "^6.3.3",
