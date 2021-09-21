@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import App from './App';
+import App from './src/Components/HomeScreen';
 
 export default function AppOnWeb() {
   return (
@@ -12,6 +12,7 @@ export default function AppOnWeb() {
 
 const Styles = StyleSheet.create({
   container: {
+    
     width: 360,
     height: 800,
   },
