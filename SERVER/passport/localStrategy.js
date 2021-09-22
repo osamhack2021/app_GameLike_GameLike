@@ -1,15 +1,16 @@
+const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-const passport = require('passport');
-const { User} = require('../models');
 
-module.exports = (passport) =>{
+const User  = require('../models/user');
+
+module.exports = () => {
 	passport.use(new LocalStrategy({
 		usernameField: 'email', // req.body.email
 		passwordField: 'password', //req.body.password
-	}, async(email, password, done) => { // done(에러, 성공, 실패)
+	}, async (email, password, done) => { // done(에러, 성공, 실패)
 		try{
-			const exUser = await User.find({where: { email }});
+			const exUser = await User.findOne( { where: { email } });
 			if(exUser){
 				//비밀번호 검사
 				const result = await bcrypt.compare(password, exUser.password);
@@ -27,4 +28,5 @@ module.exports = (passport) =>{
 			done(error);
 		}
 	}));
-}
+};
+// 마지막 세미콜론, find -> findOne로 바꾸니 오류 해결

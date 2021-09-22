@@ -1,6 +1,32 @@
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
+const User = require('./user');
+const Post = require('./post');
+const Hashtag = require('./hashtag');
+
+const db = {};
+const sequelize = new Sequelize(
+  config.database, config.username, config.password, config,
+);
+
+db.sequelize = sequelize;
+db.User = User;
+db.Post = Post;
+db.Hashtag = Hashtag;
+
+User.init(sequelize);
+Post.init(sequelize);
+Hashtag.init(sequelize);
+
+User.associate(db);
+Post.associate(db);
+Hashtag.associate(db);
+
+module.exports = db;
+/*const Sequelize = require('sequelize');
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config')[env];
 const db = {};
 
 const sequelize = new Sequelize(
@@ -12,15 +38,15 @@ db.Sequelize = Sequelize;
 
 db.User = require('./user')(sequelize, Sequelize);
 db.Post = require('./post')(sequelize, Sequelize);
-db.HashTag = require('./hashtag.js')(sequelize, Sequelize);
+db.Hashtag = require('./hashtag')(sequelize, Sequelize);
 
 
 db.User.hasMany(db.Post); //1대 다 관계에선 무조건 1이 hasMany
 db.Post.belongsTo(db.User);
 
-db.Post.belongsToMany(db.HashTag, {through: 'PostHashtag'});
+db.Post.belongsToMany(db.Hashtag, {through: 'PostHashtag'});
 //through에는 새로 생기는 모델 이름을 넣어줌(매칭 테이블)
-db.HashTag.belongsToMany(db.Post, {through: 'PostHashtag'});
+db.Hashtag.belongsToMany(db.Post, {through: 'PostHashtag'});
 
 db.User.belongsToMany(db.User, {through: 'Follow', as :'Followers', foreignKey: 'followingId'});
 db.User.belongsToMany(db.User, {through: 'Follow', as :'Following', foreignKey: 'followerId'});
@@ -69,4 +95,4 @@ module.exports = db;
 // 1 노드
 // 2 익스프레스
 // 3 제이드
-// 4 퍼그
+// 4 퍼그 */

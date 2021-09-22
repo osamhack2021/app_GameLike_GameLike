@@ -11,10 +11,11 @@ const passport = require('passport');
 dotenv.config();
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
-const {sequelize} = require('./models');
+const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
 const app = express();
+passportConfig(); //패스포트 설정
 
 app.set('port', process.env.PORT || 8001);
 app.set('view engine', 'html');
@@ -49,6 +50,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize()); //passport는 express session보다 아래에.
 app.use(passport.session());
+
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
 
