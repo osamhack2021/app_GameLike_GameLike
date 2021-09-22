@@ -1,3 +1,4 @@
 /test/
 .expo
 settings.json
+node_modules/
