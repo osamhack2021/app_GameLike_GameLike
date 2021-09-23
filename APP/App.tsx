@@ -1,18 +1,18 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import QuestField from './src/Quests/QuestField';
+import QF from './src/Quests/QuestField';
+import Test from './src/Quests/test';
 
 export default function App() {
   return (
-    <SafeAreaView>
-      <QuestField />
-      <QuestField />
-      <Text>hello</Text>
+    <SafeAreaView style={Styles.container}>
+      <QF />
     </SafeAreaView>
   );
 }
 const Styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: 225,
+    height: 525,
   },
 });

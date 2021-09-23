@@ -13,7 +13,6 @@ export default function AppOnWeb() {
 
 const Styles = StyleSheet.create({
   container: {
-    width: 360,
-    height: 800,
+    flex: 1,
   },
 });
