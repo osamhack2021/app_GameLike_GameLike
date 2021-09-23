@@ -4,9 +4,10 @@ import QuestField from './src/Quests/QuestField';
 
 export default function App() {
   return (
-    <SafeAreaView style={Styles.container}>
+    <SafeAreaView>
       <QuestField />
       <QuestField />
+      <Text>hello</Text>
     </SafeAreaView>
   );
 }

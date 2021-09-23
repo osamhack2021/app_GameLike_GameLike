@@ -1,6 +1,6 @@
 import type React from 'react';
 import type {FC, ReactNode} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
 import type {FieldData} from './FieldData';
 import {Colors} from 'react-native-paper';
 
@@ -10,16 +10,8 @@ type QuestFieldProps = {
 
 const QuestField: FC<QuestFieldProps> = ({data}) => {
   return (
-    <View style={[styles.view]}>
-      <View>
-        <Text>left</Text>
-      </View>
-      <View>
-        <Text>center</Text>
-      </View>
-      <View>
-        <Text>right</Text>
-      </View>
+    <View>
+      <Text>왜안돼냐이거</Text>
     </View>
   );
 };
@@ -27,7 +19,7 @@ const QuestField: FC<QuestFieldProps> = ({data}) => {
 const styles = StyleSheet.create({
   view: {
     flexDirection: 'row',
-    backgroundColor: Colors.lime100,
+    backgroundColor: '#000000',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '90%',
