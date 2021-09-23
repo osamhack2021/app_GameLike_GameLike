@@ -11,7 +11,9 @@ type QuestFieldProps = {
 const QuestField: FC<QuestFieldProps> = ({data}) => {
   return (
     <View style={styles.view}>
-      <Text>왜안돼냐이거</Text>
+      <Text>왼쪽</Text>
+      <Text>가운데</Text>
+      <Text>오른쪽</Text>
     </View>
   );
 };
