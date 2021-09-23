@@ -19,7 +19,7 @@ const QuestField: FC<QuestFieldProps> = ({data}) => {
 const styles = StyleSheet.create({
   view: {
     flexDirection: 'row',
-    backgroundColor: 'Lime500',
+    backgroundColor: '#BFFF00',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
