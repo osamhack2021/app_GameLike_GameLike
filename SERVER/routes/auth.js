@@ -45,18 +45,14 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 });
 
-router.get('/logout', isLoggedIn, (req, res) => {
-  req.logout();
-  req.session.destroy();
-  res.redirect('/');
-});
-
+// (1)
 router.get('/kakao', passport.authenticate('kakao'));
 
+// (3)
 router.get('/kakao/callback', passport.authenticate('kakao', {
-  failureRedirect: '/',
-}), (req, res) => {
-  res.redirect('/');
+	failureRedirect: '/',
+}), (req, res) =>{
+	res.redirect('/');
 });
 
 module.exports = router;
