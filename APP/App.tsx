@@ -1,33 +1,30 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './HomeScreen';
+import SettingScreen from './SettingScreen';
+
+
 
 const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
-  );
-}
+/*
+<NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Settings" component={SettingScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+*/
 export default function App() {
   return (
-    <SafeAreaView style={Styles.container}>
-      <View style={Styles.view1}>
-        <Text>Hello world1</Text>
-      </View>
-
-      <View style={Styles.view2}>
-        <Text>Hello world2</Text>
-      </View>
-
-      <View style={Styles.view3}>
-        <Text>Hello world3</Text>
-      </View>
-    </SafeAreaView>
+    
+    <View>
+      {HomeScreen}
+    </View>
+      
+      
+    
   );
 }
 const Styles = StyleSheet.create({
