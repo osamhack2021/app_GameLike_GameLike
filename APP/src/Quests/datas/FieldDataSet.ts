@@ -1,6 +1,6 @@
 import {FieldData} from './FieldData';
 
-export default function GetDataSets(): Array<FieldData> {
+export function GetDataSets(): Array<FieldData> {
   let datas: Array<FieldData> = [
     {id: 0, name: 'test', peopleWith: 3277, iconName: 'nonono'},
     {id: 1, name: '리액트', peopleWith: 123, iconName: 'development'},

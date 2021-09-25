@@ -12,7 +12,7 @@ type FieldElementProps = {
 const FieldElement: FC<FieldElementProps> = ({data}) => {
   return (
     <View style={styles.view}>
-      <FieldIcon iconName={data.iconName} width={50} height={50} />
+      <FieldIcon iconName={data.iconName} width={60} height={60} />
       <View>
         <Text>가운데 텍스트1</Text>
         <Text>가운데 텍스트2</Text>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    height: 50,
+    height: 75,
     borderWidth: 1,
     borderColor: '#BFFF00',
   },
