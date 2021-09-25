@@ -21,7 +21,7 @@ const FieldIcon: FC<FieldIconProps> = ({iconName, width, height}) => {
   }
   return (
     <View>
-      <Image source={result} width={width} height={height} />
+      <Image source={result} style={{width: width, height: height}} />
     </View>
   );
 };
