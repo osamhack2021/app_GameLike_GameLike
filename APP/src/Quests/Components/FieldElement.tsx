@@ -34,15 +34,17 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 1,
-    marginHorizontal: '30px',
     alignItems: 'flex-start',
-    margin: 15,
+    marginHorizontal: 15,
   },
   titleText: {
     fontSize: 18,
   },
   subText: {
     fontSize: 12,
+  },
+  rightbox: {
+    marginHorizontal: 15,
   },
 });
 
