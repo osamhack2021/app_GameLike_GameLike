@@ -2,18 +2,21 @@ import React from 'react';
 import type {FC, ReactNode} from 'react';
 import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
 import type {FieldData} from './FieldData';
-import {Colors} from 'react-native-paper';
+//import {Colors} from 'react-native-paper';
 
-type QuestFieldProps = {
+type FieldElementProps = {
   data?: FieldData;
 };
 
-const QuestField: FC<QuestFieldProps> = ({data}) => {
+const FieldElement: FC<FieldElementProps> = ({data}) => {
   return (
     <View style={styles.view}>
-      <Text>왼쪽</Text>
-      <Text>가운데</Text>
-      <Text>오른쪽</Text>
+      <Text>아이콘</Text>
+      <View>
+        <Text>가운데 텍스트1</Text>
+        <Text>가운데 텍스트2</Text>
+      </View>
+      <Text>체크박스</Text>
     </View>
   );
 };
@@ -28,6 +31,9 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 150,
   },
+  centerTextView: {
+    alignItems: 'flex-start',
+  },
 });
 
-export default QuestField;
+export default FieldElement;

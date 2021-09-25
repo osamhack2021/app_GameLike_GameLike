@@ -1,7 +1,7 @@
 type QuestData = {
-  id: string;
+  id: number;
   name: string;
-  filed: string;
+  field: string;
   peopleWith: number;
 };
 

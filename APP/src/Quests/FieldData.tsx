@@ -1,7 +1,7 @@
 type FieldData = {
-  id: string;
+  id: number;
   name: string;
-  iconSrc: string;
+  iconSrc: number;
   peopleWith: number;
 };
 
