@@ -12,7 +12,7 @@ type FieldElementProps = {
 const FieldElement: FC<FieldElementProps> = ({data}) => {
   return (
     <View style={styles.view}>
-      <FieldIcon iconName={data.iconName} width={60} height={60} />
+      <FieldIcon iconName={data.iconName} width={50} height={50} />
       <View style={styles.textView}>
         <Text style={styles.titleText}>{data.name}</Text>
         <Text style={styles.subText}>{data.peopleWith}명이 함께합니다.</Text>
@@ -34,7 +34,9 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 1,
+    marginHorizontal: '30px',
     alignItems: 'flex-start',
+    margin: 15,
   },
   titleText: {
     fontSize: 18,

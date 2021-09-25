@@ -1,6 +1,7 @@
 import React from 'react';
 import type {FC} from 'react';
 import {View, Image} from 'react-native';
+import {HotModuleReplacementPlugin} from 'webpack';
 
 type FieldIconProps = {
   iconName: string;
@@ -21,7 +22,14 @@ const FieldIcon: FC<FieldIconProps> = ({iconName, width, height}) => {
   }
   return (
     <View>
-      <Image source={result} style={{width: width, height: height}} />
+      <Image
+        source={result}
+        style={{
+          width: width,
+          height: height,
+          margin: 15,
+        }}
+      />
     </View>
   );
 };
