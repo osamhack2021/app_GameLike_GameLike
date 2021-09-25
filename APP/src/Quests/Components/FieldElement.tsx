@@ -3,13 +3,16 @@ import type {FC} from 'react';
 import {View, StyleSheet, Text, FlatList} from 'react-native';
 import type {FieldData} from '../datas/FieldData';
 import FieldIcon from './FieldIcon';
+import {QuestData} from '../datas/QuestData';
+import QuestElement from './QuestElement';
 //import {Colors} from 'react-native-paper';
 
 type FieldElementProps = {
   data: FieldData;
+  questDatas: QuestData[];
 };
 
-const FieldElement: FC<FieldElementProps> = ({data}) => {
+const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
   return (
     <View>
       <View style={styles.view}>
@@ -25,6 +28,11 @@ const FieldElement: FC<FieldElementProps> = ({data}) => {
         </View>
         <Text style={styles.rightbox}>체크박스</Text>
       </View>
+      <FlatList
+        data={questDatas}
+        renderItem={({item}) => <QuestElement data={item} />}
+        keyExtractor={(item, index) => item.id.toString()}
+      />
     </View>
   );
 };
