@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
     borderColor: '#BFFF00',
   },
   textView: {
+    flex: 1,
     alignItems: 'flex-start',
   },
   titleText: {
-    fontSize: 24,
+    fontSize: 18,
   },
   subText: {
     fontSize: 12,
