@@ -7,9 +7,10 @@ type FieldIconProps = {
   iconName: string;
   width: number;
   height: number;
+  padding: number;
 };
 
-const FieldIcon: FC<FieldIconProps> = ({iconName, width, height}) => {
+const FieldIcon: FC<FieldIconProps> = ({iconName, width, height, padding}) => {
   let result;
   if (iconName.localeCompare('development') === 0) {
     result = require('../../assets/icons/development.png');
@@ -27,7 +28,7 @@ const FieldIcon: FC<FieldIconProps> = ({iconName, width, height}) => {
         style={{
           width: width,
           height: height,
-          margin: 15,
+          padding: padding,
         }}
       />
     </View>

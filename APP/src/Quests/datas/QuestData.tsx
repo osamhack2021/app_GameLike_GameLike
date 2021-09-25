@@ -1,8 +1,7 @@
 type QuestData = {
   id: number;
   name: string;
-  field: string;
-  peopleWith: number;
+  fieldId: number;
 };
 
 export type {QuestData};

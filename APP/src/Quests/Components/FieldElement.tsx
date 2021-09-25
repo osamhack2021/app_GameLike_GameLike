@@ -1,6 +1,6 @@
 import React from 'react';
 import type {FC} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, FlatList} from 'react-native';
 import type {FieldData} from '../datas/FieldData';
 import FieldIcon from './FieldIcon';
 //import {Colors} from 'react-native-paper';
@@ -11,13 +11,20 @@ type FieldElementProps = {
 
 const FieldElement: FC<FieldElementProps> = ({data}) => {
   return (
-    <View style={styles.view}>
-      <FieldIcon iconName={data.iconName} width={50} height={50} />
-      <View style={styles.textView}>
-        <Text style={styles.titleText}>{data.name}</Text>
-        <Text style={styles.subText}>{data.peopleWith}명이 함께합니다.</Text>
+    <View>
+      <View style={styles.view}>
+        <FieldIcon
+          iconName={data.iconName}
+          width={50}
+          height={50}
+          padding={10}
+        />
+        <View style={styles.textView}>
+          <Text style={styles.titleText}>{data.name}</Text>
+          <Text style={styles.subText}>{data.peopleWith}명이 함께합니다.</Text>
+        </View>
+        <Text style={styles.rightbox}>체크박스</Text>
       </View>
-      <Text>체크박스</Text>
     </View>
   );
 };
@@ -35,7 +42,7 @@ const styles = StyleSheet.create({
   textView: {
     flex: 1,
     alignItems: 'flex-start',
-    marginHorizontal: 15,
+    marginHorizontal: 5,
   },
   titleText: {
     fontSize: 18,
@@ -44,7 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   rightbox: {
-    marginHorizontal: 15,
+    marginHorizontal: 10,
   },
 });
 
