@@ -4,9 +4,11 @@ import {View, Image} from 'react-native';
 
 type FieldIconProps = {
   iconName: string;
+  width: number;
+  height: number;
 };
 
-const FieldIcon: FC<FieldIconProps> = ({iconName}) => {
+const FieldIcon: FC<FieldIconProps> = ({iconName, width, height}) => {
   let result;
   if (iconName.localeCompare('development')) {
     result = require('../../assets/icons/development.png');
@@ -19,7 +21,7 @@ const FieldIcon: FC<FieldIconProps> = ({iconName}) => {
   }
   return (
     <View>
-      <Image source={result} />
+      <Image source={result} width={width} height={height} />
     </View>
   );
 };

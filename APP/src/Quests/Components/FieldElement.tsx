@@ -12,7 +12,7 @@ type FieldElementProps = {
 const FieldElement: FC<FieldElementProps> = ({data}) => {
   return (
     <View style={styles.view}>
-      <FieldIcon iconName={data.iconName} />
+      <FieldIcon iconName={data.iconName} width={50} height={50} />
       <View>
         <Text>가운데 텍스트1</Text>
         <Text>가운데 텍스트2</Text>
