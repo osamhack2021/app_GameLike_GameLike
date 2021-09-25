@@ -1,7 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import FieldElement from './src/Quests/FieldElement';
-import Test from './src/Quests/test';
+import FieldElement from './src/Quests/Components/FieldElement';
 
 export default function App() {
   return (
