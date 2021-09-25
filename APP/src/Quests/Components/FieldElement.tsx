@@ -1,16 +1,22 @@
 import React from 'react';
 import type {FC} from 'react';
-import {View, StyleSheet, Text, FlatList} from 'react-native';
+import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native';
 import type {FieldData} from '../datas/FieldData';
 import FieldIcon from './FieldIcon';
 import {QuestData} from '../datas/QuestData';
 import QuestElement from './QuestElement';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import QuestElementList from './QuestElementList';
 //import {Colors} from 'react-native-paper';
 
 type FieldElementProps = {
   data: FieldData;
   questDatas: QuestData[];
 };
+
+//아마 제대로 작동 안할듯
+//리액트 훅 적용해야 할 것으로 예상
+let listVisible: boolean = true; //이거 리액트 훅으로 바꿀 수 있으면 바꾸기
 
 const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
   return (
@@ -26,13 +32,15 @@ const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
           <Text style={styles.titleText}>{data.name}</Text>
           <Text style={styles.subText}>{data.peopleWith}명이 함께합니다.</Text>
         </View>
-        <Text style={styles.rightbox}>체크박스</Text>
+        <TouchableOpacity
+          onPress={() => {
+            listVisible = !listVisible;
+            return listVisible;
+          }}>
+          <Icon name="chevron-down" style={styles.rightbox} />
+        </TouchableOpacity>
       </View>
-      <FlatList
-        data={questDatas}
-        renderItem={({item}) => <QuestElement data={item} />}
-        keyExtractor={(item, index) => item.id.toString()}
-      />
+      <QuestElementList visible={listVisible} questDatas={questDatas} />
     </View>
   );
 };
