@@ -10,11 +10,11 @@ type FieldIconProps = {
 
 const FieldIcon: FC<FieldIconProps> = ({iconName, width, height}) => {
   let result;
-  if (iconName.localeCompare('development')) {
+  if (iconName.localeCompare('development') === 0) {
     result = require('../../assets/icons/development.png');
-  } else if (iconName.localeCompare('sport')) {
+  } else if (iconName.localeCompare('sport') === 0) {
     result = require('../../assets/icons/sport.png');
-  } else if (iconName.localeCompare('study')) {
+  } else if (iconName.localeCompare('study') === 0) {
     result = require('../../assets/icons/study.png');
   } else {
     result = require('../../assets/icons/0.png');

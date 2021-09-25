@@ -13,9 +13,9 @@ const FieldElement: FC<FieldElementProps> = ({data}) => {
   return (
     <View style={styles.view}>
       <FieldIcon iconName={data.iconName} width={60} height={60} />
-      <View>
-        <Text>가운데 텍스트1</Text>
-        <Text>가운데 텍스트2</Text>
+      <View style={styles.textView}>
+        <Text style={styles.titleText}>{data.name}</Text>
+        <Text style={styles.subText}>{data.peopleWith}명이 함께합니다.</Text>
       </View>
       <Text>체크박스</Text>
     </View>
@@ -32,8 +32,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#BFFF00',
   },
-  centerTextView: {
+  textView: {
     alignItems: 'flex-start',
+  },
+  titleText: {
+    fontSize: 10,
+  },
+  subText: {
+    //fontSize: 9,
   },
 });
 
