@@ -36,10 +36,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   titleText: {
-    fontSize: 10,
+    fontSize: 24,
   },
   subText: {
-    //fontSize: 9,
+    fontSize: 12,
   },
 });
 
