@@ -1,17 +1,18 @@
 import React from 'react';
-import type {FC, ReactNode} from 'react';
-import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
+import type {FC} from 'react';
+import {View, StyleSheet, Text} from 'react-native';
 import type {FieldData} from '../datas/FieldData';
+import FieldIcon from './FieldIcon';
 //import {Colors} from 'react-native-paper';
 
 type FieldElementProps = {
-  data?: FieldData;
+  data: FieldData;
 };
 
 const FieldElement: FC<FieldElementProps> = ({data}) => {
   return (
     <View style={styles.view}>
-      <Text>아이콘</Text>
+      <FieldIcon iconName={data.iconName} />
       <View>
         <Text>가운데 텍스트1</Text>
         <Text>가운데 텍스트2</Text>
