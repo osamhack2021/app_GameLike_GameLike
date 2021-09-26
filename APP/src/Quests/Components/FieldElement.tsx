@@ -49,7 +49,7 @@ const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
         </TouchableOpacity>
       </View>
       <QuestElementList visible={listVisible} questDatas={questDatas} />
-      <Text>{listVisible}</Text>
+      <Text>{listVisible.toString()}</Text>
     </View>
   );
 };
