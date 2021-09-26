@@ -1,6 +1,13 @@
 import React from 'react';
 import type {FC} from 'react';
-import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import type {FieldData} from '../datas/FieldData';
 import FieldIcon from './FieldIcon';
 import {QuestData} from '../datas/QuestData';
@@ -35,6 +42,7 @@ const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
         <TouchableOpacity
           onPress={() => {
             listVisible = !listVisible;
+            Alert.alert('눌리긴 함' + listVisible.toString());
             return listVisible;
           }}>
           <Icon name="chevron-down" style={styles.rightbox} />
