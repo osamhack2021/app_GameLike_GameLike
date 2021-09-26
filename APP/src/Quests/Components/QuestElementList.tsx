@@ -21,7 +21,7 @@ const QuestElementList: FC<QuestElementListProps> = ({questDatas, visible}) => {
       </View>
     );
   } else {
-    return <></>;
+    return null;
   }
 };
 

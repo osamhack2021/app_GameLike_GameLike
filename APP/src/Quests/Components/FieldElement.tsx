@@ -23,7 +23,7 @@ type FieldElementProps = {
 
 //아마 제대로 작동 안할듯
 //리액트 훅 적용해야 할 것으로 예상
-let listVisible: boolean = true; //이거 리액트 훅으로 바꿀 수 있으면 바꾸기
+let listVisible: boolean = false; //이거 리액트 훅으로 바꿀 수 있으면 바꾸기
 
 const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
   return (
@@ -49,6 +49,7 @@ const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
         </TouchableOpacity>
       </View>
       <QuestElementList visible={listVisible} questDatas={questDatas} />
+      <Text>{listVisible}</Text>
     </View>
   );
 };
