@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import type {FC} from 'react';
 import {
   View,
@@ -12,7 +12,7 @@ import type {FieldData} from '../datas/FieldData';
 import FieldIcon from './FieldIcon';
 import {QuestData} from '../datas/QuestData';
 import QuestElement from './QuestElement';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Entypo';
 import QuestElementList from './QuestElementList';
 //import {Colors} from 'react-native-paper';
 
@@ -26,6 +26,8 @@ type FieldElementProps = {
 let listVisible: boolean = false; //이거 리액트 훅으로 바꿀 수 있으면 바꾸기
 
 const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
+  const [questVisible, setQuestVisible] = useState(false);
+
   return (
     <View>
       <View style={styles.view}>
@@ -41,15 +43,14 @@ const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            listVisible = !listVisible;
-            Alert.alert('눌리긴 함' + listVisible.toString());
-            return listVisible;
+            setQuestVisible(!questVisible);
+            Alert.alert('눌리긴 함' + questVisible.toString());
           }}>
           <Icon name="chevron-down" style={styles.rightbox} />
         </TouchableOpacity>
       </View>
-      <QuestElementList visible={listVisible} questDatas={questDatas} />
-      <Text>{listVisible.toString()}</Text>
+      <QuestElementList visible={questVisible} questDatas={questDatas} />
+      <Text>{questVisible.toString()}</Text>
     </View>
   );
 };
