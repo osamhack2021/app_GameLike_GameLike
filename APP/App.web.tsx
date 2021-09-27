@@ -1,11 +1,11 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import App from './src/App';
+import Screen from './src/App';
 
 export default function AppOnWeb() {
   return (
     <SafeAreaView style={Styles.container}>
-      <App />
+      <Screen />
     </SafeAreaView>
   );
 }

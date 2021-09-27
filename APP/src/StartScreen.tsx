@@ -1,32 +1,38 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Button, Text, View } from 'react-native';
 
 const StartScreen = ({navigation}: {navigation: any}) => {
     return (
-        <View>
-            <Text onPress = {() => navigation.navigate('LOGIN')} >
-                TOUCH THE SCREEN
-            </Text>            
+        <View style={styles.container}> 
+            <Text style={styles.yellow}>
+                Game Like
+            </Text>                                  
+            <Button title = 'TOUCH THE SCREEN' onPress = {() => navigation.navigate('LOGIN')}/>         
         </View>  
     )
 }
 
-export default StartScreen;
-/*
-export default class StartScreen extends React.Component{
-    render() {
-         return (
-            <View>
-                <
-                <Text>
-                    Touch the Screen
-                </Text>
-            </View>  
-        );
-    }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        backgroundColor: '#EDB0B0',
+        
+    },
+    blue: {
+      color: '#5E8BE4',
+      fontWeight: 'bold',
+      fontSize: 30,
+    },
+    yellow: {
+      color: '#FFD858',
+      fontWeight: 'bold',
+      fontSize: 30,
+    },
+  });
 
-  
-}
-*/
+export default StartScreen;
+
 
 

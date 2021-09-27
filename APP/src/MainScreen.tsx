@@ -7,6 +7,7 @@ import HomeScreen from './Component/HomeScreen';
 import SettingScreen from './Component/SettingScreen';
 import QuestScreen from './Component/QuestScreen';
 import ProfileScreen from './Component/ProfileScreen';
+import DungeonScreen from './Component/DungeonScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -16,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 export default function MainScreen() {
   return (
-    <NavigationContainer>
+    
       <Tab.Navigator
               
               screenOptions={({ route }) => ({
@@ -31,10 +32,12 @@ export default function MainScreen() {
       >
         <Tab.Screen name="홈" component={HomeScreen} />
         <Tab.Screen name="퀘스트" component={QuestScreen} />
+        <Tab.Screen name="던전" component={DungeonScreen} />
         <Tab.Screen name="프로필" component={ProfileScreen} />
         <Tab.Screen name="설정" component={SettingScreen} />
         
+        
       </Tab.Navigator>
-    </NavigationContainer>
+    
   );
 }
