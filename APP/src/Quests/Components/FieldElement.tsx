@@ -44,13 +44,11 @@ const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
         <TouchableOpacity
           onPress={() => {
             setQuestVisible(!questVisible);
-            Alert.alert('눌리긴 함' + questVisible.toString());
           }}>
-          <Icon name="chevron-down" style={styles.rightbox} />
+          <Icon name="chevron-with-circle-down" style={styles.rightbox} />
         </TouchableOpacity>
       </View>
       <QuestElementList visible={questVisible} questDatas={questDatas} />
-      <Text>{questVisible.toString()}</Text>
     </View>
   );
 };
