@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
-cd ../../
+cd ../
 git add .
-git commit -m 'apk testing $0'
+git commit -m "$1"
 git push
-cd test/test0920/
+cd APP

@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-project.ext.vectoricons = [
-   iconFontNames: [ 'Ionicons.ttf', 'FontAwesome.ttf' ]
-]
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+// project.ext.vectoricons = [
+//    iconFontNames: [ 'Ionicons.ttf', 'FontAwesome.ttf' ]
+// ]
+// apply from: "../node_modules/react-native-vector-icons/fonts.gradle"
 
 
 buildscript {
