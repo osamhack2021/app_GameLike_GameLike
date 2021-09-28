@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Text, ScrollView, StyleSheet, View} from 'react-native';
+import {Text, ScrollView, StyleSheet, View, Alert} from 'react-native';
 import {FieldData} from '../Quests/datas/FieldData';
 import * as FT from './FieldTable';
 
@@ -56,12 +56,14 @@ export default function FieldSQLTest() {
       const storedItems = await FT.getFieldDatas(db);
       if (storedItems.length) {
         setFields(storedItems);
+        Alert.alert('stored Items is available');
       } else {
         await FT.saveFieldDatas(db, initDatas);
         setFields(initDatas);
+        Alert.alert('using init datas');
       }
     } catch (error) {
-      console.error(error);
+      Alert.alert('error ocurred');
     }
   }, []);
   useEffect(() => {
