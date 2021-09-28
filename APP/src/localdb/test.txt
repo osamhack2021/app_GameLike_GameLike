@@ -3,7 +3,7 @@ create TABLE "Quest" ("id" INTEGER NOT NULL, "name" TEXT NOT NULL, "fieldId" INT
 
 https://blog.logrocket.com/using-sqlite-with-react-native/
 
-0927
+0928 할일
 1. sql 데이터 불러오기 구현(FieldSQLTest.tsx)
 2. App 시작할 때 데이터 임의로 넣어서 테스트해보기
 3. sql 데이터 집어넣기 구현(FieldSQLTest.tsx)
