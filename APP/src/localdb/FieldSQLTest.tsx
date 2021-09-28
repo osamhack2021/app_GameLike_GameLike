@@ -51,7 +51,7 @@ export default function FieldSQLTest() {
   ]);
   const loadDataCallback = useCallback(async () => {
     try {
-      Alert.alert('start getDBConnection');
+      await Alert.alert('start getDBConnection');
       const db = await FT.getDBConnection();
       Alert.alert('start creatTable');
       await FT.createTable(db);
@@ -59,12 +59,15 @@ export default function FieldSQLTest() {
       const storedItems = await FT.getFieldDatas(db);
       Alert.alert('start if/else');
       if (storedItems.length) {
+        Alert.alert('using if');
         setFields(storedItems);
         Alert.alert('stored Items is available');
       } else {
+        Alert.alert('using else');
         await FT.saveFieldDatas(db, initDatas);
+        Alert.alert('saveFieldDatas ended');
         setFields(initDatas);
-        Alert.alert('using init datas');
+        Alert.alert('init Datas available');
       }
     } catch (error) {
       Alert.alert('error ocurred');
