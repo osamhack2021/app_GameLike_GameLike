@@ -51,9 +51,13 @@ export default function FieldSQLTest() {
   ]);
   const loadDataCallback = useCallback(async () => {
     try {
+      Alert.alert('start getDBConnection');
       const db = await FT.getDBConnection();
+      Alert.alert('start creatTable');
       await FT.createTable(db);
+      Alert.alert('start getFieldDatas');
       const storedItems = await FT.getFieldDatas(db);
+      Alert.alert('start if/else');
       if (storedItems.length) {
         setFields(storedItems);
         Alert.alert('stored Items is available');
