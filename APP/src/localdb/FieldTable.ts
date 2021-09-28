@@ -52,11 +52,13 @@ export const saveFieldDatas = async (
   fieldDatas: FD.FieldData[],
 ) => {
   const insertQuery =
-    `INSERT OR REPLACE INTO ${fieldTableName}(id, name, peopleWith, iconName, dataCreatorId, isPublic) values` +
+    `INSERT OR REPLACE INTO ${fieldTableName}(id, name, peopleWith, iconName, dataCreatorId, isPublic) values ` +
     fieldDatas
       .map(
         i =>
-          `(${i.id},'${i.name},'${i.peopleWith},'${i.iconName},'${i.dataCreatorId},'${i.isPublic})`,
+          `(${i.id},"${i.name}",${i.peopleWith},"${i.iconName}","${
+            i.dataCreatorId
+          }",${i.isPublic ? 1 : 0})`,
       )
       .join(',');
 
