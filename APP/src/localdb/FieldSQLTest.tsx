@@ -99,7 +99,7 @@ export default function FieldSQLTest() {
   };
 
   const children = fields.map(item => (
-    <View>
+    <View style={styles.view}>
       <Text>id: {item.id}</Text>
       <Text>name: {item.name}</Text>
       <Text>peopleWith: {item.peopleWith}</Text>
@@ -133,5 +133,5 @@ export default function FieldSQLTest() {
 }
 
 const styles = StyleSheet.create({
-  view: {borderWidth: 1},
+  view: {borderWidth: 1, width: '100%'},
 });
