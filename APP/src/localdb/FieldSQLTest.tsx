@@ -1,5 +1,7 @@
+import {placeholder} from '@babel/types';
 import React, {useCallback, useEffect, useState} from 'react';
-import {Text, ScrollView, StyleSheet, View, Alert} from 'react-native';
+import {Text, ScrollView, StyleSheet, View, Alert, Button} from 'react-native';
+import {TextInput} from 'react-native-paper';
 import {FieldData} from '../Quests/datas/FieldData';
 import * as FT from './FieldTable';
 
@@ -39,6 +41,7 @@ const initDatas: Array<FieldData> = [
 ];
 
 export default function FieldSQLTest() {
+  //데이터 로드
   const [fields, setFields] = useState<FieldData[]>([
     {
       id: -1,
@@ -51,23 +54,14 @@ export default function FieldSQLTest() {
   ]);
   const loadDataCallback = useCallback(async () => {
     try {
-      await Alert.alert('start getDBConnection');
       const db = await FT.getDBConnection();
-      Alert.alert('start creatTable');
       await FT.createTable(db);
-      Alert.alert('start getFieldDatas');
       const storedItems = await FT.getFieldDatas(db);
-      Alert.alert('start if/else');
       if (storedItems.length) {
-        Alert.alert('using if');
         setFields(storedItems);
-        Alert.alert('stored Items is available');
       } else {
-        Alert.alert('using else');
         await FT.saveFieldDatas(db, initDatas);
-        Alert.alert('saveFieldDatas ended');
         setFields(initDatas);
-        Alert.alert('init Datas available');
       }
     } catch (error) {
       Alert.alert('error ocurred');
@@ -76,6 +70,33 @@ export default function FieldSQLTest() {
   useEffect(() => {
     loadDataCallback();
   }, [loadDataCallback]);
+
+  const [inputId, setInputId] = useState<number>(0);
+  const [inputName, setInputName] = useState<string>('');
+  const [inputPW, setPeopleWith] = useState<number>(0);
+
+  //데이터 입력
+  const addFieldData = async () => {
+    const newField: FieldData = {
+      id: inputId,
+      name: inputName,
+      peopleWith: inputPW,
+      iconName: 'test',
+      dataCreatorId: 'tester',
+      isPublic: false,
+    };
+    try {
+      const newFields = [...fields, newField];
+      setFields(newFields);
+      const db = await FT.getDBConnection();
+      await FT.saveFieldDatas(db, newFields);
+      setInputId(0);
+      setInputName('');
+      setPeopleWith(0);
+    } catch (error) {
+      Alert.alert('error ocurred while adding element');
+    }
+  };
 
   const children = fields.map(item => (
     <View>
@@ -87,6 +108,25 @@ export default function FieldSQLTest() {
   ));
   return (
     <ScrollView>
+      <TextInput
+        placeholder="id"
+        onChangeText={text => {
+          setInputId(Number(text));
+        }}
+      />
+      <TextInput
+        placeholder="name"
+        onChangeText={text => {
+          setInputName(text);
+        }}
+      />
+      <TextInput
+        placeholder="id"
+        onChangeText={text => {
+          setPeopleWith(Number(text));
+        }}
+      />
+      <Button title="입력" onPress={addFieldData} />
       <Text>{children}</Text>
     </ScrollView>
   );

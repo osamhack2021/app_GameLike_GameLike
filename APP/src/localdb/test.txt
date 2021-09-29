@@ -3,12 +3,16 @@ create TABLE "Quest" ("id" INTEGER NOT NULL, "name" TEXT NOT NULL, "fieldId" INT
 
 https://blog.logrocket.com/using-sqlite-with-react-native/
 
-0928 할일
-1. sql 데이터 불러오기 구현(FieldSQLTest.tsx)
-2. App 시작할 때 데이터 임의로 넣어서 테스트해보기
+0929 할일
 3. sql 데이터 집어넣기 구현(FieldSQLTest.tsx)
+ - inputId, Name, PW 이용하여 데이터 집어넣는 것 구현
 4. 데이터 집어넣고 뺴는거 되는지 확인
 5. fieldTable 문자열 내 스키마 비문자열로 변경 후 테스트
+6. 코드 다듬기(FieldTable에만 국한되지 않게);
 6. Quest도 똑같이 구현해보기
 7. Quest 구현한 것 QuestTab에 적용
 8. Quest 데이터 제작 구현
+
+(완료)
+1. sql 데이터 불러오기 구현(FieldSQLTest.tsx)
+2. App 시작할 때 데이터 임의로 넣어서 테스트해보기
