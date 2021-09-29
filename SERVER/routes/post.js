@@ -73,4 +73,34 @@ router.get('/hashtag', async(req, res, next) => {
         next(error);
     }
 });
+
+router.post('/:id/like', async(req, res, next) => {
+    try{
+        const post = await Post.findOne({ where : {id : req.user.id}});
+        await post.addLiker(req.user.id);
+        res.send('OK');
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+});
+
+router.delete('/:id/like', async (req, res, next) =>{
+    try{
+        const post = await Post.findOne({ where : {id : req.user.id}});
+        await post.removeLiker(req.user.id);
+        res.send('OK');
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+});
+
+/*{% set like = (twit) and (likerIdList.includes(req.User.id) ) %}
+      {% if not like and user  %}
+      <button class="like">좋아요</button>
+      {% elif user and like %}
+      <button class="unlike">좋아요 취소</button>
+      {% endif %}*/
+
 module.exports = router;

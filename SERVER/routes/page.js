@@ -8,6 +8,7 @@ router.use((req, res, next) => {
   res.locals.followerCount =  req.user ? req.user.Followers.length : 0;
   res.locals.followingCount = req.user ? req.user.Followings.length : 0;
   res.locals.followerIdList = req.user ? req.user.Followings.map(f=>f.id) : [];
+  //res.locals.likerIdList = req.user ? req.twit.Liker.map(l => l.id) : [];
   next();
 });
 
@@ -29,12 +30,17 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 router.get('/', async (req, res, next) => {
   console.log(req.user);
   const posts = await Post.findAll({
-    include: {
+    include: [{
       model: User,
       attributes: ['id', 'nick'],
-    },
+    }, {
+      model: User,
+      attributes: ['id', 'nick'],
+      as: 'Liker',
+    }],
   })
     .then((posts) => {
+      console.log(posts);
       res.render('main', {
         title: 'NodeBird',
         twits: posts,
