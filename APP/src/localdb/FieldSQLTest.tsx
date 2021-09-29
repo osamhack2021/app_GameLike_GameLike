@@ -127,7 +127,7 @@ export default function FieldSQLTest() {
         }}
       />
       <Button title="입력" onPress={addFieldData} />
-      <Text>{children}</Text>
+      <View>{children}</View>
     </ScrollView>
   );
 }
