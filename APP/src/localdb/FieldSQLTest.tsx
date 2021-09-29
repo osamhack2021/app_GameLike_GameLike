@@ -98,6 +98,28 @@ export default function FieldSQLTest() {
     }
   };
 
+  //데이터 삭제
+  const deleteData = async () => {
+    try {
+      const db = await FT.getDBConnection();
+      await FT.deleteFieldData(db, inputId);
+      let idindex: number = -1;
+      for (let i = 0; i < fields.length; i++) {
+        if (inputId === fields[i].id) {
+          idindex = i;
+        }
+      }
+      if (idindex !== -1) {
+        fields.splice(idindex, 1);
+      } else {
+        Alert.alert("deletion: can't find the id");
+      }
+      setFields(fields.slice(0));
+    } catch (error) {
+      Alert.alert('data deletion error ocurred');
+    }
+  };
+
   const children = fields.map(item => (
     <View style={styles.view}>
       <Text>id: {item.id}</Text>
@@ -127,6 +149,7 @@ export default function FieldSQLTest() {
         }}
       />
       <Button title="입력" onPress={addFieldData} />
+      <Button title="삭제" onPress={deleteData} />
       <View>{children}</View>
     </ScrollView>
   );
