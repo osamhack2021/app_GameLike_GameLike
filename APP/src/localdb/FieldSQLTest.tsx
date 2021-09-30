@@ -2,67 +2,39 @@ import {placeholder} from '@babel/types';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Text, ScrollView, StyleSheet, View, Alert, Button} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import {FieldData} from '../Quests/datas/FieldData';
+import * as FieldData from '../Quests/datas/FieldData';
 import * as FT from './FieldTable';
+import * as LocalDB from './LocalDB';
 
-const initDatas: Array<FieldData> = [
+const initDatas: Array<FieldData.DataType> = [
   {
     id: 0,
     name: 'test',
     peopleWith: 3277,
     iconName: 'nonono',
     dataCreatorId: 'tester',
-    isPublic: false,
-  },
-  {
-    id: 1,
-    name: '리액트',
-    peopleWith: 123,
-    iconName: 'development',
-    dataCreatorId: 'tester',
-    isPublic: true,
-  },
-  {
-    id: 2,
-    name: '등 운동',
-    peopleWith: 5709,
-    iconName: 'sport',
-    dataCreatorId: 'tester',
-    isPublic: true,
-  },
-  {
-    id: 3,
-    name: '수능 미적분',
-    peopleWith: 7777,
-    iconName: 'study',
-    dataCreatorId: 'testerstu',
-    isPublic: true,
+    isPublic: 0,
   },
 ];
 
 export default function FieldSQLTest() {
   //데이터 로드
-  const [fields, setFields] = useState<FieldData[]>([
-    {
-      id: -1,
-      name: 'initValue',
-      peopleWith: 1111,
-      iconName: 'bbb',
-      dataCreatorId: 'startValue',
-      isPublic: false,
-    },
-  ]);
+  const [fields, setFields] = useState<FieldData.DataType[]>([]);
   const loadDataCallback = useCallback(async () => {
     try {
-      const db = await FT.getDBConnection();
-      await FT.createTable(db);
-      const storedItems = await FT.getFieldDatas(db);
-      if (storedItems.length) {
-        setFields(storedItems);
-      } else {
-        await FT.saveFieldDatas(db, initDatas);
-        setFields(initDatas);
-      }
+      const db = await LocalDB.openDB();
+      await LocalDB.createTable(
+        db,
+        FieldData.tableName,
+        FieldData.primaryKey,
+        FieldData.attributes,
+      );
+      const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
+        db,
+        FieldData.tableName,
+        FieldData.attributes,
+      );
+      setFields(storedItems);
     } catch (error) {
       Alert.alert('error ocurred');
     }
@@ -71,25 +43,30 @@ export default function FieldSQLTest() {
     loadDataCallback();
   }, [loadDataCallback]);
 
+  //데이터 입력
   const [inputId, setInputId] = useState<number>(0);
   const [inputName, setInputName] = useState<string>('');
   const [inputPW, setPeopleWith] = useState<number>(0);
 
-  //데이터 입력
   const addFieldData = async () => {
-    const newField: FieldData = {
+    const newField: FieldData.DataType = {
       id: inputId,
       name: inputName,
       peopleWith: inputPW,
       iconName: 'test',
       dataCreatorId: 'tester',
-      isPublic: false,
+      isPublic: 0,
     };
     try {
       const newFields = [...fields, newField];
       setFields(newFields);
-      const db = await FT.getDBConnection();
-      await FT.saveFieldDatas(db, newFields);
+      const db = await LocalDB.openDB();
+      await LocalDB.insertItems(
+        db,
+        FieldData.tableName,
+        newFields,
+        FieldData.attributes,
+      );
       setInputId(0);
       setInputName('');
       setPeopleWith(0);
@@ -101,8 +78,8 @@ export default function FieldSQLTest() {
   //데이터 삭제
   const deleteData = async () => {
     try {
-      const db = await FT.getDBConnection();
-      await FT.deleteFieldData(db, inputId);
+      const db = await LocalDB.openDB();
+      await LocalDB.deleteItem(db, inputId, FieldData.tableName);
       let idindex: number = -1;
       for (let i = 0; i < fields.length; i++) {
         if (inputId === fields[i].id) {

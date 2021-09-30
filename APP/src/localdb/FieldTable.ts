@@ -1,77 +1,31 @@
+//사용하지 않을 예정
+
 import {
   enablePromise,
   openDatabase,
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
 
-import * as FD from '../Quests/datas/FieldData';
+import * as FieldData  from '../Quests/datas/FieldData';
+import * as LocalDB from './LocalDB';
 
-const fieldTableName = 'Field';
+//load
+//insert
+//delete
 
 enablePromise(true);
 
-export const getDBConnection = async () => {
-  return openDatabase({name: 'GameLikeLocal.db', location: 'default'});
-};
+function createTable(db: SQLiteDatabase){
+  LocalDB.createTable(db,FieldData.tableName,FieldData.primaryKey,FieldData.attributes);
+}
 
-export const createTable = async (db: SQLiteDatabase) => {
-  const query = `CREATE TABLE IF NOT EXISTS "${fieldTableName}"(
-    "id" INTEGER NOT NULL, 
-    "name" TEXT NOT NULL, 
-    "peopleWith" INTEGER NOT NULL,
-    "iconName" TEXT NOT NULL, 
-    "dataCreatorId" TEXT NOT NULL,
-    "isPublic" INTEGER NOT NULL,
-    PRIMARY KEY("id") );`;
-
-  await db.executeSql(query);
-};
-
-export const getFieldDatas = async (
-  db: SQLiteDatabase,
-): Promise<FD.FieldData[]> => {
-  try {
-    const fieldDatas: FD.FieldData[] = [];
-    const results = await db.executeSql(
-      `SELECT id as id, name, peopleWith, iconName, dataCreatorId, isPublic FROM ${fieldTableName}`,
-    );
-    results.forEach(result => {
-      for (let index = 0; index < result.rows.length; index++) {
-        fieldDatas.push(result.rows.item(index));
-      }
-    });
-    return fieldDatas;
-  } catch (error) {
-    console.error(error);
-    throw Error('Failed to get FieldDatas, in FieldTable.ts');
+export const loadFieldDatas = async (db: SQLiteDatabase) => {
+  try{
+    const db = await LocalDB.getDB();
+    await createTable(db);
+    const storedItems = await LocalDB.getItemsFromTable(db,FieldData.tableName,FieldData.attributes);
+    if(storedItems.length){
+      
+    }
   }
-};
-
-export const saveFieldDatas = async (
-  db: SQLiteDatabase,
-  fieldDatas: FD.FieldData[],
-) => {
-  const insertQuery =
-    `INSERT OR REPLACE INTO ${fieldTableName}(id, name, peopleWith, iconName, dataCreatorId, isPublic) values ` +
-    fieldDatas
-      .map(
-        i =>
-          `(${i.id},"${i.name}",${i.peopleWith},"${i.iconName}","${
-            i.dataCreatorId
-          }",${i.isPublic ? 1 : 0})`,
-      )
-      .join(',');
-
-  return db.executeSql(insertQuery);
-};
-
-export const deleteFieldData = async (db: SQLiteDatabase, id: number) => {
-  const deleteQuery = `DELETE from ${fieldTableName} where id = ${id}`;
-  await db.executeSql(deleteQuery);
-};
-
-export const deleteTable = async (db: SQLiteDatabase) => {
-  const query = `drop table ${fieldTableName}`;
-
-  await db.executeSql(query);
 };

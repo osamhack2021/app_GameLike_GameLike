@@ -1,3 +1,4 @@
+//삭제 예정
 import {
   enablePromise,
   openDatabase,
