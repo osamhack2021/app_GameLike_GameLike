@@ -30,7 +30,6 @@ export default function App() {
           name="MAIN"
           component={MainScreen}
           options={{headerShown: false}}
-          
         />
         <Stack.Screen
           name="REGISTER"
