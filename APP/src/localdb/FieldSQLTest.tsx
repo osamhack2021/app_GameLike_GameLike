@@ -33,6 +33,7 @@ export default function FieldSQLTest() {
           FieldData.attributes,
         ),
       );
+      await db.executeSql(errorOut);
       Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
         db,

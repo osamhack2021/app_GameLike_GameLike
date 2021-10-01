@@ -30,7 +30,7 @@ export const createTable = async (
     ) +
     `PRIMARY KEY("${primaryKey}") );`;
   //Alert.alert(query);
-  await db.executeSql(query);
+  //await db.executeSql(query);
   return query;
 };
 
