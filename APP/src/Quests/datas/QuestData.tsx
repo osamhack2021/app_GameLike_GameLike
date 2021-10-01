@@ -24,6 +24,6 @@ export const attributes: TableAttribute[] = [
 ];
 
 export const primaryKey = 'id';
-export const tableName = 'Field';
+export const tableName = 'Quest';
 
 export type {DataType};
