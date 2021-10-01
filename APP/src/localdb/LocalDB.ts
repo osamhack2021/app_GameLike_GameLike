@@ -1,3 +1,4 @@
+import {Alert} from 'react-native';
 import {
   enablePromise,
   openDatabase,
@@ -172,9 +173,19 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
   try {
     const query = `SELECT max(id) from ${tableName}`;
     const results = await db.executeSql(query);
-    const id: number = results[0].rows.item(0);
-    return id;
+    if (results.length === 1) {
+      return 0;
+    }
+    const id = results[0].rows.item(0).id;
+    if (typeof id === 'number') {
+      return id;
+    } else {
+      throw Error('id: ' + typeof id);
+    }
   } catch (error) {
+    if (error instanceof Error) {
+      Alert.alert(error.message);
+    }
     return -1;
   }
 };
