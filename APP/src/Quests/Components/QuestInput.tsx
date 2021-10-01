@@ -28,6 +28,7 @@ const QuestInput: FC<QuestInputProps> = ({
   const [inputId, setInputId] = useState<string>('');
   const [inputName, setInputName] = useState<string>('');
   const [inputField, setInputField] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const addQuestData = async () => {
     const fieldId = parseInt(inputField, 10);
@@ -43,7 +44,7 @@ const QuestInput: FC<QuestInputProps> = ({
       if (selectedField.length) {
         const newField: FieldData.DataType = {
           id: parseInt(inputField, 10),
-          name: inputName,
+          name: inputField,
           peopleWith: 0,
           iconName: 'test',
           dataCreatorId: 'tester',
@@ -86,12 +87,17 @@ const QuestInput: FC<QuestInputProps> = ({
       setInputName('');
       setInputField('');
     } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message);
+        setErrorMessage(error.message);
+      }
       Alert.alert('error ocurred while finding quest data.');
     }
   };
 
   return (
     <View>
+      <Text>{errorMessage}</Text>
       <TextInput
         value={inputId}
         placeholder="id"

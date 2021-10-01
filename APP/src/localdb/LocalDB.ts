@@ -104,13 +104,14 @@ export const selectNumberItem = async <DataType>(
   }
 };
 
-export const insertItems = async <T>(
+export const insertItems = async <DataType>(
   db: SQLiteDatabase,
   tableName: string,
-  items: T[],
+  items: DataType[],
   attributes: TableAttribute[],
 ) => {
   let names: string[] = [];
+  let errorquery: string = '';
   for (let i of attributes) {
     names.push(i.name);
   }
@@ -137,10 +138,15 @@ export const insertItems = async <T>(
           return res;
         })
         .join(',');
+    errorquery = insertQuery;
 
     return db.executeSql(insertQuery);
   } catch (error) {
-    throw Error('error ocurred while inserting');
+    if (error instanceof Error) {
+      throw Error(error.message + ' ' + errorquery);
+    } else {
+      throw Error('error ocurred while inserting');
+    }
   }
 };
 
