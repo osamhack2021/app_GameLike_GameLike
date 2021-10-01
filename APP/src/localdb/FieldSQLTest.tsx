@@ -26,26 +26,12 @@ export default function FieldSQLTest() {
   const loadDataCallback = useCallback(async () => {
     let db: SQLiteDatabase = await LocalDB.openDB();
     try {
-      const str = await LocalDB.createTable(
+      await LocalDB.createTable(
         db,
         FieldData.tableName,
         FieldData.primaryKey,
         FieldData.attributes,
       );
-      const query = `CREATE TABLE IF NOT EXISTS "Field"(
-    "id" INTEGER NOT NULL, 
-    "name" TEXT NOT NULL, 
-    "peopleWith" INTEGER NOT NULL,
-    "iconName" TEXT NOT NULL, 
-    "dataCreatorId" TEXT NOT NULL,
-    "isPublic" INTEGER NOT NULL,
-    PRIMARY KEY("id") );`;
-      //setErrorOut(query);
-      setQueryOut(str);
-      await db.executeSql(str).catch(r => {
-        setErrorOut(r.message);
-      });
-      Alert.alert('Create Table works well');
     } catch (error) {
       Alert.alert('Creating Table error');
     }

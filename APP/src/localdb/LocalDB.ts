@@ -29,8 +29,7 @@ export const createTable = async (
       .map(i => `"${i.name}" ${i.type} ${i.nullable ? '' : 'NOT NULL'},`)
       .join('\n') +
     `\nPRIMARY KEY("${primaryKey}") );`;
-  //Alert.alert(query);
-  //await db.executeSql(query);
+  await db.executeSql(query);
   return query;
 };
 
@@ -46,7 +45,7 @@ export const getItemsFromTable = async <T>(
   try {
     const items: T[] = [];
     const results = await db.executeSql(
-      'SELECT' + names.join(', ') + `FROM ${tableName}`,
+      'SELECT ' + names.join(', ') + ` FROM ${tableName}`,
     );
     results.forEach(result => {
       for (let index = 0; index < result.rows.length; index++) {
