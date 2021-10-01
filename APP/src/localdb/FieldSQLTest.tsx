@@ -1,10 +1,8 @@
-import {placeholder} from '@babel/types';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Text, ScrollView, StyleSheet, View, Alert, Button} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import * as FieldData from '../Quests/datas/FieldData';
-import * as FT from './FieldTable';
 import * as LocalDB from './LocalDB';
 
 const initDatas: Array<FieldData.DataType> = [
@@ -24,27 +22,30 @@ export default function FieldSQLTest() {
   const [errorOut, setErrorOut] = useState('');
   const [queryOut, setQueryOut] = useState('');
   const loadDataCallback = useCallback(async () => {
-    let db: SQLiteDatabase = await LocalDB.openDB();
     try {
-      await LocalDB.createTable(
-        db,
-        FieldData.tableName,
-        FieldData.primaryKey,
-        FieldData.attributes,
-      );
+      const db: SQLiteDatabase = await LocalDB.openDB();
+      try {
+        await LocalDB.createTable(
+          db,
+          FieldData.tableName,
+          FieldData.primaryKey,
+          FieldData.attributes,
+        );
+      } catch (error) {
+        Alert.alert('Creating Table error');
+      }
+      try {
+        const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
+          db,
+          FieldData.tableName,
+          FieldData.attributes,
+        );
+        setFields(storedItems);
+      } catch (error) {
+        Alert.alert('Getting items error');
+      }
     } catch (error) {
-      Alert.alert('Creating Table error');
-    }
-    try {
-      const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
-        db,
-        FieldData.tableName,
-        FieldData.attributes,
-      );
-      Alert.alert('Getting Items works well');
-      setFields(storedItems);
-    } catch (error) {
-      Alert.alert('Getting items error');
+      Alert.alert('load data error');
     }
   }, []);
   useEffect(() => {

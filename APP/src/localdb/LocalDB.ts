@@ -3,7 +3,6 @@ import {
   openDatabase,
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
-import {Alert} from 'react-native';
 
 enablePromise(true);
 
