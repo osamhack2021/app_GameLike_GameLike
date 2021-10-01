@@ -171,21 +171,13 @@ export const deleteTable = async (db: SQLiteDatabase, tableName: string) => {
 
 export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
   try {
-    const query = `SELECT max(id) from ${tableName}`;
+    const query = `SELECT max(id) as id from ${tableName}`;
     const results = await db.executeSql(query);
-    let idk = results[0].rows.item(0);
-    let id;
-    let id2;
-    for (let k in idk) {
-      id = idk[k];
-    }
-    for (let j in id) {
-      id2 = id[j];
-    }
+    let id = results[0].rows.item(0).id;
     if (typeof id === 'number') {
       return id;
     } else {
-      throw Error('id: ' + typeof id2);
+      throw Error('id: ' + typeof id);
     }
   } catch (error) {
     if (error instanceof Error) {
