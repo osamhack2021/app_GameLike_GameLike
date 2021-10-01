@@ -43,7 +43,7 @@ export default function FieldSQLTest() {
     PRIMARY KEY("id") );`;
       //setErrorOut(query);
       await db.executeSql(errorOut).catch(r => {
-        Alert.alert(typeof errorOut);
+        Alert.alert(typeof r);
         setErrorOut(r.toString());
       });
       Alert.alert('Create Table works well');
