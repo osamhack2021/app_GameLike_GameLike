@@ -139,7 +139,7 @@ export default function QuestTab() {
             }
           }
           if (isExisting === false) {
-            throw Error('CreateFieldElements: field not existing');
+            Alert.alert('CreateFieldElements: field not existing');
           }
         }
       }

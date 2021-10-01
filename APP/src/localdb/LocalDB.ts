@@ -53,8 +53,11 @@ export const getItemsFromTable = async <DataType>(
     });
     return items;
   } catch (error) {
-    console.error(error);
-    throw Error(`Failed to get items from table ${tableName}`);
+    if (error instanceof Error) {
+      throw Error(error.message + `tableName: ${tableName}`);
+    } else {
+      throw Error(`Failed to get items from table ${tableName}`);
+    }
   }
 };
 
