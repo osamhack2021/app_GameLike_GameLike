@@ -174,10 +174,14 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
     const query = `SELECT max(id) as id from ${tableName}`;
     const results = await db.executeSql(query);
     let id = results[0].rows.item(0).id;
+    let err = '';
+    for (let i in id) {
+      err += '(' + i + ': ' + id[i] + '),';
+    }
     if (typeof id === 'number') {
       return id;
     } else {
-      throw Error('id: ' + typeof id);
+      throw Error('err:' + err);
     }
   } catch (error) {
     if (error instanceof Error) {
