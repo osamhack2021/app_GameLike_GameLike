@@ -23,17 +23,20 @@ export default function FieldSQLTest() {
   const loadDataCallback = useCallback(async () => {
     try {
       const db = await LocalDB.openDB();
+      Alert.alert('OpenDB works well');
       await LocalDB.createTable(
         db,
         FieldData.tableName,
         FieldData.primaryKey,
         FieldData.attributes,
       );
+      Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
         db,
         FieldData.tableName,
         FieldData.attributes,
       );
+      Alert.alert('Getting Items works well');
       setFields(storedItems);
     } catch (error) {
       Alert.alert('error ocurred');
