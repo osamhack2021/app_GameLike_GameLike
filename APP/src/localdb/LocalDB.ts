@@ -185,7 +185,7 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
     }
   } catch (error) {
     if (error instanceof Error) {
-      Alert.alert(error.message);
+      throw Error(error.message);
     }
     return -1;
   }

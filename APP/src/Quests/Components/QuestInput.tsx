@@ -75,6 +75,9 @@ const QuestInput: FC<QuestInputProps> = ({
         setFields(newFields);
       }
     } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message);
+      }
       Alert.alert('error ocurred while finding field data');
     }
     try {
