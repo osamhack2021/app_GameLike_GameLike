@@ -175,13 +175,17 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
     const results = await db.executeSql(query);
     let idk = results[0].rows.item(0);
     let id;
+    let id2;
     for (let k in idk) {
       id = idk[k];
+    }
+    for (let j in id) {
+      id2 = id[j];
     }
     if (typeof id === 'number') {
       return id;
     } else {
-      throw Error('id: ' + typeof id);
+      throw Error('id: ' + typeof id2);
     }
   } catch (error) {
     if (error instanceof Error) {
