@@ -130,7 +130,7 @@ const QuestInput: FC<QuestInputProps> = ({
       </View>
       <View>
         <TextInput
-          value={inputName}
+          value={estimatedTime}
           placeholder="몇 분 정도 걸릴까요?(추후 선택형으로 수정 예정)"
           onChangeText={text => {
             setEstimatedTime(text);
