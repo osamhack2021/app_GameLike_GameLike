@@ -173,9 +173,6 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
   try {
     const query = `SELECT max(id) from ${tableName}`;
     const results = await db.executeSql(query);
-    if (results.length === 1) {
-      return 0;
-    }
     const id = results[0].rows.item(0).id;
     if (typeof id === 'number') {
       return id;
