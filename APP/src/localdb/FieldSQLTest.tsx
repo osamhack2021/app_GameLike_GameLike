@@ -2,6 +2,7 @@ import {placeholder} from '@babel/types';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Text, ScrollView, StyleSheet, View, Alert, Button} from 'react-native';
 import {TextInput} from 'react-native-paper';
+import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import * as FieldData from '../Quests/datas/FieldData';
 import * as FT from './FieldTable';
 import * as LocalDB from './LocalDB';
@@ -23,9 +24,8 @@ export default function FieldSQLTest() {
   const [errorOut, setErrorOut] = useState('');
   const [queryOut, setQueryOut] = useState('');
   const loadDataCallback = useCallback(async () => {
+    let db: SQLiteDatabase = await LocalDB.openDB();
     try {
-      const db = await LocalDB.openDB();
-      Alert.alert('OpenDB works well');
       setQueryOut(
         await LocalDB.createTable(
           db,
@@ -43,8 +43,14 @@ export default function FieldSQLTest() {
     "isPublic" INTEGER NOT NULL,
     PRIMARY KEY("id") );`;
       //setErrorOut(query);
-      await db.executeSql(queryOut);
+      await db.executeSql(queryOut).catch(r => {
+        setQueryOut(r.message);
+      });
       Alert.alert('Create Table works well');
+    } catch (error) {
+      Alert.alert('Creating Table error');
+    }
+    try {
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
         db,
         FieldData.tableName,
@@ -53,9 +59,9 @@ export default function FieldSQLTest() {
       Alert.alert('Getting Items works well');
       setFields(storedItems);
     } catch (error) {
-      Alert.alert('error ocurred');
+      Alert.alert('Getting items error');
     }
-  }, []);
+  }, [queryOut]);
   useEffect(() => {
     loadDataCallback();
   }, [loadDataCallback]);
@@ -145,6 +151,7 @@ export default function FieldSQLTest() {
       <Button title="입력" onPress={addFieldData} />
       <Button title="삭제" onPress={deleteData} />
       <Text>{errorOut}</Text>
+      <Text>{queryOut}</Text>
       <View>{children}</View>
     </ScrollView>
   );
