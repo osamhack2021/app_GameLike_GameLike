@@ -8,17 +8,16 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import type {FieldData} from '../datas/FieldData';
+import * as FieldData from '../datas/FieldData';
 import FieldIcon from './FieldIcon';
-import {QuestData} from '../datas/QuestData';
-import QuestElement from './QuestElement';
+import * as QuestData from '../datas/QuestData';
 import Icon from 'react-native-vector-icons/Entypo';
 import QuestElementList from './QuestElementList';
 //import {Colors} from 'react-native-paper';
 
 type FieldElementProps = {
-  data: FieldData;
-  questDatas: QuestData[];
+  data: FieldData.DataType;
+  questDatas: QuestData.DataType[];
 };
 
 //아마 제대로 작동 안할듯
@@ -48,7 +47,11 @@ const FieldElement: FC<FieldElementProps> = ({data, questDatas}) => {
           <Icon name="chevron-with-circle-down" style={styles.rightbox} />
         </TouchableOpacity>
       </View>
-      <QuestElementList visible={questVisible} questDatas={questDatas} />
+      <QuestElementList
+        visible={questVisible}
+        questDatas={questDatas}
+        iconName={data.iconName}
+      />
     </View>
   );
 };

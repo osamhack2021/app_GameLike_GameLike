@@ -32,19 +32,65 @@ export const createTable = async (
   return query;
 };
 
-export const getItemsFromTable = async <T>(
+export const getItemsFromTable = async <DataType>(
   db: SQLiteDatabase,
   tableName: string,
   attributes: TableAttribute[],
-): Promise<T[]> => {
+): Promise<DataType[]> => {
   let names: string[] = [];
   for (let i of attributes) {
     names.push(i.name);
   }
   try {
-    const items: T[] = [];
+    const items: DataType[] = [];
     const results = await db.executeSql(
       'SELECT ' + names.join(', ') + ` FROM ${tableName}`,
+    );
+    results.forEach(result => {
+      for (let index = 0; index < result.rows.length; index++) {
+        items.push(result.rows.item(index));
+      }
+    });
+    return items;
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to get items from table ${tableName}`);
+  }
+};
+
+export const selectTextItem = async <DataType>(
+  db: SQLiteDatabase,
+  tableName: string,
+  attribute: string,
+  data: string,
+): Promise<DataType[]> => {
+  try {
+    const items: DataType[] = [];
+    const results = await db.executeSql(
+      `SELECT * FROM ${tableName} WHERE ${attribute}="${data}"`,
+    );
+    results.forEach(result => {
+      for (let index = 0; index < result.rows.length; index++) {
+        items.push(result.rows.item(index));
+      }
+    });
+    return items;
+  } catch (error) {
+    console.error(error);
+    throw Error(`Failed to get items from table ${tableName}`);
+  }
+};
+
+export const selectNumberItem = async <DataType>(
+  db: SQLiteDatabase,
+  tableName: string,
+  attribute: string,
+  data: number,
+): Promise<DataType[]> => {
+  try {
+    const items: DataType[] = [];
+    const results = await db.executeSql(
+      `SELECT * FROM ${tableName} WHERE ${attribute}=${data}`,
     );
     results.forEach(result => {
       for (let index = 0; index < result.rows.length; index++) {

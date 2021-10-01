@@ -17,40 +17,6 @@ const initDatas: Array<FieldData.DataType> = [
 ];
 
 export default function FieldSQLTest() {
-  //데이터 로드
-  const [fields, setFields] = useState<FieldData.DataType[]>([]);
-  const [errorOut, setErrorOut] = useState('');
-  const [queryOut, setQueryOut] = useState('');
-  const loadDataCallback = useCallback(async () => {
-    try {
-      const db: SQLiteDatabase = await LocalDB.openDB();
-      try {
-        await LocalDB.createTable(
-          db,
-          FieldData.tableName,
-          FieldData.primaryKey,
-          FieldData.attributes,
-        );
-      } catch (error) {
-        Alert.alert('Creating Table error');
-      }
-      try {
-        const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
-          db,
-          FieldData.tableName,
-          FieldData.attributes,
-        );
-        setFields(storedItems);
-      } catch (error) {
-        Alert.alert('Getting items error');
-      }
-    } catch (error) {
-      Alert.alert('load data error');
-    }
-  }, []);
-  useEffect(() => {
-    loadDataCallback();
-  }, [loadDataCallback]);
 
   //데이터 입력
   const [inputId, setInputId] = useState<number>(0);

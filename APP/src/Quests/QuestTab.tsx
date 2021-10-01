@@ -1,10 +1,11 @@
-import React from 'react';
-import {FlatList, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {FlatList, View, Alert} from 'react-native';
+import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import FieldElement from './Components/FieldElement';
-import * as FDS from './datas/FieldDataSet';
-import * as FD from './datas/FieldData';
-import * as QDS from './datas/QuestDataSet';
-import * as QD from './datas/QuestData';
+import * as FieldData from './datas/FieldData';
+import * as QuestData from './datas/QuestData';
+import * as LocalDB from '../localdb/LocalDB';
+import QuestInput from './Components/QuestInput';
 
 // 1. 퀘스트 데이터 목록 불러옴
 // 2. 퀘스트 돌면서 확인
@@ -15,39 +16,42 @@ import * as QD from './datas/QuestData';
 // 	실제 필드 목록에서 렌더링
 // 	데이터는 데이터로 전송
 
-type QuestRenderData = {
-  field: FD.FieldData;
-  subQuests: QD.QuestData[];
+type FieldRenderData = {
+  field: FieldData.DataType;
+  subQuests: QuestData.DataType[];
 };
 
-function CreateQuestElements(): QuestRenderData[] {
-  const allFields: FD.FieldData[] = FDS.GetDataSets();
-  const quests: QD.QuestData[] = QDS.GetDataSets();
-  let renderFields: QuestRenderData[] = [];
+function CreateFieldElements(
+  allFields: FieldData.DataType[],
+  quests: QuestData.DataType[],
+): FieldRenderData[] {
+  let renderFields: FieldRenderData[] = [];
 
+  //1. 모든 퀘스트 순환
   for (let q of quests) {
+    //2. 현재 필드 목록 확인
     let flag: boolean = false;
     for (let f of renderFields) {
       if (q.fieldId === f.field.id) {
+        //2.1. 필드 목록에 퀘스트의 필드가 있으면 추가
         flag = true;
         f.subQuests.push(q);
         break;
       }
     }
     if (flag === false) {
-      var nextField: FD.FieldData = {
-        id: -1,
-        name: 'error',
-        peopleWith: -1,
-        iconName: 'error',
-      };
+      //2.2. 없으면 필드 목록에 해당 필드 불러오고 거기에 추가
+      let isExisting = false;
       for (let f of allFields) {
         if (q.fieldId === f.id) {
-          nextField = f;
+          isExisting = true;
+          renderFields.push({field: f, subQuests: [q]});
           break;
         }
       }
-      renderFields.push({field: nextField, subQuests: [q]});
+      if (isExisting === false) {
+        throw Error('CreateFieldElements: field not existing');
+      }
     }
   }
 
@@ -55,7 +59,92 @@ function CreateQuestElements(): QuestRenderData[] {
 }
 
 export default function QuestTab() {
-  let renderFields = CreateQuestElements();
+  //데이터 로드
+  const [fields, setFields] = useState<FieldData.DataType[]>([]);
+  const [quests, setQuests] = useState<QuestData.DataType[]>([]);
+  const loadDataCallback = useCallback(async () => {
+    try {
+      const db: SQLiteDatabase = await LocalDB.openDB();
+      try {
+        await LocalDB.createTable(
+          db,
+          FieldData.tableName,
+          FieldData.primaryKey,
+          FieldData.attributes,
+        );
+        await LocalDB.createTable(
+          db,
+          QuestData.tableName,
+          QuestData.primaryKey,
+          QuestData.attributes,
+        );
+      } catch (error) {
+        Alert.alert('Creating Table error');
+      }
+      try {
+        const storedFields =
+          await LocalDB.getItemsFromTable<FieldData.DataType>(
+            db,
+            FieldData.tableName,
+            FieldData.attributes,
+          );
+        setFields(storedFields);
+        const storedQuests =
+          await LocalDB.getItemsFromTable<QuestData.DataType>(
+            db,
+            QuestData.tableName,
+            QuestData.attributes,
+          );
+        setQuests(storedQuests);
+      } catch (error) {
+        Alert.alert('Getting items error');
+      }
+    } catch (error) {
+      Alert.alert('load data error');
+    }
+  }, []);
+  useEffect(() => {
+    loadDataCallback();
+  }, [loadDataCallback]);
+
+  const createFieldElements = useCallback(
+    (allFields: FieldData.DataType[], allQuests: QuestData.DataType[]) => {
+      let renderFields: FieldRenderData[] = [];
+
+      //1. 모든 퀘스트 순환
+      for (let q of allQuests) {
+        //2. 현재 필드 목록 확인
+        let flag: boolean = false;
+        for (let f of renderFields) {
+          if (q.fieldId === f.field.id) {
+            //2.1. 필드 목록에 퀘스트의 필드가 있으면 추가
+            flag = true;
+            f.subQuests.push(q);
+            break;
+          }
+        }
+        if (flag === false) {
+          //2.2. 없으면 필드 목록에 해당 필드 불러오고 거기에 추가
+          let isExisting = false;
+          for (let f of allFields) {
+            if (q.fieldId === f.id) {
+              isExisting = true;
+              renderFields.push({field: f, subQuests: [q]});
+              break;
+            }
+          }
+          if (isExisting === false) {
+            throw Error('CreateFieldElements: field not existing');
+          }
+        }
+      }
+
+      return renderFields;
+    },
+    [],
+  );
+
+  const renderFields = createFieldElements(fields, quests);
   return (
     <View>
       <FlatList

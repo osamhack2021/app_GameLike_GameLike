@@ -1,21 +1,20 @@
 import React from 'react';
 import type {FC} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import type {QuestData} from '../datas/QuestData';
-import type {FieldData} from '../datas/FieldData';
+import * as QuestData from '../datas/QuestData';
+import * as FieldData from '../datas/FieldData';
 import FieldIcon from './FieldIcon';
-import * as FDS from '../datas/FieldDataSet';
 //import {Colors} from 'react-native-paper';
 
 type QuestElementProps = {
-  data: QuestData;
+  data: QuestData.DataType;
+  iconName: string;
 };
 
-const QuestElement: FC<QuestElementProps> = ({data}) => {
-  let icon: string = FDS.GetIconNameFromId(data.fieldId);
+const QuestElement: FC<QuestElementProps> = ({data, iconName}) => {
   return (
     <View style={styles.view}>
-      <FieldIcon iconName={icon} width={30} height={30} padding={10} />
+      <FieldIcon iconName={iconName} width={30} height={30} padding={10} />
       <View style={styles.textView}>
         <Text style={styles.titleText}>{data.name}</Text>
       </View>
