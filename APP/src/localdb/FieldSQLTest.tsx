@@ -20,15 +20,18 @@ const initDatas: Array<FieldData.DataType> = [
 export default function FieldSQLTest() {
   //데이터 로드
   const [fields, setFields] = useState<FieldData.DataType[]>([]);
+  const [errorOut, setErrorOut] = useState('');
   const loadDataCallback = useCallback(async () => {
     try {
       const db = await LocalDB.openDB();
       Alert.alert('OpenDB works well');
-      await LocalDB.createTable(
-        db,
-        FieldData.tableName,
-        FieldData.primaryKey,
-        FieldData.attributes,
+      setErrorOut(
+        await LocalDB.createTable(
+          db,
+          FieldData.tableName,
+          FieldData.primaryKey,
+          FieldData.attributes,
+        ),
       );
       Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
@@ -130,6 +133,7 @@ export default function FieldSQLTest() {
       />
       <Button title="입력" onPress={addFieldData} />
       <Button title="삭제" onPress={deleteData} />
+      <Text>{errorOut}</Text>
       <View>{children}</View>
     </ScrollView>
   );

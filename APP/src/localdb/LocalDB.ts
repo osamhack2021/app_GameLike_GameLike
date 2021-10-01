@@ -29,8 +29,9 @@ export const createTable = async (
       i => ` "${i.name}" ${i.type} ${i.nullable ? '' : 'NOT NULL'}`,
     ) +
     `PRIMARY KEY("${primaryKey}") );`;
-  Alert.alert(query);
+  //Alert.alert(query);
   await db.executeSql(query);
+  return query;
 };
 
 export const getItemsFromTable = async <T>(
