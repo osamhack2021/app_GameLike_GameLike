@@ -65,7 +65,7 @@ const QuestInput: FC<QuestInputProps> = ({
           isPublic: 0,
         };
         const newFields = [...fields, newField];
-
+        Alert.alert('newField잘됨, id:' + nextId);
         await LocalDB.insertItems(
           db,
           FieldData.tableName,
