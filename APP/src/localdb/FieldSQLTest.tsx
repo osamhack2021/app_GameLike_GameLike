@@ -41,8 +41,11 @@ export default function FieldSQLTest() {
     "dataCreatorId" TEXT NOT NULL,
     "isPublic" INTEGER NOT NULL,
     PRIMARY KEY("id") );`;
-      setErrorOut(query);
-      await db.executeSql(query);
+      //setErrorOut(query);
+      await db.executeSql(errorOut).catch(r => {
+        Alert.alert(r);
+        setErrorOut(r);
+      });
       Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
         db,

@@ -24,11 +24,11 @@ export const createTable = async (
   attributes: TableAttribute[],
 ) => {
   const query =
-    `CREATE TABLE IF NOT EXISTS "${tableName}"(` +
+    `CREATE TABLE IF NOT EXISTS "${tableName}"(\n` +
     attributes
-      .map(i => ` "${i.name}" ${i.type} ${i.nullable ? '' : 'NOT NULL'},`)
-      .join(' ') +
-    ` PRIMARY KEY("${primaryKey}") );`;
+      .map(i => `"${i.name}" ${i.type} ${i.nullable ? '' : 'NOT NULL'},`)
+      .join('\n') +
+    `\nPRIMARY KEY("${primaryKey}") );`;
   //Alert.alert(query);
   //await db.executeSql(query);
   return query;
