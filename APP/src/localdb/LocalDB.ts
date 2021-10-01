@@ -26,7 +26,7 @@ export const createTable = async (
   const query =
     `CREATE TABLE IF NOT EXISTS "${tableName}"(` +
     attributes.map(
-      i => `"${i.name}" ${i.type} ${i.nullable ? '' : 'NOT NULL'}, `,
+      i => ` "${i.name}" ${i.type} ${i.nullable ? '' : 'NOT NULL'}`,
     ) +
     `PRIMARY KEY("${primaryKey}") );`;
   Alert.alert(query);
