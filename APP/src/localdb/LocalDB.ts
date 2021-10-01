@@ -3,6 +3,7 @@ import {
   openDatabase,
   SQLiteDatabase,
 } from 'react-native-sqlite-storage';
+import {Alert} from 'react-native';
 
 enablePromise(true);
 
@@ -28,6 +29,7 @@ export const createTable = async (
       i => `"${i.name}" ${i.type} ${i.nullable ? '' : 'NOT NULL'}, `,
     ) +
     `PRIMARY KEY("${primaryKey}") );`;
+  Alert.alert(query);
   await db.executeSql(query);
 };
 
