@@ -33,7 +33,16 @@ export default function FieldSQLTest() {
           FieldData.attributes,
         ),
       );
-      await db.executeSql(errorOut);
+      const query = `CREATE TABLE IF NOT EXISTS "Field"(
+    "id" INTEGER NOT NULL, 
+    "name" TEXT NOT NULL, 
+    "peopleWith" INTEGER NOT NULL,
+    "iconName" TEXT NOT NULL, 
+    "dataCreatorId" TEXT NOT NULL,
+    "isPublic" INTEGER NOT NULL,
+    PRIMARY KEY("id") );`;
+      setErrorOut(query);
+      await db.executeSql(query);
       Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
         db,
