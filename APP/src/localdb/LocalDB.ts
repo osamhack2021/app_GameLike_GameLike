@@ -167,3 +167,14 @@ export const deleteTable = async (db: SQLiteDatabase, tableName: string) => {
 
   await db.executeSql(query);
 };
+
+export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
+  try {
+    const query = `SELECT max(id) from ${tableName}`;
+    const results = await db.executeSql(query);
+    const id: number = results[0].rows.item(0);
+    return id;
+  } catch (error) {
+    return -1;
+  }
+};

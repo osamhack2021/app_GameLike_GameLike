@@ -1,12 +1,12 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import QuestComponent from './src/Quests/QuestTab';
+import QuestTab from './src/Quests/QuestTab';
 import FieldSQLTest from './src/localdb/FieldSQLTest';
 
 export default function App() {
   return (
     <SafeAreaView style={Styles.container}>
-      <QuestComponent />
+      <QuestTab />
     </SafeAreaView>
   );
 

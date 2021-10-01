@@ -21,43 +21,6 @@ type FieldRenderData = {
   subQuests: QuestData.DataType[];
 };
 
-function CreateFieldElements(
-  allFields: FieldData.DataType[],
-  quests: QuestData.DataType[],
-): FieldRenderData[] {
-  let renderFields: FieldRenderData[] = [];
-
-  //1. 모든 퀘스트 순환
-  for (let q of quests) {
-    //2. 현재 필드 목록 확인
-    let flag: boolean = false;
-    for (let f of renderFields) {
-      if (q.fieldId === f.field.id) {
-        //2.1. 필드 목록에 퀘스트의 필드가 있으면 추가
-        flag = true;
-        f.subQuests.push(q);
-        break;
-      }
-    }
-    if (flag === false) {
-      //2.2. 없으면 필드 목록에 해당 필드 불러오고 거기에 추가
-      let isExisting = false;
-      for (let f of allFields) {
-        if (q.fieldId === f.id) {
-          isExisting = true;
-          renderFields.push({field: f, subQuests: [q]});
-          break;
-        }
-      }
-      if (isExisting === false) {
-        throw Error('CreateFieldElements: field not existing');
-      }
-    }
-  }
-
-  return renderFields;
-}
-
 export default function QuestTab() {
   //데이터 로드
   const [fields, setFields] = useState<FieldData.DataType[]>([]);
@@ -166,18 +129,18 @@ export default function QuestTab() {
   ));
   return (
     <View>
-      <QuestInput
-        quests={quests}
-        setQuests={setQuests}
-        fields={fields}
-        setFields={setFields}
-      />
       <FlatList
         data={renderFields}
         renderItem={({item}) => (
           <FieldElement data={item.field} questDatas={item.subQuests} />
         )}
         keyExtractor={(item, index) => item.field.id.toString()}
+      />
+      <QuestInput
+        quests={quests}
+        setQuests={setQuests}
+        fields={fields}
+        setFields={setFields}
       />
     </View>
   );
