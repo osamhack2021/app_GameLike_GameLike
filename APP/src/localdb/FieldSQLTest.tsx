@@ -26,7 +26,7 @@ export default function FieldSQLTest() {
     try {
       const db = await LocalDB.openDB();
       Alert.alert('OpenDB works well');
-      setErrorOut(
+      setQueryOut(
         await LocalDB.createTable(
           db,
           FieldData.tableName,
@@ -43,12 +43,8 @@ export default function FieldSQLTest() {
     "isPublic" INTEGER NOT NULL,
     PRIMARY KEY("id") );`;
       //setErrorOut(query);
-      await db.executeSql(errorOut).catch(r => {
-        let temp: string = '';
-        for (let i in r) {
-          temp += i;
-        }
-        setErrorOut(temp);
+      await db.executeSql(queryOut).catch(r => {
+        setErrorOut(r.message);
       });
       Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
