@@ -133,7 +133,7 @@ export const insertItems = async <DataType>(
               ra.push(`${String(i[key])}`);
             } else {
               throw Error(
-                'inserting: there is non-number or non-string value.',
+                'inserting: there is non-number string value: ' + typeof i[key],
               );
             }
           }
