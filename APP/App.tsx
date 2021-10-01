@@ -1,44 +1,24 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'; 
+import { createStackNavigator } from '@react-navigation/stack';
+
+import StartScreen from './src/StartScreen';
+import LoginScreen from './src/LoginScreen';
+import MainScreen from './src/MainScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView style={Styles.container}>
-      <View style={Styles.view1}>
-        <Text>Hello world1</Text>
-      </View>
+    <NavigationContainer> 
+      <Stack.Navigator initialRouteName="MAIN"> 
+        <Stack.Screen name="START" component={StartScreen} options={{ title: '시작화면' }}/> 
+        <Stack.Screen name="LOGIN" component={LoginScreen} options={{ title: '로그인화면' }}/> 
+        <Stack.Screen name="MAIN" component={MainScreen} options={{ title: '메인화면' }}/>
+      </Stack.Navigator> 
+    </NavigationContainer>
 
-      <View style={Styles.view2}>
-        <Text>Hello world2</Text>
-      </View>
 
-      <View style={Styles.view3}>
-        <Text>Hello world3</Text>
-      </View>
-    </SafeAreaView>
   );
 }
-const Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  view1: {
-    flex: 0.25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#e93e43',
-  },
-  view2: {
-    flex: 0.25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5a941',
-  },
-
-  view3: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#4ebd7a',
-  },
-});
