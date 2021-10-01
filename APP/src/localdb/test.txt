@@ -6,8 +6,11 @@ https://blog.logrocket.com/using-sqlite-with-react-native/
 현재 localDB insertItems 제작중이었음
 
 1001 할일
-QuestTab 구현
-7. QuestInput Component 제작하기
+9. 퀘스트 입력 수정
+ - 퀘스트 제목만 입력->필드 선택->퀘스트 정보 입력
+10. 기획부분 조지기
+
+언젠가할일
 8. insertQuery 문제 없나 확인해보기
 
 (완료)
@@ -20,3 +23,4 @@ QuestTab 구현
   - LocalDB FieldSQLTest 적용 완료, 테스트 해보기
   - 잘 될경우 FieldTable 등 삭제
 6. QuestTab에 Quest Load 구현
+7. QuestInput Component 제작하기

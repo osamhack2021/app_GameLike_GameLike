@@ -166,15 +166,12 @@ export default function QuestTab() {
   ));
   return (
     <View>
-      <Text>QuestTab</Text>
       <QuestInput
         quests={quests}
         setQuests={setQuests}
         fields={fields}
         setFields={setFields}
       />
-      <View>{rawFields}</View>
-      <View>{rawQuests}</View>
       <FlatList
         data={renderFields}
         renderItem={({item}) => (
