@@ -41,7 +41,7 @@ const QuestInput: FC<QuestInputProps> = ({
         'id',
         fieldId,
       );
-      if (selectedField.length) {
+      if (selectedField.length === 0) {
         const newField: FieldData.DataType = {
           id: parseInt(inputField, 10),
           name: inputField,
