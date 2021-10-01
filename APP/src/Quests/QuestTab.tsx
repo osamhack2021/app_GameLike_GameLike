@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, View, Alert} from 'react-native';
+import {FlatList, View, Alert, Text} from 'react-native';
 import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import FieldElement from './Components/FieldElement';
 import * as FieldData from './datas/FieldData';
@@ -147,6 +147,13 @@ export default function QuestTab() {
   const renderFields = createFieldElements(fields, quests);
   return (
     <View>
+      <Text>QuestTab</Text>
+      <QuestInput
+        quests={quests}
+        setQuests={setQuests}
+        fields={fields}
+        setFields={setFields}
+      />
       <FlatList
         data={renderFields}
         renderItem={({item}) => (
