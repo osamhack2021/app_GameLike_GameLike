@@ -43,8 +43,8 @@ export default function FieldSQLTest() {
     PRIMARY KEY("id") );`;
       //setErrorOut(query);
       await db.executeSql(errorOut).catch(r => {
-        Alert.alert(r);
-        setErrorOut(r);
+        Alert.alert(r.toString());
+        setErrorOut(r.toString());
       });
       Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
