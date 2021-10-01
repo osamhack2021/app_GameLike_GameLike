@@ -21,6 +21,7 @@ export default function FieldSQLTest() {
   //데이터 로드
   const [fields, setFields] = useState<FieldData.DataType[]>([]);
   const [errorOut, setErrorOut] = useState('');
+  const [queryOut, setQueryOut] = useState('');
   const loadDataCallback = useCallback(async () => {
     try {
       const db = await LocalDB.openDB();
@@ -43,8 +44,11 @@ export default function FieldSQLTest() {
     PRIMARY KEY("id") );`;
       //setErrorOut(query);
       await db.executeSql(errorOut).catch(r => {
-        Alert.alert(typeof r);
-        setErrorOut(r.toString());
+        let temp: string = '';
+        for (let i in r) {
+          temp += i;
+        }
+        setErrorOut(temp);
       });
       Alert.alert('Create Table works well');
       const storedItems = await LocalDB.getItemsFromTable<FieldData.DataType>(
