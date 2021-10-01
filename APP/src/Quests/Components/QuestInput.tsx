@@ -77,7 +77,7 @@ const QuestInput: FC<QuestInputProps> = ({
       const newQuests = [...quests, newQuest];
       await LocalDB.insertItems(
         db,
-        FieldData.tableName,
+        QuestData.tableName,
         newQuests,
         QuestData.attributes,
       );
