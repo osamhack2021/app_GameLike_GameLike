@@ -88,6 +88,7 @@ export default function QuestTab() {
             FieldData.tableName,
             FieldData.attributes,
           );
+        Alert.alert('필드야 뭐 잘 되겠지');
         setFields(storedFields);
         const storedQuests =
           await LocalDB.getItemsFromTable<QuestData.DataType>(
@@ -97,6 +98,9 @@ export default function QuestTab() {
           );
         setQuests(storedQuests);
       } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message);
+        }
         Alert.alert('Getting items error');
       }
     } catch (error) {
