@@ -99,9 +99,10 @@ export default function QuestTab() {
         setQuests(storedQuests);
       } catch (error) {
         if (error instanceof Error) {
-          Alert.alert(error.message);
+          Alert.alert(error.message + ' getting items error');
+        } else {
+          Alert.alert('Getting items error');
         }
-        Alert.alert('Getting items error');
       }
     } catch (error) {
       Alert.alert('load data error');
