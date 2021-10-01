@@ -26,13 +26,11 @@ export default function FieldSQLTest() {
   const loadDataCallback = useCallback(async () => {
     let db: SQLiteDatabase = await LocalDB.openDB();
     try {
-      setQueryOut(
-        await LocalDB.createTable(
-          db,
-          FieldData.tableName,
-          FieldData.primaryKey,
-          FieldData.attributes,
-        ),
+      const str = await LocalDB.createTable(
+        db,
+        FieldData.tableName,
+        FieldData.primaryKey,
+        FieldData.attributes,
       );
       const query = `CREATE TABLE IF NOT EXISTS "Field"(
     "id" INTEGER NOT NULL, 
@@ -43,8 +41,9 @@ export default function FieldSQLTest() {
     "isPublic" INTEGER NOT NULL,
     PRIMARY KEY("id") );`;
       //setErrorOut(query);
-      await db.executeSql(queryOut).catch(r => {
-        setQueryOut(r.message);
+      setQueryOut(str);
+      await db.executeSql(str).catch(r => {
+        setErrorOut(r.message);
       });
       Alert.alert('Create Table works well');
     } catch (error) {
@@ -61,7 +60,7 @@ export default function FieldSQLTest() {
     } catch (error) {
       Alert.alert('Getting items error');
     }
-  }, [queryOut]);
+  }, []);
   useEffect(() => {
     loadDataCallback();
   }, [loadDataCallback]);
