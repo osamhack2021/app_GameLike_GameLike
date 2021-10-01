@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, View, Alert, Text} from 'react-native';
+import {FlatList, View, Alert, Text, StyleSheet} from 'react-native';
 import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import FieldElement from './Components/FieldElement';
 import * as FieldData from './datas/FieldData';
@@ -88,7 +88,6 @@ export default function QuestTab() {
             FieldData.tableName,
             FieldData.attributes,
           );
-        Alert.alert('필드야 뭐 잘 되겠지');
         setFields(storedFields);
         const storedQuests =
           await LocalDB.getItemsFromTable<QuestData.DataType>(
@@ -150,6 +149,21 @@ export default function QuestTab() {
   );
 
   const renderFields = createFieldElements(fields, quests);
+
+  const rawFields = fields.map(item => (
+    <View style={styles.view}>
+      <Text>id: {item.id}</Text>
+      <Text>name: {item.name}</Text>
+      <Text>peopleWith: {item.peopleWith}</Text>
+      <Text>iconName: {item.iconName}</Text>
+    </View>
+  ));
+  const rawQuests = quests.map(item => (
+    <View style={styles.view}>
+      <Text>id: {item.id}</Text>
+      <Text>name: {item.name}</Text>
+    </View>
+  ));
   return (
     <View>
       <Text>QuestTab</Text>
@@ -159,6 +173,8 @@ export default function QuestTab() {
         fields={fields}
         setFields={setFields}
       />
+      <View>{rawFields}</View>
+      <View>{rawQuests}</View>
       <FlatList
         data={renderFields}
         renderItem={({item}) => (
@@ -169,3 +185,7 @@ export default function QuestTab() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  view: {borderWidth: 1, width: '100%'},
+});
