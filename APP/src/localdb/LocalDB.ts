@@ -180,9 +180,11 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
     } else {
       let item = results[0].rows.item(0);
       for (let i in item) {
-        errorlog += '(' + i + ': ' + item[i] + '),';
+        errorlog +=
+          '(' + i + ': ' + item[i] + ', typeof: ' + typeof item[i] + '),';
         if (i === 'id') {
-          if (item[i] === null) {
+          Alert.alert(errorlog);
+          if (typeof item[i] === 'number') {
             return item[i];
           } else {
             return 0;
