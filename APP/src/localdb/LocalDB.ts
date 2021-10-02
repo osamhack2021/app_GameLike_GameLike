@@ -182,8 +182,11 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
       for (let i in item) {
         errorlog += '(' + i + ': ' + item[i] + '),';
         if (i === 'id') {
-          Alert.alert(errorlog);
-          return item[i];
+          if (item[i] === null) {
+            return item[i];
+          } else {
+            return 0;
+          }
         }
       }
       throw Error('cannot find max(id), log: ' + errorlog);
