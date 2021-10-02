@@ -1,0 +1,26 @@
+create table "Field" ("id" INTEGER NOT NULL, "name" TEXT NOT NULL, "peopleWith" INTEGER NOT NULL, "iconName" TEXT, PRIMARY KEY("id") )
+create TABLE "Quest" ("id" INTEGER NOT NULL, "name" TEXT NOT NULL, "fieldId" INTEGER, "estimatedTime" INTEGER, "writedDate" Integer, "isRepeat" INTEGER NOT NULL, "isPublic" INTEGER NOT NULL, PRIMARY KEY("id") )
+
+https://blog.logrocket.com/using-sqlite-with-react-native/
+
+현재 localDB insertItems 제작중이었음
+
+1001 할일
+9. 퀘스트 입력 수정
+ - 퀘스트 제목만 입력->필드 선택->퀘스트 정보 입력
+10. 기획부분 조지기
+
+언젠가할일
+8. insertQuery 문제 없나 확인해보기
+
+(완료)
+1. sql 데이터 불러오기 구현(FieldSQLTest.tsx)
+2. App 시작할 때 데이터 임의로 넣어서 테스트해보기
+3. sql 데이터 집어넣기 구현(FieldSQLTest.tsx)
+ - inputId, Name, PW 이용하여 데이터 집어넣는 것 구현
+4. 데이터 집어넣고 뺴는거 되는지 확인
+5. 코드 다듬기(FieldTable에만 국한되지 않게);
+  - LocalDB FieldSQLTest 적용 완료, 테스트 해보기
+  - 잘 될경우 FieldTable 등 삭제
+6. QuestTab에 Quest Load 구현
+7. QuestInput Component 제작하기

@@ -2,6 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App_web from './App.web';
+import AppOnweb from './App.web';
 
-ReactDOM.render(<App_web />, document.getElementById('app'));
+ReactDOM.render(<AppOnweb />, document.getElementById('app'));
