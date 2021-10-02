@@ -129,18 +129,18 @@ export default function QuestTab() {
   ));
   return (
     <View>
+      <QuestInput
+        quests={quests}
+        setQuests={setQuests}
+        fields={fields}
+        setFields={setFields}
+      />
       <FlatList
         data={renderFields}
         renderItem={({item}) => (
           <FieldElement data={item.field} questDatas={item.subQuests} />
         )}
         keyExtractor={(item, index) => item.field.id.toString()}
-      />
-      <QuestInput
-        quests={quests}
-        setQuests={setQuests}
-        fields={fields}
-        setFields={setFields}
       />
     </View>
   );

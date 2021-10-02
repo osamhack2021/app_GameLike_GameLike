@@ -86,10 +86,11 @@ const QuestInput: FC<QuestInputProps> = ({
           fieldId = selectedField[0].id;
         }
       } catch (error) {
+        let errStr: string = '필드 데이터 입력 실패:';
         if (error instanceof Error) {
-          Alert.alert(error.message);
+          errStr += error.message;
         }
-        Alert.alert('필드 데이터 검색 실패');
+        Alert.alert(errStr);
       }
       try {
         //const nextId = await LocalDB.getNextId(db, QuestData.tableName);
@@ -113,11 +114,11 @@ const QuestInput: FC<QuestInputProps> = ({
         setQuests(newQuests);
         setAllInputEmpty();
       } catch (error) {
+        let errStr: string = '퀘스트 데이터 입력 실패:';
         if (error instanceof Error) {
-          Alert.alert(error.message);
-          setErrorMessage(error.message);
+          errStr += error.message;
         }
-        Alert.alert('error ocurred while finding quest data.');
+        Alert.alert(errStr);
       }
     } catch (error) {
       Alert.alert('db 오픈 실패');
@@ -126,9 +127,13 @@ const QuestInput: FC<QuestInputProps> = ({
 
   return (
     <View>
+      <View>
+        <Text>필드는 추후 선택형으로 수정 예정</Text>
+      </View>
       <View style={styles.horizontal}>
         <TextInput
           value={inputId}
+          style={{flex: 0.5}}
           placeholder="퀘스트 id"
           onChangeText={text => {
             setInputId(text);
@@ -136,6 +141,7 @@ const QuestInput: FC<QuestInputProps> = ({
         />
         <TextInput
           value={inputName}
+          style={{flex: 0.5}}
           placeholder="퀘스트 제목"
           onChangeText={text => {
             setInputName(text);
@@ -145,14 +151,16 @@ const QuestInput: FC<QuestInputProps> = ({
       <View style={styles.horizontal}>
         <TextInput
           value={inputFieldId}
-          placeholder="필드 id(추후 선택형으로 수정 예정)"
+          style={{flex: 0.5}}
+          placeholder="필드 id"
           onChangeText={text => {
             setInputFieldId(text);
           }}
         />
         <TextInput
           value={inputFieldName}
-          placeholder="필드 이름(추후 선택형으로 수정 예정)"
+          style={{flex: 0.5}}
+          placeholder="필드 이름"
           onChangeText={text => {
             setInputFieldName(text);
           }}
