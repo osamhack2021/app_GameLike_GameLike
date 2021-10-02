@@ -101,7 +101,10 @@ export default function QuestTab() {
             }
           }
           if (isExisting === false) {
-            Alert.alert('CreateFieldElements: field not existing');
+            //불러온 allfields에 해당퀘스트 필드가 존재하지 않을 경우
+            Alert.alert(
+              'QuestTab:CreateFieldElements: field not existing: ' + q.name,
+            );
           }
         }
       }

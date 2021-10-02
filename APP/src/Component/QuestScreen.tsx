@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {ScrollView, Text} from 'react-native';
 import QuestTab from '../Quests/QuestTab';
 
 const QuestScreen = () => {
   return (
-    <View>
+    <ScrollView>
       <QuestTab />
-    </View>
+    </ScrollView>
   );
 };
 
