@@ -4,9 +4,9 @@ import QuestTab from '../Quests/QuestTab';
 
 const QuestScreen = () => {
   return (
-    <View>
+    <ScrollView>
       <QuestTab />
-    </View>
+    </ScrollView>
   );
 };
 
