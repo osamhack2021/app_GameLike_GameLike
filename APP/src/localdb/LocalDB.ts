@@ -170,6 +170,7 @@ export const deleteTable = async (db: SQLiteDatabase, tableName: string) => {
 };
 
 export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
+  //현재 사용 안함
   try {
     const query = `SELECT max(id) as id from ${tableName}`;
     const results = await db.executeSql(query);

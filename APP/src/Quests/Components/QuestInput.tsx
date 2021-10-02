@@ -115,6 +115,15 @@ const QuestInput: FC<QuestInputProps> = ({
     <View>
       <View>
         <TextInput
+          value={inputId}
+          placeholder="퀘스트 id"
+          onChangeText={text => {
+            setInputId(text);
+          }}
+        />
+      </View>
+      <View>
+        <TextInput
           value={inputName}
           placeholder="퀘스트 제목"
           onChangeText={text => {
