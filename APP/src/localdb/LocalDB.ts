@@ -173,22 +173,25 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
   try {
     const query = `SELECT max(id) as id from ${tableName}`;
     const results = await db.executeSql(query);
-    let id = results[0].rows.item(0).id;
-    let err = '';
-    for (let i in id) {
-      err += '(' + i + ': ' + id[i] + '),';
-    }
-    if (typeof id === 'number') {
-      return id;
-    } else if (typeof id === 'object') {
+    let errorlog = '';
+    if (results[0].rows.length === 0) {
+      //row가 0이면 데이터가 없으므로 id 0부터 시작
       return 0;
     } else {
-      throw Error('err:' + err);
+      let item = results[0].rows.item(0);
+      for (let i in item) {
+        errorlog += '(' + i + ': ' + item[i] + '),';
+        if (i === 'id') {
+          return item[i];
+        }
+      }
+      throw Error('cannot find max(id), log: ' + errorlog);
     }
   } catch (error) {
     if (error instanceof Error) {
       throw Error(error.message);
+    } else {
+      throw Error('Error: LocalDB.getNextId');
     }
-    return -1;
   }
 };
