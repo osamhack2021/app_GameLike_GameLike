@@ -45,6 +45,13 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 });
 
+// GET /auth/logout
+router.get('/logout', isLoggedIn, (req, res)=>{
+	req.logout(); // req에서 지워준다
+	req.session.destroy(); // 세션 지우기
+	res.redirect('/');
+});
+
 // (1)
 router.get('/kakao', passport.authenticate('kakao'));
 

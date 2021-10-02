@@ -28,31 +28,49 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 
 //메인 페이지
 router.get('/', async (req, res, next) => {
-  console.log(req.user);
-  const posts = await Post.findAll({
-    include: [{
-      model: User,
-      attributes: ['id', 'nick'],
-    }, {
-      model: User,
-      attributes: ['id', 'nick'],
-      as: 'Liker',
-    }],
-  })
-    .then((posts) => {
-      console.log(posts);
-      res.render('main', {
-        title: 'NodeBird',
-        twits: posts,
-        user: req.user,
-        loginError: req.flash('loginError'),
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-      next(error);
+  try {
+    const posts = await Post.findAll({
+      include: {
+        model: User,
+        attributes: ['id', 'nick'],
+      },
+      order: [['createdAt', 'DESC']],
     });
-
+    res.render('main', {
+      title: 'NodeBird',
+      twits: posts,
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
+// router.get('/', async (req, res, next) => {
+//   console.log(req.user);
+//   const posts = await Post.findAll({
+//     include: [{
+//       model: User,
+//       attributes: ['id', 'nick'],
+//     }, {
+//       model: User,
+//       attributes: ['id', 'nick'],
+//       as: 'Liker',
+//     }],
+//   })
+//     .then((posts) => {
+//       console.log(posts);
+//       res.render('main', {
+//         title: 'NodeBird',
+//         twits: posts,
+//         user: req.user,
+//         loginError: req.flash('loginError'),
+//       });
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       next(error);
+//     });
+
+// });
 
 module.exports = router;

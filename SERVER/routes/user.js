@@ -6,7 +6,7 @@ const { User } = require('../models');
 
 router.post('/:id/follow', isLoggedIn, async(req, res, next) =>{
   try{
-    const user = await User.find({where: {id : req.user.id}});
+    const user = await User.findOne({where: {id : req.user.id}});
     await user.addFollowing(parseInt(req.params.id, 10));
     //req = 현재 로그인한 나, 를 찾아서 나의 팔로잉 대상에 추가
     res.send('success');
@@ -15,6 +15,31 @@ router.post('/:id/follow', isLoggedIn, async(req, res, next) =>{
     next(error);
   }
 });
+
+router.post('/:id/unfollow', isLoggedIn, async(req, res, next) =>{
+  try{
+    const user = await User.findOne({where: {id : req.user.id}});
+    await user.removeFollowing(parseInt(req.params.id, 10));
+    //req = 현재 로그인한 나, 를 찾아서 나의 팔로잉 대상에 추가
+    res.send('success');
+  }catch(error){
+    console.error(error);
+    next(error);
+  }
+});
+
+router.post('profile', async(req, res, next) =>{ // 프로필 닉네임 수정
+  try {
+    await User.update({ nick: req.body.nick }, {
+      where: { id: req.user.id },
+    })
+    res.redirect('/profile');
+  } catch(error){
+    console.log(error);
+    next(error);
+  }
+});
+
 
 module.exports = router;
 
