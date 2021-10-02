@@ -44,70 +44,80 @@ const QuestInput: FC<QuestInputProps> = ({
   };
 
   const addQuestData = async () => {
-    const fieldId = parseInt(inputField, 10);
-    try {
-      //Field가 있으면 있는 것 사용, 없으면 새로 생성
-      const db = await LocalDB.openDB();
-      const selectedField = await LocalDB.selectTextItem<FieldData.DataType>(
-        db,
-        FieldData.tableName,
-        'name',
-        inputField,
-      );
-      if (selectedField.length === 0) {
-        const nextId = await LocalDB.getNextId(db, FieldData.tableName);
-        const newField: FieldData.DataType = {
-          id: nextId,
-          name: inputField,
-          peopleWith: 0,
-          iconName: 'test',
-          dataCreatorId: 'tester',
-          isPublic: 0,
-        };
-        const newFields = [...fields, newField];
-        Alert.alert('newField잘됨, id:' + nextId);
-        await LocalDB.insertItems(
-          db,
-          FieldData.tableName,
-          newFields,
-          FieldData.attributes,
-        );
-        setFields(newFields);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-      }
-      Alert.alert('error ocurred while finding field data');
+    const fieldId = 0;
+    const parsedId = parseInt(inputId, 10);
+    const parsedTime = parseInt(estimatedTime, 10);
+    if (isNaN(parsedId)) {
+      Alert.alert('Id 값은 숫자로 입력해주세요!');
+    }
+    if (isNaN(parsedTime)) {
+      Alert.alert('예상 소요 시간은 숫자로 입력해주세요');
     }
     try {
       const db = await LocalDB.openDB();
-      const nextId = await LocalDB.getNextId(db, QuestData.tableName);
-      const newQuest: QuestData.DataType = {
-        id: nextId,
-        name: inputName,
-        fieldId: fieldId,
-        estimatedTime: parseInt(estimatedTime, 10),
-        writedDate: Date.now(),
-        dataCreatorId: dataCreatorId,
-        isRepeat: isRepeat,
-        isPublic: isPublic,
-      };
-      const newQuests = [...quests, newQuest];
-      await LocalDB.insertItems(
-        db,
-        QuestData.tableName,
-        newQuests,
-        QuestData.attributes,
-      );
-      setQuests(newQuests);
-      setAllInputEmpty();
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message);
-        setErrorMessage(error.message);
+      try {
+        //Field가 있으면 있는 것 사용, 없으면 새로 생성
+        const selectedField = await LocalDB.selectTextItem<FieldData.DataType>(
+          db,
+          FieldData.tableName,
+          'name',
+          inputField,
+        );
+        if (selectedField.length === 0) {
+          const nextId = await LocalDB.getNextId(db, FieldData.tableName);
+          const newField: FieldData.DataType = {
+            id: nextId,
+            name: inputField,
+            peopleWith: 0,
+            iconName: 'test',
+            dataCreatorId: 'tester',
+            isPublic: 0,
+          };
+          const newFields = [...fields, newField];
+          await LocalDB.insertItems(
+            db,
+            FieldData.tableName,
+            newFields,
+            FieldData.attributes,
+          );
+          setFields(newFields);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message);
+        }
+        Alert.alert('필드 데이터 검색 실패');
       }
-      Alert.alert('error ocurred while finding quest data.');
+      try {
+        //const nextId = await LocalDB.getNextId(db, QuestData.tableName);
+        const newQuest: QuestData.DataType = {
+          id: parsedId,
+          name: inputName,
+          fieldId: fieldId,
+          estimatedTime: parsedTime,
+          writedDate: Date.now(),
+          dataCreatorId: dataCreatorId,
+          isRepeat: isRepeat,
+          isPublic: isPublic,
+        };
+        const newQuests = [...quests, newQuest];
+        await LocalDB.insertItems(
+          db,
+          QuestData.tableName,
+          newQuests,
+          QuestData.attributes,
+        );
+        setQuests(newQuests);
+        setAllInputEmpty();
+      } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message);
+          setErrorMessage(error.message);
+        }
+        Alert.alert('error ocurred while finding quest data.');
+      }
+    } catch (error) {
+      Alert.alert('db 오픈 실패');
     }
   };
 
