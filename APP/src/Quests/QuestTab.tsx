@@ -4,7 +4,7 @@ import {SQLiteDatabase} from 'react-native-sqlite-storage';
 import FieldElement from './Components/FieldElement';
 import * as FieldData from './datas/FieldData';
 import * as QuestData from './datas/QuestData';
-import * as LocalDB from '../localdb/LocalDB';
+import * as LocalDB from './datas/LocalDB';
 import QuestInput from './Components/QuestInput';
 
 // 1. 퀘스트 데이터 목록 불러옴

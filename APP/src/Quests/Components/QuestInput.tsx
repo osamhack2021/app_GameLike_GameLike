@@ -2,8 +2,7 @@ import {numberTypeAnnotation} from '@babel/types';
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import {Text, ScrollView, StyleSheet, View, Alert, Button} from 'react-native';
 import {TextInput, Checkbox} from 'react-native-paper';
-import {SQLiteDatabase} from 'react-native-sqlite-storage';
-import * as LocalDB from '../../localdb/LocalDB';
+import * as LocalDB from '../datas/LocalDB';
 import * as FieldData from '../datas/FieldData';
 import * as QuestData from '../datas/QuestData';
 
@@ -51,9 +50,11 @@ const QuestInput: FC<QuestInputProps> = ({
     const parsedTime = parseInt(inputEstimatedTime, 10);
     if (isNaN(parsedId) || isNaN(fieldId)) {
       Alert.alert('Id 값은 숫자로 입력해주세요!');
+      return;
     }
     if (isNaN(parsedTime)) {
       Alert.alert('예상 소요 시간은 숫자로 입력해주세요');
+      return;
     }
     try {
       const db = await LocalDB.openDB();
@@ -85,38 +86,40 @@ const QuestInput: FC<QuestInputProps> = ({
         } else {
           fieldId = selectedField[0].id;
         }
-      } catch (error) {
-        let errStr: string = '필드 데이터 입력 실패:';
-        if (error instanceof Error) {
-          errStr += error.message;
+
+        //필드가 완료되었으므로 퀘스트 입력
+        try {
+          //const nextId = await LocalDB.getNextId(db, QuestData.tableName);
+          const newQuest: QuestData.DataType = {
+            id: parsedId,
+            name: inputName,
+            fieldId: fieldId,
+            estimatedTime: parsedTime,
+            writedDate: Date.now(),
+            dataCreatorId: dataCreatorId,
+            isRepeat: inputIsRepeat,
+            isPublic: inputIsPublic,
+          };
+          const newQuests = [...quests, newQuest];
+          await LocalDB.insertItems(
+            db,
+            QuestData.tableName,
+            newQuests,
+            QuestData.attributes,
+          );
+          setQuests(newQuests);
+          setAllInputEmpty();
+        } catch (error) {
+          let errStr: string = '퀘스트 데이터 입력 실패';
+          if (error instanceof Error) {
+            errStr += ': ' + error.message;
+          }
+          Alert.alert(errStr);
         }
-        Alert.alert(errStr);
-      }
-      try {
-        //const nextId = await LocalDB.getNextId(db, QuestData.tableName);
-        const newQuest: QuestData.DataType = {
-          id: parsedId,
-          name: inputName,
-          fieldId: fieldId,
-          estimatedTime: parsedTime,
-          writedDate: Date.now(),
-          dataCreatorId: dataCreatorId,
-          isRepeat: inputIsRepeat,
-          isPublic: inputIsPublic,
-        };
-        const newQuests = [...quests, newQuest];
-        await LocalDB.insertItems(
-          db,
-          QuestData.tableName,
-          newQuests,
-          QuestData.attributes,
-        );
-        setQuests(newQuests);
-        setAllInputEmpty();
       } catch (error) {
-        let errStr: string = '퀘스트 데이터 입력 실패:';
+        let errStr: string = '필드 데이터 입력 실패';
         if (error instanceof Error) {
-          errStr += error.message;
+          errStr += ': ' + error.message;
         }
         Alert.alert(errStr);
       }

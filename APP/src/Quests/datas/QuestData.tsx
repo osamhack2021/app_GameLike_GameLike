@@ -1,4 +1,4 @@
-import {TableAttribute} from '../../localdb/LocalDB';
+import {TableAttribute} from './LocalDB';
 
 type DataType = {
   id: number;
