@@ -173,7 +173,7 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
   try {
     const query = `SELECT max(id) as id from ${tableName}`;
     const results = await db.executeSql(query);
-    let errorlog = '';
+    let errorlog = 'rowlen: ' + results[0].rows.length.toString();
     if (results[0].rows.length === 0) {
       //row가 0이면 데이터가 없으므로 id 0부터 시작
       return 0;
@@ -182,6 +182,7 @@ export const getNextId = async (db: SQLiteDatabase, tableName: string) => {
       for (let i in item) {
         errorlog += '(' + i + ': ' + item[i] + '),';
         if (i === 'id') {
+          Alert.alert(errorlog);
           return item[i];
         }
       }
