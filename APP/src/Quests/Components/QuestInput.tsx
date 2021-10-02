@@ -27,27 +27,29 @@ const QuestInput: FC<QuestInputProps> = ({
   //데이터 입력
   const [inputId, setInputId] = useState<string>('');
   const [inputName, setInputName] = useState<string>('');
-  const [inputField, setInputField] = useState<string>('');
-  const [estimatedTime, setEstimatedTime] = useState<string>('');
-  const [isPublic, setIsPublic] = useState<number>(0);
-  const [isRepeat, setIsRepeat] = useState<number>(0);
+  const [inputFieldName, setInputFieldName] = useState<string>('');
+  const [inputFieldId, setInputFieldId] = useState<string>('');
+  const [inputEstimatedTime, setInputEstimatedTime] = useState<string>('');
+  const [inputIsPublic, setInputIsPublic] = useState<number>(0);
+  const [inputIsRepeat, setInputIsRepeat] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const dataCreatorId = 'tester';
 
   const setAllInputEmpty = () => {
     setInputId('');
     setInputName('');
-    setInputField('');
-    setEstimatedTime('');
-    setIsPublic(0);
-    setIsRepeat(0);
+    setInputFieldName('');
+    setInputEstimatedTime('');
+    setInputFieldId('');
+    setInputIsPublic(0);
+    setInputIsRepeat(0);
   };
 
   const addQuestData = async () => {
-    const fieldId = 0;
+    let fieldId = parseInt(inputFieldId, 10);
     const parsedId = parseInt(inputId, 10);
-    const parsedTime = parseInt(estimatedTime, 10);
-    if (isNaN(parsedId)) {
+    const parsedTime = parseInt(inputEstimatedTime, 10);
+    if (isNaN(parsedId) || isNaN(fieldId)) {
       Alert.alert('Id 값은 숫자로 입력해주세요!');
     }
     if (isNaN(parsedTime)) {
@@ -61,13 +63,12 @@ const QuestInput: FC<QuestInputProps> = ({
           db,
           FieldData.tableName,
           'name',
-          inputField,
+          inputFieldName,
         );
         if (selectedField.length === 0) {
-          const nextId = await LocalDB.getNextId(db, FieldData.tableName);
           const newField: FieldData.DataType = {
-            id: nextId,
-            name: inputField,
+            id: fieldId,
+            name: inputFieldName,
             peopleWith: 0,
             iconName: 'test',
             dataCreatorId: 'tester',
@@ -81,6 +82,8 @@ const QuestInput: FC<QuestInputProps> = ({
             FieldData.attributes,
           );
           setFields(newFields);
+        } else {
+          fieldId = selectedField[0].id;
         }
       } catch (error) {
         if (error instanceof Error) {
@@ -97,8 +100,8 @@ const QuestInput: FC<QuestInputProps> = ({
           estimatedTime: parsedTime,
           writedDate: Date.now(),
           dataCreatorId: dataCreatorId,
-          isRepeat: isRepeat,
-          isPublic: isPublic,
+          isRepeat: inputIsRepeat,
+          isPublic: inputIsPublic,
         };
         const newQuests = [...quests, newQuest];
         await LocalDB.insertItems(
@@ -123,7 +126,7 @@ const QuestInput: FC<QuestInputProps> = ({
 
   return (
     <View>
-      <View>
+      <View style={styles.horizontal}>
         <TextInput
           value={inputId}
           placeholder="퀘스트 id"
@@ -131,8 +134,6 @@ const QuestInput: FC<QuestInputProps> = ({
             setInputId(text);
           }}
         />
-      </View>
-      <View>
         <TextInput
           value={inputName}
           placeholder="퀘스트 제목"
@@ -141,37 +142,46 @@ const QuestInput: FC<QuestInputProps> = ({
           }}
         />
       </View>
-      <View>
+      <View style={styles.horizontal}>
         <TextInput
-          value={inputField}
+          value={inputFieldId}
+          placeholder="필드 id(추후 선택형으로 수정 예정)"
+          onChangeText={text => {
+            setInputFieldId(text);
+          }}
+        />
+        <TextInput
+          value={inputFieldName}
           placeholder="필드 이름(추후 선택형으로 수정 예정)"
           onChangeText={text => {
-            setInputField(text);
+            setInputFieldName(text);
           }}
         />
       </View>
       <View>
         <TextInput
-          value={estimatedTime}
+          value={inputEstimatedTime}
           placeholder="몇 분 정도 걸릴까요?(추후 선택형으로 수정 예정)"
           onChangeText={text => {
-            setEstimatedTime(text);
+            setInputEstimatedTime(text);
           }}
         />
       </View>
-      <View>
-        <Text>반복 여부</Text>
-        <Checkbox
-          status="unchecked"
-          onPress={() => setIsPublic(isPublic === 0 ? 1 : 0)}
-        />
-      </View>
-      <View>
-        <Text>공개 여부</Text>
-        <Checkbox
-          status="unchecked"
-          onPress={() => setIsRepeat(isRepeat === 0 ? 1 : 0)}
-        />
+      <View style={styles.horizontal}>
+        <View>
+          <Text>반복 여부</Text>
+          <Checkbox
+            status="unchecked"
+            onPress={() => setInputIsPublic(inputIsPublic === 0 ? 1 : 0)}
+          />
+        </View>
+        <View>
+          <Text>공개 여부</Text>
+          <Checkbox
+            status="unchecked"
+            onPress={() => setInputIsRepeat(inputIsRepeat === 0 ? 1 : 0)}
+          />
+        </View>
       </View>
       <Button title="입력" onPress={addQuestData} />
     </View>
@@ -182,4 +192,5 @@ export default QuestInput;
 
 const styles = StyleSheet.create({
   view: {borderWidth: 1, width: '100%'},
+  horizontal: {flexDirection: 'row'},
 });
