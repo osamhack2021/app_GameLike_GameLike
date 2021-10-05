@@ -4,6 +4,7 @@ import axios from 'axios';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 const LoginScreen = ({navigation}: {navigation: any}) => {
+  /*
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
 
@@ -36,6 +37,31 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
     // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
     [],
   );
+  */
+  const express = require('express');
+  const app = express();
+  app.get('/', (req: any, res: {send: (arg0: string) => void}) => {
+    res.send('Hello World');
+  });
+
+  axios
+    .post('52.231.66.60', {
+      id: 4,
+      name: 'Cho',
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    //실패 시 catch 실행
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  const users = [
+    {id: 1, name: '유저1'},
+    {id: 2, name: '유저2'},
+    {id: 3, name: '유저3'},
+  ];
 
   return (
     <View style={styles.container}>
