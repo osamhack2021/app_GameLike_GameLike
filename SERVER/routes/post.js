@@ -20,7 +20,7 @@ const upload = multer({
 });
 router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
     console.log(req.body, req.file);
-    res.json({url: '/img/${req.file.filename}' });
+    res.json({url: `/img/${req.file.filename}` });
 });
 //img = input id = img html참고
 
