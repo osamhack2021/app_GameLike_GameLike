@@ -2,26 +2,37 @@ import React, {useState} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import CurrentQuestScreen from './Screens/CurrentQuestScreen';
 import PrevQuestScreen from './Screens/PrevQuestScreen';
-import TodayQuestMakerScreen from './Screens/QuestDeciderScreen';
+import QuestDeciderScreen from './Screens/QuestDeciderScreen';
+import {Provider as ReduxProvider, useSelector} from 'react-redux';
+import {AppState, makeStore} from '../Store';
+import QuestScreenSelector from './QuestScreenSelector';
 
-export default function QuestTabSelector() {
+const store = makeStore();
+
+export default function QuestScreen() {
+  const prevTask = useSelector<AppState, boolean>(
+    state => state.questScreenState.prevTaskChecked,
+  );
+  const curTask = useSelector<AppState, boolean>(
+    state => state.questScreenState.todayTaskChecked,
+  );
   const [prevTaskConfirmed, setPrevTaskConfirmed] = useState(false);
   const [todayQuestProduced, setTodayQuestProduced] = useState(false);
   return (
-    <ScrollView>
-      <TodayQuestMakerScreen />
-    </ScrollView>
-    /*<ScrollView>
-      {prevTaskConfirmed ? (
-        todayQuestProduced ? (
-          <CurrentQuestScreen />
+    <ReduxProvider store={store}>
+      <QuestScreenSelector />
+      <ScrollView>
+        {prevTask ? (
+          curTask ? (
+            <CurrentQuestScreen />
+          ) : (
+            <QuestDeciderScreen />
+          )
         ) : (
-          <TodayQuestMakerScreen />
-        )
-      ) : (
-        <PrevQuestScreen />
-      )}
-    </ScrollView>
-  );*/
+          <PrevQuestScreen />
+        )}
+        <QuestDeciderScreen />
+      </ScrollView>
+    </ReduxProvider>
   );
 }
