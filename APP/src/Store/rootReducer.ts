@@ -11,23 +11,22 @@ export const rootReducer = (
   state: AppState = initialState,
   action: QuestCheckActions,
 ) => {
+  switch (action.type) {
+    case 'gotoPrev':
+      return {
+        ...state,
+        questScreenState: {prevTaskChecked: false, todayTaskChecked: false},
+      };
+    case 'gotoCur':
+      return {
+        ...state,
+        questScreenState: {prevTaskChecked: true, todayTaskChecked: false},
+      };
+    case 'gotoToday':
+      return {
+        ...state,
+        questScreenState: {prevTaskChecked: true, todayTaskChecked: true},
+      };
+  }
   return state;
-  // switch (action.type) {
-  //   case 'gotoPrev':
-  //     return {
-  //       ...state,
-  //       questScreenState: {prevTaskChecked: false, todayTaskChecked: false},
-  //     };
-  //   case 'gotoCur':
-  //     return {
-  //       ...state,
-  //       questScreenState: {prevTaskChecked: true, todayTaskChecked: false},
-  //     };
-  //   case 'gotoToday':
-  //     return {
-  //       ...state,
-  //       questScreenState: {prevTaskChecked: true, todayTaskChecked: true},
-  //     };
-  // }
-  // return state;
 };
