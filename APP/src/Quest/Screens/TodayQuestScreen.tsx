@@ -3,8 +3,20 @@ import {Text, View} from 'react-native';
 import GetTodayString from '../Modules/GetTodayString';
 import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
+import {QuestData} from '../Datas';
+
+const ex: QuestData.DataType = {
+  id: 0,
+  name: '휴식',
+  fieldName: '휴식',
+  startTime: 0,
+  date: 0,
+  userId: '',
+  isPerformed: 0,
+};
 
 export default function TodayQuestScreen() {
+  const todayQuests: QuestData.DataType[] = [];
   const todayStr = GetTodayString();
   return (
     <View>

@@ -5,9 +5,6 @@ type DataType = {
   name: string;
   peopleWith: number;
   iconName: string;
-
-  dataCreatorId: string;
-  isPublic: number;
 };
 
 export const attributes: TableAttribute[] = [
@@ -15,8 +12,6 @@ export const attributes: TableAttribute[] = [
   {name: 'name', type: 'TEXT', nullable: false},
   {name: 'peopleWith', type: 'INTEGER', nullable: false},
   {name: 'iconName', type: 'TEXT', nullable: false},
-  {name: 'dataCreatorId', type: 'TEXT', nullable: false},
-  {name: 'isPublic', type: 'INTEGER', nullable: false},
 ];
 
 export const primaryKey = 'id';
