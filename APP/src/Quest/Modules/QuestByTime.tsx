@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type QuestByTimeProps = {
@@ -8,6 +8,7 @@ type QuestByTimeProps = {
   endHour: number;
   endMinute: number;
   task: string;
+  onPress?: () => void;
 };
 
 const QuestByTime: FC<QuestByTimeProps> = ({
@@ -16,6 +17,7 @@ const QuestByTime: FC<QuestByTimeProps> = ({
   endHour,
   endMinute,
   task,
+  onPress,
 }) => {
   const myTime =
     startHour.toString() +
@@ -25,14 +27,24 @@ const QuestByTime: FC<QuestByTimeProps> = ({
     endHour.toString() +
     ':' +
     endMinute.toString();
+
+  if (!onPress) {
+    onPress = () => {};
+  }
+
   return (
-    <View>
+    <View style={styles.view}>
       <Text>{myTime}</Text>
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.tco} onPress={onPress}>
         <Text>{task}</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  view: {marginHorizontal: 20, marginVertical: 10},
+  tco: {width: '100%', height: 75},
+});
 
 export default QuestByTime;
