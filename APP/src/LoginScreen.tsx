@@ -12,7 +12,7 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
   });
 
   axios
-    .post('52.231.66.60', {
+    .post('http://52.231.66.60/auth/join', {
       id: 4,
       name: 'Cho',
     })
