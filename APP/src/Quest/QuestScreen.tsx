@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {Alert, ScrollView, Text, View} from 'react-native';
 import CurrentQuestScreen from './Screens/CurrentQuestScreen';
 import PrevQuestScreen from './Screens/PrevQuestScreen';
 import QuestDeciderScreen from './Screens/QuestDeciderScreen';
@@ -8,7 +8,18 @@ import {AppState, makeStore} from '../Store';
 import QuestScreenSelector from './QuestScreenSelector';
 
 export default function QuestScreen() {
-  const prevTask = useSelector<AppState, boolean>(state => state.loggedIn);
+  let str = 'a';
+  try {
+    const prevTask = useSelector<AppState, boolean>(
+      state => state.questScreenState.prevTaskChecked,
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      str = error.message;
+    } else {
+      str = '에러도안뜨냐 무슨';
+    }
+  }
   // const curTask = useSelector<AppState, boolean>(
   //   state => state.questScreenState.todayTaskChecked,
   // );
@@ -32,5 +43,9 @@ export default function QuestScreen() {
   //     </ScrollView>
   //   </View>
   // );
-  return <View />;
+  return (
+    <View>
+      <Text>{str}</Text>
+    </View>
+  );
 }
