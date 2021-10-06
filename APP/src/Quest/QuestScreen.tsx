@@ -7,15 +7,17 @@ import {Provider as ReduxProvider, useSelector} from 'react-redux';
 import {AppState, makeStore} from '../Store';
 import QuestScreenSelector from './QuestScreenSelector';
 
-const store = makeStore();
+//const store = makeStore();
 
 export default function QuestScreen() {
+  /*
   const prevTask = useSelector<AppState, boolean>(
     state => state.questScreenState.prevTaskChecked,
   );
   const curTask = useSelector<AppState, boolean>(
     state => state.questScreenState.todayTaskChecked,
   );
+  */
   const [prevTaskConfirmed, setPrevTaskConfirmed] = useState(false);
   const [todayQuestProduced, setTodayQuestProduced] = useState(false);
   // return (
