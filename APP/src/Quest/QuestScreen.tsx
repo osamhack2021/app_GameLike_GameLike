@@ -18,21 +18,26 @@ export default function QuestScreen() {
   );
   const [prevTaskConfirmed, setPrevTaskConfirmed] = useState(false);
   const [todayQuestProduced, setTodayQuestProduced] = useState(false);
+  // return (
+  //   <View>
+  //     <QuestScreenSelector />
+  //     <ScrollView>
+  //       {prevTask ? (
+  //         curTask ? (
+  //           <CurrentQuestScreen />
+  //         ) : (
+  //           <QuestDeciderScreen />
+  //         )
+  //       ) : (
+  //         <PrevQuestScreen />
+  //       )}
+  //       <QuestDeciderScreen />
+  //     </ScrollView>
+  //   </View>
+  // );
   return (
     <View>
       <QuestScreenSelector />
-      <ScrollView>
-        {prevTask ? (
-          curTask ? (
-            <CurrentQuestScreen />
-          ) : (
-            <QuestDeciderScreen />
-          )
-        ) : (
-          <PrevQuestScreen />
-        )}
-        <QuestDeciderScreen />
-      </ScrollView>
     </View>
   );
 }
