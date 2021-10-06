@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -7,40 +7,35 @@ import StartScreen from './StartScreen';
 import LoginScreen from './LoginScreen';
 import MainScreen from './MainScreen';
 import RegisterScreen from './RegisterScreen';
-import {Provider as ReduxProvider, useSelector} from 'react-redux';
-import {AppState, makeStore} from './Store';
 
 // SplashScreen을 추가할지 고민중 (user_id가 저장되어 있는 경우 바로 MainScreen으로 이동하도록) => StartScreen으로 일단 대체
 
 const Stack = createStackNavigator();
-const store = makeStore();
 export default function App() {
   return (
-    <ReduxProvider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="START">
-          <Stack.Screen
-            name="START"
-            component={StartScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="LOGIN"
-            component={LoginScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="MAIN"
-            component={MainScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="REGISTER"
-            component={RegisterScreen}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ReduxProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="START">
+        <Stack.Screen
+          name="START"
+          component={StartScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="LOGIN"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MAIN"
+          component={MainScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="REGISTER"
+          component={RegisterScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
