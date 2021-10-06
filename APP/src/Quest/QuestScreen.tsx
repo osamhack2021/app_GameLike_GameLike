@@ -11,9 +11,9 @@ export default function QuestScreen() {
   const prevTask = useSelector<AppState, boolean>(
     state => state.questScreenState.prevTaskChecked,
   );
-  const curTask = useSelector<AppState, boolean>(
-    state => state.questScreenState.todayTaskChecked,
-  );
+  // const curTask = useSelector<AppState, boolean>(
+  //   state => state.questScreenState.todayTaskChecked,
+  // );
 
   const [prevTaskConfirmed, setPrevTaskConfirmed] = useState(false);
   const [todayQuestProduced, setTodayQuestProduced] = useState(false);
