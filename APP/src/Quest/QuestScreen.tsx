@@ -35,9 +35,5 @@ export default function QuestScreen() {
   //     </ScrollView>
   //   </View>
   // );
-  return (
-    <View>
-      <QuestScreenSelector />
-    </View>
-  );
+  return <View />;
 }
