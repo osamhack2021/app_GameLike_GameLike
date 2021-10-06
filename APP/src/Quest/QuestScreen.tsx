@@ -8,9 +8,7 @@ import {AppState, makeStore} from '../Store';
 import QuestScreenSelector from './QuestScreenSelector';
 
 export default function QuestScreen() {
-  const prevTask = useSelector<AppState, boolean>(
-    state => state.questScreenState.prevTaskChecked,
-  );
+  const prevTask = useSelector<AppState, boolean>(state => state.loggedIn);
   // const curTask = useSelector<AppState, boolean>(
   //   state => state.questScreenState.todayTaskChecked,
   // );
