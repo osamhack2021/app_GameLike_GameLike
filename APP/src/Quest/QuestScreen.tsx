@@ -19,7 +19,7 @@ export default function QuestScreen() {
   const [prevTaskConfirmed, setPrevTaskConfirmed] = useState(false);
   const [todayQuestProduced, setTodayQuestProduced] = useState(false);
   return (
-    <ReduxProvider store={store}>
+    <View>
       <QuestScreenSelector />
       <ScrollView>
         {prevTask ? (
@@ -33,6 +33,6 @@ export default function QuestScreen() {
         )}
         <QuestDeciderScreen />
       </ScrollView>
-    </ReduxProvider>
+    </View>
   );
 }
