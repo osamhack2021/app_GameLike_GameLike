@@ -1,10 +1,13 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import GetTodayString from '../Times/GetTodayString';
 import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
 import {QuestData} from '../Datas';
 import TodayQuestSelector from './TodayQuestSelector';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppState} from '../../Store';
+import {insertTodayQuestsAction} from '../../Store';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -19,10 +22,15 @@ const ex: QuestData.DataType = {
 const during = 30; //각 퀘스트당 몇 분 진행할지
 
 export default function TodayQuestScreen() {
+  const dispatch = useDispatch();
   const today = 20211007;
   const userId = '';
   let curTime = 1800;
-  const questInit = useCallback(() => {
+  //const [quests, setQuests] = useState<QuestData.DataType[]>(questInit());
+  const quests = useSelector<AppState, QuestData.DataType[]>(
+    state => state.questDatas.todayDatas,
+  );
+  useEffect(() => {
     const cquests: QuestData.DataType[] = [];
     for (let i = curTime; i < 2100; i += during) {
       if (i % 100 >= 60) {
@@ -31,9 +39,8 @@ export default function TodayQuestScreen() {
       }
       cquests.push({...ex, startTime: i, date: today, userId: userId});
     }
-    return cquests;
-  }, [curTime]);
-  const [quests, setQuests] = useState<QuestData.DataType[]>(questInit());
+    dispatch(insertTodayQuestsAction(cquests));
+  }, [curTime, dispatch]);
 
   const todayStr = GetTodayString();
   let isSelection = false;
