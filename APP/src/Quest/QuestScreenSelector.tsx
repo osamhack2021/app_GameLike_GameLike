@@ -34,5 +34,5 @@ export default function QuestScreenSelector() {
 
 const styles = StyleSheet.create({
   tco: {flex: 1},
-  view: {width: '100%', heigth: 75},
+  view: {width: '100%', heigth: 75, backgroundColor: '#0000ff'},
 });

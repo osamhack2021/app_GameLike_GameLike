@@ -15,10 +15,6 @@ const QuestByTime: FC<QuestByTimeProps> = ({
   task,
   onPress,
 }) => {
-  const endTime =
-    startTime +
-    Math.floor(((startTime % 100) + during) / 60) * 100 +
-    (during % 60);
   const startHour = Math.floor(startTime / 100);
   const startMinute = startTime % 100;
   const endHour = Math.floor((startMinute + during) / 60) + startHour;
@@ -48,7 +44,7 @@ const QuestByTime: FC<QuestByTimeProps> = ({
 
 const styles = StyleSheet.create({
   view: {marginHorizontal: 20, marginVertical: 10},
-  tco: {width: '100%', height: 75, borderColor: '#000000'},
+  tco: {width: '100%', height: 75, borderColor: '#000000', borderWidth: 3},
 });
 
 export default QuestByTime;
