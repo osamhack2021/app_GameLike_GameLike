@@ -96,6 +96,17 @@ router.delete('/:id/like', async (req, res, next) =>{
     }
 });
 
+// delete /post twitId
+router.delete('/:id', async (req, res, next) => {
+    try{
+        await Post.destroy({ where: { id : req.params.id, UserId: req.user.id}});
+        res.send('OK');
+    } catch(error){
+        console.error(error);
+        next(error);
+    }
+});
+
 /*{% set like = (twit) and (likerIdList.includes(req.User.id) ) %}
       {% if not like and user  %}
       <button class="like">좋아요</button>
