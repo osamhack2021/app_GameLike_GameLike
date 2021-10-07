@@ -1,5 +1,5 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {useCallback, useMemo, useState} from 'react';
+import {FlatList, Text, View} from 'react-native';
 import GetTodayString from '../Modules/GetTodayString';
 import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
@@ -15,19 +15,39 @@ const ex: QuestData.DataType = {
   isPerformed: 0,
 };
 
+const during = 30; //각 퀘스트당 몇 분 진행할지
+
 export default function TodayQuestScreen() {
-  const todayQuests: QuestData.DataType[] = [];
+  const today = 20211007;
+  const userId = '';
+  let curTime = 1800;
+  const questInit = useCallback(() => {
+    const cquests: QuestData.DataType[] = [];
+    for (let i = curTime; i < 2100; i += during) {
+      cquests.push({...ex, startTime: i, date: today, userId: userId});
+      if (i % 100 >= 60) {
+        i -= 60;
+        i += 100;
+      }
+    }
+    return cquests;
+  }, [curTime]);
+  const [quests, setQuests] = useState<QuestData.DataType[]>(questInit());
+
   const todayStr = GetTodayString();
   return (
     <View>
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
-      <QuestByTime
-        startHour={18}
-        startMinute={0}
-        endHour={18}
-        endMinute={30}
-        task="할일"
+      <FlatList
+        data={quests}
+        renderItem={({item}) => (
+          <QuestByTime
+            startTime={item.startTime}
+            during={30}
+            task={item.name}
+          />
+        )}
       />
     </View>
   );

@@ -3,22 +3,23 @@ import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 type QuestByTimeProps = {
-  startHour: number;
-  startMinute: number;
-  endHour: number;
-  endMinute: number;
+  startTime: number;
+  during: number;
   task: string;
   onPress?: () => void;
 };
 
 const QuestByTime: FC<QuestByTimeProps> = ({
-  startHour,
-  startMinute,
-  endHour,
-  endMinute,
+  startTime,
+  during,
   task,
   onPress,
 }) => {
+  const endTime = startTime + (during / 60) * 100 + (during % 60);
+  const startHour = startTime / 100;
+  const startMinute = startTime % 100;
+  const endHour = endTime / 100;
+  const endMinute = endTime % 100;
   const myTime =
     startHour.toString() +
     ':' +
@@ -44,7 +45,7 @@ const QuestByTime: FC<QuestByTimeProps> = ({
 
 const styles = StyleSheet.create({
   view: {marginHorizontal: 20, marginVertical: 10},
-  tco: {width: '100%', height: 75},
+  tco: {width: '100%', height: 75, borderColor: '#000000'},
 });
 
 export default QuestByTime;
