@@ -15,6 +15,7 @@ const TodayQuestSelector: FC<TodayQuestSelectorProps> = ({item}) => {
   return (
     <View>
       <Text>이 창에서 퀘스트를 선택해주세요</Text>
+      <Text>{item.startTime.toString() + '시에 수행할'}</Text>
       <TouchableOpacity style={styles.tco} onPress={() => setAdderOpened(true)}>
         <Text>퀘스트 추가</Text>
       </TouchableOpacity>
