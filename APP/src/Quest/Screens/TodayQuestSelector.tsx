@@ -10,14 +10,23 @@ type TodayQuestSelectorProps = {
   item: QuestData.DataType;
 };
 
-const TodayQuestSelector: FC<TodayQuestSelectorProps> = ({item}) => {
-  const [isAdderOpened, setAdderOpened] = useState(false);
+const TodayQuestSelector: FC<TodayQuestSelectorProps> = (
+  {item},
+  {navigation}: {navigation: any},
+) => {
+  //const [isAdderOpened, setAdderOpened] = useState(false);
   return (
     <View>
       <Text>이 창에서 퀘스트를 선택해주세요</Text>
-      <Text>{item.startTime.toString() + '시에 수행할'}</Text>
-      <TouchableOpacity style={styles.tco} onPress={() => setAdderOpened(true)}>
+      <Text>{item.startTime.toString() + '시간에 수행할 퀘스트'}</Text>
+      <TouchableOpacity
+        style={styles.tco}
+        onPress={() => navigation.navigate('ADDER')}>
         <Text>퀘스트 추가</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.tco} onPress={() => navigation.goBack()}>
+        <Text>확인</Text>
       </TouchableOpacity>
     </View>
   );

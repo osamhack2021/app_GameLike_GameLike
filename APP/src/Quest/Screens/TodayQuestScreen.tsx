@@ -8,6 +8,7 @@ import TodayQuestSelector from './TodayQuestSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {insertTodayQuestsAction} from '../../Store';
+import {useNavigation} from '@react-navigation/core';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -21,7 +22,7 @@ const ex: QuestData.DataType = {
 
 const during = 30; //각 퀘스트당 몇 분 진행할지
 
-export default function TodayQuestScreen() {
+export default function TodayQuestScreen({navigation}: {navigation: any}) {
   const dispatch = useDispatch();
   const today = 20211007;
   const userId = '';
@@ -43,13 +44,11 @@ export default function TodayQuestScreen() {
   }, [curTime, dispatch]);
 
   const todayStr = GetTodayString();
-  const [isSelection, setSelection] = useState(false);
-  let selectedItem: QuestData.DataType = quests[0];
+
   return (
     <View>
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
-      {isSelection ? <TodayQuestSelector item={selectedItem} /> : <></>}
       <FlatList
         data={quests}
         renderItem={({item}) => (
@@ -57,10 +56,7 @@ export default function TodayQuestScreen() {
             startTime={item.startTime}
             during={30}
             task={item.name}
-            onPress={() => {
-              setSelection(true);
-              selectedItem = item;
-            }}
+            onPress={() => navigation.navigate('SELECTOR', {item})}
           />
         )}
       />
