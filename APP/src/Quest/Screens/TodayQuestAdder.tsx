@@ -6,5 +6,9 @@ import textStyles from '../Styles/QuestTextStyles';
 import {QuestData} from '../Datas';
 
 export default function TodayQuestAdder() {
-  return <View></View>;
+  return (
+    <View>
+      <Text>TodayQuestAdder</Text>
+    </View>
+  );
 }

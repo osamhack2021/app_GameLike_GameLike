@@ -43,7 +43,7 @@ export default function TodayQuestScreen() {
   }, [curTime, dispatch]);
 
   const todayStr = GetTodayString();
-  let isSelection = false;
+  const [isSelection, setSelection] = useState(false);
   let selectedItem: QuestData.DataType = quests[0];
   return (
     <View>
@@ -58,7 +58,7 @@ export default function TodayQuestScreen() {
             during={30}
             task={item.name}
             onPress={() => {
-              isSelection = true;
+              setSelection(true);
               selectedItem = item;
             }}
           />
