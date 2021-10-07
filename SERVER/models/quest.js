@@ -45,5 +45,11 @@ module.exports = class Quest extends Sequelize.Model {
   }
 
   static associate(db) {
+    db.Quest.belongsTo(db.User);
+    db.Quest.belongsToMany(db.Hashtag, { through: 'QuestHashtag' });
+    db.Quest.belongsToMany(db.User, {
+      through : 'Like', 
+      as: 'Liker',
+    });
   }
 };
