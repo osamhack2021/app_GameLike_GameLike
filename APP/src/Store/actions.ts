@@ -6,7 +6,9 @@ export type QuestCheckActions =
   | GotoCurAction
   | GotoPrevAction
   | GotoTodayAction;
-export type QuestInsertActions = InsertTodayQuestAction;
+export type QuestInsertActions =
+  | InsertTodayQuestAction
+  | ReplaceTodayQuestAction;
 
 export type Actions = QuestCheckActions | QuestInsertActions;
 
@@ -30,5 +32,14 @@ export type InsertTodayQuestAction = Action<'insertTodayQuests'> & {
 };
 export const insertTodayQuestsAction = (datas: QuestData.DataType[]) => ({
   type: 'insertTodayQuests',
+  datas: datas,
+});
+
+//data replace actions
+export type ReplaceTodayQuestAction = Action<'replaceTodayQuests'> & {
+  datas: QuestData.DataType[];
+};
+export const replaceTodayQuestsAction = (datas: QuestData.DataType[]) => ({
+  type: 'replaceTodayQuests',
   datas: datas,
 });
