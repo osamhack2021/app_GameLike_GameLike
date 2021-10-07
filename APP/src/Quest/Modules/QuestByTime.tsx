@@ -15,10 +15,10 @@ const QuestByTime: FC<QuestByTimeProps> = ({
   task,
   onPress,
 }) => {
-  const endTime = startTime + (during / 60) * 100 + (during % 60);
-  const startHour = startTime / 100;
+  const endTime = startTime + Math.floor(during / 60) * 100 + (during % 60);
+  const startHour = Math.floor(startTime / 100);
   const startMinute = startTime % 100;
-  const endHour = endTime / 100;
+  const endHour = Math.floor(endTime / 100);
   const endMinute = endTime % 100;
   const myTime =
     startHour.toString() +

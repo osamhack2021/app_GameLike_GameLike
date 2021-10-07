@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import GetTodayString from '../Modules/GetTodayString';
+import GetTodayString from '../Times/GetTodayString';
 import textStyles from '../Styles/QuestTextStyles';
 
 export default function CurrentQuestScreen() {
