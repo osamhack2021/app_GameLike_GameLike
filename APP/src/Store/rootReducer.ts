@@ -1,32 +1,38 @@
 import {AppState} from './AppState';
-import type {LoginActions, QuestCheckActions} from './actions';
+import {combineReducers} from 'redux';
+import type {
+  LoginActions,
+  QuestCheckActions,
+  QuestInsertActions,
+} from './actions';
 
-const initialState: AppState = {
-  loggedIn: false,
-  loggedUser: {email: '', name: '', password: ''},
-  questScreenState: {prevTaskChecked: false, todayTaskChecked: false},
+export const questDatasReducer = (
+  state = {todayDatas: []},
+  action: QuestInsertActions,
+) => {
+  switch (action.type) {
+    case 'insertTodayQuests':
+      return {todayDatas: [...state.todayDatas, ...action.datas]};
+  }
+  return state;
 };
 
-export const rootReducer = (
-  state: AppState = initialState,
+export const questStateReducer = (
+  state = {prevTaskChecked: false, todayTaskChecked: false},
   action: QuestCheckActions,
 ) => {
   switch (action.type) {
     case 'gotoPrev':
-      return {
-        ...state,
-        questScreenState: {prevTaskChecked: false, todayTaskChecked: false},
-      };
+      return {prevTaskChecked: false, todayTaskChecked: false};
     case 'gotoCur':
-      return {
-        ...state,
-        questScreenState: {prevTaskChecked: true, todayTaskChecked: false},
-      };
+      return {prevTaskChecked: true, todayTaskChecked: false};
     case 'gotoToday':
-      return {
-        ...state,
-        questScreenState: {prevTaskChecked: true, todayTaskChecked: true},
-      };
+      return {prevTaskChecked: true, todayTaskChecked: true};
   }
   return state;
 };
+
+export const rootReducer = combineReducers({
+  questScreenState: questStateReducer,
+  questDatas: questDatasReducer,
+});

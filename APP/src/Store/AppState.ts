@@ -1,3 +1,5 @@
+import {QuestData} from '../Quest/Datas';
+
 export type User = {
   name: string;
   email: string;
@@ -9,8 +11,13 @@ export type QuestScreenState = {
   todayTaskChecked: boolean;
 };
 
+export type QuestDatas = {
+  todayDatas: QuestData.DataType[];
+};
+
 export type AppState = {
-  loggedIn: boolean;
-  loggedUser: User;
+  //loggedIn: boolean;
+  //loggedUser: User;
   questScreenState: QuestScreenState;
+  questDatas: QuestDatas;
 };
