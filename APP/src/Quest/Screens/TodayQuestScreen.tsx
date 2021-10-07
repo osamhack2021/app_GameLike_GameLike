@@ -42,7 +42,7 @@ export default function TodayQuestScreen() {
     <View>
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
-      {isSelection ? <></> : <TodayQuestSelector item={selectedItem} />}
+      {isSelection ? <TodayQuestSelector item={selectedItem} /> : <></>}
       <FlatList
         data={quests}
         renderItem={({item}) => (
