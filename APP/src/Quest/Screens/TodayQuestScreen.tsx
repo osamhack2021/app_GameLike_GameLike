@@ -51,14 +51,12 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList
         data={quests}
-        renderItem={({item}) => (
+        renderItem={ri => (
           <QuestByTime
-            startTime={item.startTime}
+            startTime={ri.item.startTime}
             during={30}
-            task={item.name}
-            onPress={() =>
-              navigation.navigate('SELECTOR', {startTime: item.startTime})
-            }
+            task={ri.item.name}
+            onPress={() => navigation.navigate('SELECTOR', {index: ri.index})}
           />
         )}
       />

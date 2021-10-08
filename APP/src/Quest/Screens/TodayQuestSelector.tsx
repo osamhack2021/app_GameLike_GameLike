@@ -5,6 +5,8 @@ import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
 import {QuestData} from '../Datas';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../Store';
 
 type TodayQuestSelectorProps = {
   item: QuestData.DataType;
@@ -17,11 +19,17 @@ const TodayQuestSelector = ({
   navigation: any;
   route: any;
 }) => {
-  const {startTime} = route.params;
+  const {index} = route.params;
+
+  const quests = useSelector<AppState, QuestData.DataType[]>(
+    state => state.questDatas.todayDatas,
+  );
+  const element = quests[index];
+
   return (
     <View>
       <Text>이 창에서 퀘스트를 선택해주세요</Text>
-      <Text>{startTime.toString() + '시간에 수행할 퀘스트'}</Text>
+      <Text>{element.startTime.toString() + '에 수행할 퀘스트'}</Text>
       <TouchableOpacity
         style={styles.tco}
         onPress={() => navigation.navigate('ADDER')}>
