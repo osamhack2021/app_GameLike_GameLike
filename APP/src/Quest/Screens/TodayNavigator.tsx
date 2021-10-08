@@ -8,7 +8,7 @@ import TodayQuestAdder from './TodayQuestAdder';
 
 const Stack = createStackNavigator();
 
-export default function App() {
+export default function TodayNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SCREEN">

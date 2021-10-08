@@ -6,7 +6,11 @@ import TodayQuestScreen from './Screens/TodayQuestScreen';
 import {Provider as ReduxProvider, useSelector} from 'react-redux';
 import {AppState, makeStore} from '../Store';
 import QuestScreenSelector from './QuestScreenSelector';
+import {createStackNavigator} from '@react-navigation/stack';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import TodayNavigator from './Screens/TodayNavigator';
 
+const Stack = createStackNavigator();
 export default function QuestScreen() {
   const prevTask = useSelector<AppState, boolean>(
     state => state.questScreenState.prevTaskChecked,
@@ -15,23 +19,17 @@ export default function QuestScreen() {
     state => state.questScreenState.todayTaskChecked,
   );
 
-  const [prevTaskConfirmed, setPrevTaskConfirmed] = useState(false);
-  const [todayQuestProduced, setTodayQuestProduced] = useState(false);
   return (
     <View>
-      <QuestScreenSelector />
-      <ScrollView>
-        {prevTask ? (
-          curTask ? (
-            <CurrentQuestScreen />
-          ) : (
-            <TodayQuestScreen />
-          )
-        ) : (
-          <PrevQuestScreen />
-        )}
-        <TodayQuestScreen />
-      </ScrollView>
+      <TodayNavigator />
     </View>
   );
+  // return (
+  //   <View>
+  //     <Stack.Navigator>
+  //       <Stack.Screen name="today" component={TodayQuestScreen} />
+  //       <Stack.Screen name="current" component={CurrentQuestScreen} />
+  //     </Stack.Navigator>
+  //   </View>
+  // );
 }
