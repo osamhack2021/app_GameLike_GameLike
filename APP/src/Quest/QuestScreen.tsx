@@ -20,10 +20,8 @@ export default function QuestScreen() {
   );
 
   return (
-    <View>
-      <Stack.Navigator initialRouteName="TODAY">
-        <Stack.Screen name="TODAY" component={TodayNavigator} />
-      </Stack.Navigator>
-    </View>
+    <Stack.Navigator initialRouteName="TODAY">
+      <Stack.Screen name="TODAY" component={TodayNavigator} />
+    </Stack.Navigator>
   );
 }
