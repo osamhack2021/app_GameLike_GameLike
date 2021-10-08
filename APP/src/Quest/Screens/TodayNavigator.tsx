@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 export default function TodayNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="SCREEN">
       <Stack.Screen name="SCREEN" component={TodayQuestScreen} />
     </Stack.Navigator>
   );
