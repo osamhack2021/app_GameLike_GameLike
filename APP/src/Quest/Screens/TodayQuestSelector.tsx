@@ -32,7 +32,7 @@ const TodayQuestSelector = ({
       <Text>{element.startTime.toString() + '에 수행할 퀘스트'}</Text>
       <TouchableOpacity
         style={styles.tco}
-        onPress={() => navigation.navigate('ADDER')}>
+        onPress={() => navigation.navigate('ADDER', {index: index})}>
         <Text>퀘스트 추가</Text>
       </TouchableOpacity>
 

@@ -7,7 +7,14 @@ import {QuestData} from '../Datas';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
-export default function TodayQuestAdder({navigation}: {navigation: any}) {
+export default function TodayQuestAdder({
+  navigation,
+  route,
+}: {
+  navigation: any;
+  route: any;
+}) {
+  const {index} = route.params;
   const [questName, setQuest] = useState('');
   const [fieldName, setField] = useState('');
   const [during, setDuring] = useState('');
@@ -22,14 +29,14 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         onChangeText={text => setQuest(text)}
       />
       <TextInput
-        value={questName}
+        value={fieldName}
         placeholder="#분야"
-        onChangeText={text => setQuest(text)}
+        onChangeText={text => setField(text)}
       />
       <TextInput
-        value={questName}
+        value={during}
         placeholder="소요시간"
-        onChangeText={text => setQuest(text)}
+        onChangeText={text => setDuring(text)}
       />
       <TouchableOpacity
         style={styles.tco}
