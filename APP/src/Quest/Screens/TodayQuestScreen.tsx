@@ -47,24 +47,19 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
 
   return (
     <View>
-      <Text>todayquest</Text>
+      <Text style={textStyles.small}>{todayStr}</Text>
+      <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
+      <FlatList
+        data={quests}
+        renderItem={({item}) => (
+          <QuestByTime
+            startTime={item.startTime}
+            during={30}
+            task={item.name}
+            onPress={() => navigation.navigate('SELECTOR', {item})}
+          />
+        )}
+      />
     </View>
   );
-  // return (
-  //   <View>
-  //     <Text style={textStyles.small}>{todayStr}</Text>
-  //     <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
-  //     <FlatList
-  //       data={quests}
-  //       renderItem={({item}) => (
-  //         <QuestByTime
-  //           startTime={item.startTime}
-  //           during={30}
-  //           task={item.name}
-  //           onPress={() => navigation.navigate('SELECTOR', {item})}
-  //         />
-  //       )}
-  //     />
-  //   </View>
-  // );
 }
