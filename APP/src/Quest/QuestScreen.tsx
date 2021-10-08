@@ -10,6 +10,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import TodayNavigator from './Screens/TodayNavigator';
 
+const Stack = createStackNavigator();
 export default function QuestScreen() {
   const prevTask = useSelector<AppState, boolean>(
     state => state.questScreenState.prevTaskChecked,
@@ -20,15 +21,9 @@ export default function QuestScreen() {
 
   return (
     <View>
-      <TodayNavigator />
+      <Stack.Navigator initialRouteName="TODAY">
+        <Stack.Screen name="TODAY" component={TodayNavigator} />
+      </Stack.Navigator>
     </View>
   );
-  // return (
-  //   <View>
-  //     <Stack.Navigator>
-  //       <Stack.Screen name="today" component={TodayQuestScreen} />
-  //       <Stack.Screen name="current" component={CurrentQuestScreen} />
-  //     </Stack.Navigator>
-  //   </View>
-  // );
 }
