@@ -20,7 +20,7 @@ export default function QuestScreen() {
 
   return (
     <View>
-      <Text>hi</Text>
+      <TodayNavigator />
     </View>
   );
   // return (
