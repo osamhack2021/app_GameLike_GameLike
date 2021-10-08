@@ -67,6 +67,7 @@ export default function TodayQuestAdder({
       <TouchableOpacity
         style={styles.tco}
         onPress={() => {
+          onQuestAdd();
           navigation.popToTop();
         }}>
         <Text>입력 완료</Text>
