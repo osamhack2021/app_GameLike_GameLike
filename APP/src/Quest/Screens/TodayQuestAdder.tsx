@@ -31,7 +31,9 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         placeholder="소요시간"
         onChangeText={text => setQuest(text)}
       />
-      <TouchableOpacity style={styles.tco} onPress={() => navigation.goBack()}>
+      <TouchableOpacity
+        style={styles.tco}
+        onPress={() => navigation.popToTop()}>
         <Text>입력 완료</Text>
       </TouchableOpacity>
     </View>
