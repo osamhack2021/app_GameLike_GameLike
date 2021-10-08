@@ -10,6 +10,7 @@ import ProfileScreen from './Component/ProfileScreen';
 import DungeonScreen from './Component/DungeonScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import TodayNavigator from './Quest/Screens/TodayNavigator';
 
 // import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -23,7 +24,7 @@ export default function MainScreen() {
         tabBarInactiveBackgroundColor: 'gray',
       })}>
       <Tab.Screen name="홈" component={HomeScreen} />
-      <Tab.Screen name="퀘스트" component={QuestScreen} />
+      <Tab.Screen name="퀘스트" component={TodayNavigator} />
       <Tab.Screen name="던전" component={DungeonScreen} />
       <Tab.Screen name="프로필" component={ProfileScreen} />
       <Tab.Screen name="설정" component={SettingScreen} />
