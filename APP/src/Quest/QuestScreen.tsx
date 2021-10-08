@@ -19,11 +19,15 @@ export default function QuestScreen() {
     state => state.questScreenState.todayTaskChecked,
   );
 
-  return (
-    <View>
-      <TodayNavigator />
-    </View>
-  );
+  let res = <Text>bbb</Text>;
+  try {
+    res = <TodayNavigator />;
+  } catch (e) {
+    if (e instanceof Error) {
+      res = <Text>{e.message}</Text>;
+    }
+  }
+  return <View>{res}</View>;
   // return (
   //   <View>
   //     <Stack.Navigator>
