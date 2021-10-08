@@ -25,7 +25,7 @@ export default function MainScreen() {
       })}>
       <Tab.Screen name="홈" component={HomeScreen} />
       <Tab.Screen name="퀘스트" component={TodayNavigator} />
-      <Tab.Screen name="던전" component={DungeonScreen} />
+      <Tab.Screen name="던전" component={QuestScreen} />
       <Tab.Screen name="프로필" component={ProfileScreen} />
       <Tab.Screen name="설정" component={SettingScreen} />
     </Tab.Navigator>
