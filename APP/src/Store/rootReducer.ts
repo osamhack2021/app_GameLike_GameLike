@@ -13,6 +13,8 @@ export const questDatasReducer = (
   switch (action.type) {
     case 'insertTodayQuests':
       return {todayDatas: [...state.todayDatas, ...action.datas]};
+    case 'replaceTodayQuests':
+      return {todayDatas: [...action.datas]};
   }
   return state;
 };

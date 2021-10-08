@@ -8,7 +8,8 @@ export type QuestCheckActions =
   | GotoTodayAction;
 export type QuestInsertActions =
   | InsertTodayQuestAction
-  | ReplaceTodayQuestAction;
+  | ReplaceTodayQuestAction
+  | ReplaceTodayQuestActionByIndex;
 
 export type Actions = QuestCheckActions | QuestInsertActions;
 
@@ -42,4 +43,19 @@ export type ReplaceTodayQuestAction = Action<'replaceTodayQuests'> & {
 export const replaceTodayQuestsAction = (datas: QuestData.DataType[]) => ({
   type: 'replaceTodayQuests',
   datas: datas,
+});
+
+//data replace actions by Index
+export type ReplaceTodayQuestActionByIndex =
+  Action<'replaceTodayQuestByIndex'> & {
+    data: QuestData.DataType;
+    index: number;
+  };
+export const replaceTodayQuestActionByIndex = (
+  data: QuestData.DataType,
+  index: number,
+) => ({
+  type: 'replaceTodayQuestByIndex',
+  data: data,
+  index: index,
 });
