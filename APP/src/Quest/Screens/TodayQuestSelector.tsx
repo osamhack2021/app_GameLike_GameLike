@@ -10,14 +10,18 @@ type TodayQuestSelectorProps = {
   item: QuestData.DataType;
 };
 
-const TodayQuestSelector: FC<TodayQuestSelectorProps> = (
-  {item},
-  {navigation}: {navigation: any},
-) => {
+const TodayQuestSelector = ({
+  route,
+  navigation,
+}: {
+  navigation: any;
+  route: any;
+}) => {
+  const {startTime} = route.params;
   return (
     <View>
       <Text>이 창에서 퀘스트를 선택해주세요</Text>
-      <Text>{item.startTime.toString() + '시간에 수행할 퀘스트'}</Text>
+      <Text>{startTime.toString() + '시간에 수행할 퀘스트'}</Text>
       <TouchableOpacity
         style={styles.tco}
         onPress={() => navigation.navigate('ADDER')}>

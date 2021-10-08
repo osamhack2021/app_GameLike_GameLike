@@ -56,7 +56,9 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
             startTime={item.startTime}
             during={30}
             task={item.name}
-            onPress={() => navigation.navigate('SELECTOR', {item})}
+            onPress={() =>
+              navigation.navigate('SELECTOR', {startTime: item.startTime})
+            }
           />
         )}
       />
