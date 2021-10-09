@@ -26,6 +26,17 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   }
 });
 
+router.get('/join', async(req, res, next) => {
+	const email = "a@n.n"
+    try {
+		const exUser = await User.findOne({ where: { email } });
+		res.json({email : exUser.email, nick : exUser.nick, password : exUser.password});
+	  } catch (error) {
+		console.error(error);
+		return next(error);
+	  }
+});
+
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {

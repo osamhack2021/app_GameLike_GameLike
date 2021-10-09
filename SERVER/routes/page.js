@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const { Post, User } = require('../models');
@@ -45,6 +46,18 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/.well-known/acme-challenge/a53GU9kch6h_ktM35qi1hFz-tz8zwkUIpV683BD5NAk', async (req, res, next) => {
+  try {
+    res.sendFile(path.join(__dirname, 
+      "../public/.well-known/acme-challenge/",
+      "a53GU9kch6h_ktM35qi1hFz-tz8zwkUIpV683BD5NAk"
+    ));
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}); 
 // router.get('/', async (req, res, next) => {
 //   console.log(req.user);
 //   const posts = await Post.findAll({
