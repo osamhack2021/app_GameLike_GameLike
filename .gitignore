@@ -1,4 +1,6 @@
 /test/
 /SERVER/node_modules/
+/SERVER/keys/
+/SERVER/greenlock.d
 /node_modules/
 .expo

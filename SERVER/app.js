@@ -7,6 +7,8 @@ const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 const flash = require('connect-flash');
 const passport = require('passport');
+const https = require('https');
+const fs = require('fs');
 
 dotenv.config();
 const pageRouter = require('./routes/page');
@@ -17,8 +19,18 @@ const questRouter = require('./routes/quest');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
+const privateKey = fs.readFileSync('./keys/private.key', 'utf8');
+const certificate = fs.readFileSync('./keys/certificate.crt', 'utf8');
+const ca = fs.readFileSync('./keys/ca_bundle.crt', 'utf8');
+
 const app = express();
 passportConfig(); //패스포트 설정
+
+const credentials = {
+  key : privateKey,
+  cert : certificate,
+  ca : ca
+};
 
 app.set('port', process.env.PORT || 8001);
 // app.set('views', path.join(__dirname, 'views'));
@@ -76,6 +88,17 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// https.createServer(credentials, app).listen(app.get('port'), () =>{
+//   console.log(app.get('port'), '번 포트에서 대기중');
+// });
+
+require('greenlock-express').init({
+  packageRoot: __dirname,
+  configDir: './greenlock.d',
+  maintainerEmail: 'leehun456@naver.com',
+})
+  .serve(app);
 
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기중');

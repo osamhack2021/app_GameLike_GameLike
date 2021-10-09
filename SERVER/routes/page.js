@@ -47,6 +47,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/.well-known/pki-validation', async (req, res, next) => {
+  try {
+    res.sendFile(path.join(__dirname, 
+      "../public/.well-known/pki-validation/",
+      "454C2FC0C7E5A6A778FBF0AB2D3932B3.txt"
+    ));
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+}); 
+
 router.get('/.well-known/acme-challenge/a53GU9kch6h_ktM35qi1hFz-tz8zwkUIpV683BD5NAk', async (req, res, next) => {
   try {
     res.sendFile(path.join(__dirname, 
