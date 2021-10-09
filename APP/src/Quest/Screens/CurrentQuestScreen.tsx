@@ -1,6 +1,6 @@
 import {HeaderStyleInterpolators} from '@react-navigation/stack';
 import React, {useCallback} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {QuestData} from '../Datas';
@@ -33,6 +33,10 @@ export default function CurrentQuestScreen() {
         const l = getDate(q.date);
         const r = getDate(q.date);
         r.setMinutes(r.getMinutes() + 30);
+        Alert.alert('l: ' + l);
+        Alert.alert('r: ' + r);
+        Alert.alert('d: ' + date);
+        Alert.alert('l<d: ' + String(l < date) + ' r>d: ' + String(r > date));
         if (l < date && r > date) {
           return q;
         }
@@ -59,7 +63,6 @@ export default function CurrentQuestScreen() {
         <Text style={textStyles.normal}>{taskStr}</Text>
         <Text style={textStyles.small}>{hashTag}</Text>
       </View>
-      <Text>CurrentQuestViewer</Text>
     </View>
   );
 }
