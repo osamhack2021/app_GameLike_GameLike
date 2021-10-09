@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, SafeAreaView, Text, View} from 'react-native';
 import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
 import {QuestData} from '../Datas';
@@ -10,6 +10,7 @@ import {insertTodayQuestsAction} from '../../Store';
 import {useNavigation} from '@react-navigation/core';
 import getDateString from '../Times/getDateString';
 import getDate from '../Times/getDate';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -22,10 +23,15 @@ const ex: QuestData.DataType = {
 
 const during = 30; //각 퀘스트당 몇 분 진행할지
 
-export default function TodayQuestScreen({navigation}: {navigation: any}) {
+export default function TodayQuestScreen({
+  route,
+  navigation,
+}: {
+  route: any;
+  navigation: any;
+}) {
   const dispatch = useDispatch();
   const userId = '';
-  //const [quests, setQuests] = useState<QuestData.DataType[]>(questInit());
   const quests = useSelector<AppState, QuestData.DataType[]>(
     state => state.questDatas.todayDatas,
   );
@@ -46,11 +52,10 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
     }
     dispatch(insertTodayQuestsAction(cquests));
   }, [dispatch]);
-
   const todayStr = getDate().toLocaleDateString();
 
   return (
-    <View>
+    <SafeAreaView>
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList
@@ -64,6 +69,12 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
           />
         )}
       />
-    </View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('CURRENT');
+        }}>
+        <Text>확인</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 }

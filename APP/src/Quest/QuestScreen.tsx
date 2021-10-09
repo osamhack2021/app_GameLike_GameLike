@@ -5,7 +5,6 @@ import PrevQuestScreen from './Screens/PrevQuestScreen';
 import TodayQuestScreen from './Screens/TodayQuestScreen';
 import {Provider as ReduxProvider, useSelector} from 'react-redux';
 import {AppState, makeStore} from '../Store';
-import QuestScreenSelector from './QuestScreenSelector';
 import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import TodayNavigator from './Screens/TodayNavigator';
@@ -22,6 +21,7 @@ export default function QuestScreen() {
   return (
     <Stack.Navigator initialRouteName="TODAY">
       <Stack.Screen name="TODAY" component={TodayNavigator} />
+      <Stack.Screen name="CURRENT" component={CurrentQuestScreen} />
     </Stack.Navigator>
   );
 }

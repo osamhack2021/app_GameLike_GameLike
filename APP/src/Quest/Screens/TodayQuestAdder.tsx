@@ -31,6 +31,7 @@ export default function TodayQuestAdder({
   //3. gototop
 
   const onQuestAdd = useCallback(() => {
+    //입력 데이터 검증
     if (questName === '') {
       Alert.alert('퀘스트 이름을 입력해주세요!');
       return;
@@ -39,12 +40,14 @@ export default function TodayQuestAdder({
       Alert.alert('분야 이름을 입력해주세요!');
       return;
     }
+    //기존 redux 내 quest 배열을 replace할 배열 생성
     const cquests = [...quests];
     cquests[index] = {
       ...cquests[index],
       name: questName,
       fieldName: fieldName,
     };
+    //redux dispatch
     dispatch(replaceTodayQuestsAction(cquests));
   }, [dispatch, fieldName, questName, index, quests]);
 

@@ -30,7 +30,6 @@ const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
 
   return (
     <View style={styles.view}>
-      <Text>{startDate.toString()}</Text>
       <Text>{myTime}</Text>
       <TouchableOpacity style={styles.tco} onPress={onPress}>
         <Text>{task}</Text>
