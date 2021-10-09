@@ -81,5 +81,5 @@ export default function TodayQuestScreen({
 }
 
 const styles = StyleSheet.create({
-  tco: {marginBottom: 300},
+  tco: {height: 50, borderWidth: 1, alignContent: 'center'},
 });
