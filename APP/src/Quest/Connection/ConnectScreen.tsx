@@ -46,7 +46,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
         setPLog(JSON.stringify(response.data));
       })
       .catch(error => {
-        JSON.stringify(error);
+        setPLog(JSON.stringify(error));
       });
   }, []);
   return (
@@ -61,6 +61,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
         }}
       />
       <Text>{log}</Text>
+      <Text>{plog}</Text>
     </View>
   );
 }
