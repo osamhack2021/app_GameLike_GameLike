@@ -4,6 +4,7 @@ import axios from 'axios';
 
 export default function ConnectScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
+  const [plog, setPLog] = useState('');
   const axGet = useCallback(() => {
     Alert.alert('콜백 시작!');
     try {
@@ -34,21 +35,25 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
       }
     }
   }, []);
-  // const axPost = useCallback(() => {
-  //   axios
-  //     .post('http://52.231.66.60/auth/join')
-  //     .then(Response => {
-  //       Alert.alert(Response.data);
-  //     })
-  //     .catch(Error => {
-  //       Alert.alert(Error);
-  //     });
-  // }, []);
-
+  const axPost = useCallback(() => {
+    axios
+      .post('http://52.231.66.60/auth/join', {
+        email: 'Fred',
+        nick: 'Flintstone',
+        password: '1',
+      })
+      .then(response => {
+        setPLog(JSON.stringify(response.data));
+      })
+      .catch(error => {
+        JSON.stringify(error);
+      });
+  }, []);
   return (
     <View>
       <Text>ConnectScreen</Text>
       <Button title="get" onPress={axGet} />
+      <Button title="post" onPress={axPost} />
       <Button
         title="Next"
         onPress={() => {
