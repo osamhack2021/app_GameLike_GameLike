@@ -10,7 +10,7 @@ import {insertTodayQuestsAction} from '../../Store';
 import {useNavigation} from '@react-navigation/core';
 import getDateString from '../Times/getDateString';
 import getDate from '../Times/getDate';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -55,7 +55,7 @@ export default function TodayQuestScreen({
   const todayStr = getDate().toLocaleDateString();
 
   return (
-    <SafeAreaView>
+    <ScrollView>
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList
@@ -76,7 +76,7 @@ export default function TodayQuestScreen({
         }}>
         <Text>확인</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
