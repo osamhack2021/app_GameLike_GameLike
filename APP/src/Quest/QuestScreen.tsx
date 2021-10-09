@@ -8,6 +8,7 @@ import {AppState, makeStore} from '../Store';
 import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import TodayNavigator from './Screens/TodayNavigator';
+import ConnectScreen from './Connection/ConnectScreen';
 
 const Stack = createStackNavigator();
 export default function QuestScreen() {
@@ -22,6 +23,7 @@ export default function QuestScreen() {
     <Stack.Navigator
       initialRouteName="TODAY"
       screenOptions={{headerShown: false}}>
+      <Stack.Screen name="CONNECTION" component={ConnectScreen} />
       <Stack.Screen name="TODAY" component={TodayNavigator} />
       <Stack.Screen name="CURRENT" component={CurrentQuestScreen} />
     </Stack.Navigator>
