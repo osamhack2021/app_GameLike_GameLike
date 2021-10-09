@@ -9,6 +9,7 @@ import {AppState} from '../../Store';
 import {insertTodayQuestsAction} from '../../Store';
 import {useNavigation} from '@react-navigation/core';
 import getDateString from '../Times/getDateString';
+import getDate from '../Times/getDate';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -31,7 +32,7 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
   useEffect(() => {
     //현재 시각 이후부터 21시까지의 QuestData를 생성함
     const cquests: QuestData.DataType[] = [];
-    const curDate = new Date();
+    const curDate = getDate();
     if (curDate.getMinutes() >= 30) {
       curDate.setMinutes(60);
     } else {
@@ -44,7 +45,7 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
     dispatch(insertTodayQuestsAction(cquests));
   }, [dispatch]);
 
-  const todayStr = new Date().toLocaleDateString();
+  const todayStr = getDate().toLocaleDateString();
 
   return (
     <View>

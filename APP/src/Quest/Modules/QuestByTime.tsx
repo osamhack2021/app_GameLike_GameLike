@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import get2Digits from '../Times/get2Digits';
+import getDate from '../Times/getDate';
 
 type QuestByTimeProps = {
   date: string;
@@ -11,11 +12,11 @@ type QuestByTimeProps = {
 };
 
 const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
-  let startDate = new Date(date);
-  let endDate = new Date(date);
+  let startDate = getDate(date);
+  let endDate = getDate(date);
   endDate.setMinutes(endDate.getMinutes() + during);
   const myTime =
-    startDate.getHours() +
+    get2Digits(startDate.getHours()) +
     ':' +
     get2Digits(startDate.getMinutes()) +
     '~' +
@@ -29,12 +30,7 @@ const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
 
   return (
     <View style={styles.view}>
-      <Text>{"'" + date + "'"}</Text>
       <Text>{startDate.toString()}</Text>
-      <Text>{new Date().toString()}</Text>
-      <Text>{new Date(date).toString()}</Text>
-      <Text>{new Date(2021, 10, 9, 12, 30, 25).toString()}</Text>
-      <Text>{new Date('2021-10-9 12:30:25').toString()}</Text>
       <Text>{myTime}</Text>
       <TouchableOpacity style={styles.tco} onPress={onPress}>
         <Text>{task}</Text>

@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import textStyles from '../Styles/QuestTextStyles';
+import getDate from '../Times/getDate';
 import getTodayString from '../Times/getTodayString';
 
 export default function CurrentQuestScreen() {
-  const todayStr = getTodayString(new Date());
+  const todayStr = getTodayString(getDate());
 
   const hashTag = '#코딩'; //db에서 받아오기
   const taskStr = '알고리즘 문제풀기'; //db에서 받아오기

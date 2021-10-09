@@ -8,6 +8,7 @@ import {useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import get2Digits from '../Times/get2Digits';
 import getHoursColonMinutes from '../Times/getHoursColonMinutes';
+import getDate from '../Times/getDate';
 
 const TodayQuestSelector = ({
   route,
@@ -22,7 +23,7 @@ const TodayQuestSelector = ({
     state => state.questDatas.todayDatas,
   );
   const element = quests[index];
-  const date = new Date(element.date);
+  const date = getDate(element.date);
 
   return (
     <View>
