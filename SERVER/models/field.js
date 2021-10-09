@@ -37,5 +37,10 @@ module.exports = class Field extends Sequelize.Model {
   }
 
   static associate(db) {
+    db.Field.hasMany(db.Quest, {
+      foreignKey: 'fieldName', sourceKey: 'name'
+    }); 
+    // 필드는 퀘스트 여러개 가질수있음
+    db.Field.belongsToMany(db.User, {through : 'FieldUser'});
   }
 };

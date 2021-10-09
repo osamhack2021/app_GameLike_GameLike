@@ -16,6 +16,17 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(100),
         allowNull: true,
       },
+      // enlistDate: {
+      //   type: Sequelize.STRING(30),
+      //   allowNull: false,
+      // },
+      // 복무시작일
+      // exp: {
+      //   type:Sequelize.INTEGER,
+      //   allowNull: false,
+      //   defaultValue: 0,
+      // }
+      // 경험치
       provider: {
         type: Sequelize.STRING(10),
         allowNull: false,
@@ -39,7 +50,9 @@ module.exports = class User extends Sequelize.Model {
 
   static associate(db) {
     db.User.hasMany(db.Post);
-    db.User.hasMany(db.Quest);
+    db.User.hasMany(db.Quest, {
+      foreignKey: 'creatorId', sourceKey: 'id'
+    });
 
     db.User.belongsToMany(db.User, {
       foreignKey: 'followingId',
@@ -53,5 +66,6 @@ module.exports = class User extends Sequelize.Model {
     });
     db.User.belongsToMany(db.Post, {through : 'Like'});
     db.User.belongsToMany(db.Quest, {through: 'Like'});
+    db.User.belongsToMany(db.Field, {through: 'FieldUser'});
   }
 };
