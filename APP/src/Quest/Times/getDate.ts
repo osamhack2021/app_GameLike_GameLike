@@ -15,7 +15,7 @@ export default function getDate(date: string = '') {
       for (let i of time) {
         d.push(parseInt(i, 10));
       }
-      return new Date(d[0], d[1], d[2], d[3], d[4], d[5]);
+      return new Date(d[0], d[1] - 1, d[2], d[3], d[4], d[5]);
     } catch (e) {
       if (e instanceof Error) {
         throw Error(e.message);

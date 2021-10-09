@@ -33,10 +33,6 @@ export default function CurrentQuestScreen() {
         const l = getDate(q.date);
         const r = getDate(q.date);
         r.setMinutes(r.getMinutes() + 30);
-        Alert.alert('l: ' + l);
-        Alert.alert('r: ' + r);
-        Alert.alert('d: ' + date);
-        Alert.alert('l<d: ' + String(l < date) + ' r>d: ' + String(r > date));
         if (l < date && r > date) {
           return q;
         }
