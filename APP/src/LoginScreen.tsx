@@ -33,10 +33,7 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
   */
 
   axios
-    .post('http://52.231.66.60/auth/join', {
-      firstName: 'Fred',
-      lastName: 'Flintstone',
-    })
+    .get('https://52.231.66.60/auth/join')
     .then(function (response) {
       console.log(response);
     })
