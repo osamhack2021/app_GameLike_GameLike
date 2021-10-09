@@ -21,7 +21,7 @@ export default function QuestScreen() {
 
   return (
     <Stack.Navigator
-      initialRouteName="TODAY"
+      initialRouteName="CONNECTION"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="CONNECTION" component={ConnectScreen} />
       <Stack.Screen name="TODAY" component={TodayNavigator} />
