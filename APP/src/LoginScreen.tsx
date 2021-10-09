@@ -1,8 +1,46 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import axios from 'axios';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 const LoginScreen = ({navigation}: {navigation: any}) => {
+  /*
+  const express = require('express');
+  const app = express();
+  app.get('/', (req: any, res: {send: (arg0: string) => void}) => {
+    res.send('Hello World');
+  });
+
+  axios
+    .post('http://52.231.66.60/auth/join', {
+      id: 4,
+      name: 'Cho',
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    //실패 시 catch 실행
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  const users = [
+    {id: 1, name: '유저1'},
+    {id: 2, name: '유저2'},
+    {id: 3, name: '유저3'},
+  ];
+
+  */
+
+  axios
+    .get('https://52.231.66.60/auth/join')
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
   return (
     <View style={styles.container}>
       <Text style={styles.yellow}>LOGIN</Text>

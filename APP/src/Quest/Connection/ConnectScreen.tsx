@@ -9,6 +9,8 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
   const [email, setEmail] = useState('');
   const [nick, setNick] = useState('');
   const [pw, setPW] = useState('');
+
+
   const axGet = useCallback(() => {
     Alert.alert('콜백 시작!');
     try {
