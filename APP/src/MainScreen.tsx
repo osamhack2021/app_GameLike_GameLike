@@ -5,11 +5,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './Component/HomeScreen';
 import SettingScreen from './Component/SettingScreen';
-import QuestScreen from './Component/QuestScreen';
+import QuestScreen from './Quest/QuestScreen';
 import ProfileScreen from './Component/ProfileScreen';
 import DungeonScreen from './Component/DungeonScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import TodayNavigator from './Quest/Screens/TodayNavigator';
 
 // import Icon from 'react-native-vector-icons/Ionicons';
 
