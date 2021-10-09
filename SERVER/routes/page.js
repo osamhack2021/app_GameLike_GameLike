@@ -21,9 +21,9 @@ router.get('/profile', isLoggedIn, (req, res) => {
 //회원가입 페이지
 router.get('/join', isNotLoggedIn, (req, res) => {
   res.render('join', {
-    title: '회원가입 - NodeBird'/*,
+    title: '회원가입 - NodeBird',
 	  user: req.user,
-	  joinError : req.flash('joinError'),*/
+	  joinError : req.flash('joinError'),
   });
 });
 

@@ -19,18 +19,18 @@ const questRouter = require('./routes/quest');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
-const privateKey = fs.readFileSync('./keys/private.key', 'utf8');
-const certificate = fs.readFileSync('./keys/certificate.crt', 'utf8');
-const ca = fs.readFileSync('./keys/ca_bundle.crt', 'utf8');
+// const privateKey = fs.readFileSync('./keys/private.key', 'utf8');
+// const certificate = fs.readFileSync('./keys/certificate.crt', 'utf8');
+// const ca = fs.readFileSync('./keys/ca_bundle.crt', 'utf8');
 
 const app = express();
 passportConfig(); //패스포트 설정
 
-const credentials = {
-  key : privateKey,
-  cert : certificate,
-  ca : ca
-};
+// const credentials = {
+//   key : privateKey,
+//   cert : certificate,
+//   ca : ca
+// };
 
 app.set('port', process.env.PORT || 8001);
 // app.set('views', path.join(__dirname, 'views'));
@@ -93,14 +93,15 @@ app.use((err, req, res, next) => {
 //   console.log(app.get('port'), '번 포트에서 대기중');
 // });
 
-require('greenlock-express').init({
-  packageRoot: __dirname,
-  configDir: './greenlock.d',
-  maintainerEmail: 'leehun456@naver.com',
-})
-  .serve(app);
+// require('greenlock-express').init({
+//   packageRoot: __dirname,
+//   configDir: './greenlock.d',
+//   maintainerEmail: 'leehun456@naver.com',
+// })
+//   .serve(app);
 
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기중');
 });
 
+//module.exports = app;
