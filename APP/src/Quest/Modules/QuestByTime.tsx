@@ -12,8 +12,8 @@ type QuestByTimeProps = {
 };
 
 const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
-  let startDate = getDate(date);
-  let endDate = getDate(date);
+  const startDate = getDate(date);
+  const endDate = getDate(date);
   endDate.setMinutes(endDate.getMinutes() + during);
   const myTime =
     get2Digits(startDate.getHours()) +
