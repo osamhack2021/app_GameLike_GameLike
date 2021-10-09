@@ -1,16 +1,34 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Text, View, Button, Alert} from 'react-native';
 import axios from 'axios';
 
 export default function ConnectScreen({navigation}: {navigation: any}) {
+  const [log, setLog] = useState('');
   const axGet = useCallback(() => {
     axios
       .get('http://52.231.66.60/auth/join')
-      .then(Response => {
-        Alert.alert(Response.data);
+      .then(response => {
+        try {
+          setLog(response.data);
+        } catch (e) {
+          setLog('일단 잘 됨');
+        }
       })
-      .catch(Error => {
-        Alert.alert(Error);
+      .catch(error => {
+        if (error instanceof Error) {
+          setLog(error.message);
+        } else {
+          try {
+            setLog(error);
+          } catch (e) {
+            setLog('');
+            if (e instanceof Error) {
+              setLog(e.message);
+            } else {
+              setLog('error ocurred');
+            }
+          }
+        }
       });
   }, []);
   const axPost = useCallback(() => {
@@ -35,6 +53,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
           navigation.navigate('TODAY');
         }}
       />
+      <Text>{log}</Text>
     </View>
   );
 }
