@@ -5,10 +5,12 @@ import axios from 'axios';
 export default function ConnectScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
   const axGet = useCallback(() => {
+    Alert.alert('콜백 시작!');
     try {
       axios
         .get('http://52.231.66.60/auth/join')
         .then(response => {
+          Alert.alert('then');
           try {
             setLog(response.data);
           } catch (e) {
@@ -16,22 +18,15 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
           }
         })
         .catch(error => {
+          Alert.alert('catch');
           if (error instanceof Error) {
             setLog(error.message);
           } else {
-            try {
-              setLog(error);
-            } catch (e) {
-              setLog('');
-              if (e instanceof Error) {
-                setLog(e.message);
-              } else {
-                setLog('error ocurred');
-              }
-            }
+            setLog('error ocurred');
           }
         });
     } catch (e) {
+      Alert.alert('뭔가 잘못됨');
       if (e instanceof Error) {
         setLog(e.message);
       } else {
@@ -39,22 +34,21 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
       }
     }
   }, []);
-  const axPost = useCallback(() => {
-    axios
-      .post('http://52.231.66.60/auth/join')
-      .then(Response => {
-        Alert.alert(Response.data);
-      })
-      .catch(Error => {
-        Alert.alert(Error);
-      });
-  }, []);
+  // const axPost = useCallback(() => {
+  //   axios
+  //     .post('http://52.231.66.60/auth/join')
+  //     .then(Response => {
+  //       Alert.alert(Response.data);
+  //     })
+  //     .catch(Error => {
+  //       Alert.alert(Error);
+  //     });
+  // }, []);
 
   return (
     <View>
       <Text>ConnectScreen</Text>
       <Button title="get" onPress={axGet} />
-      <Button title="post" onPress={axPost} />
       <Button
         title="Next"
         onPress={() => {
