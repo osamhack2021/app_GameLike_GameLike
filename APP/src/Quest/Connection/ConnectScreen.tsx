@@ -12,7 +12,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
         .then(response => {
           Alert.alert('then');
           try {
-            setLog(response.data);
+            setLog(JSON.stringify(response.data));
           } catch (e) {
             setLog('일단 잘 됨');
           }
