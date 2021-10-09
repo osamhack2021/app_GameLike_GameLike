@@ -9,7 +9,9 @@ const Stack = createStackNavigator();
 
 export default function TodayNavigator() {
   return (
-    <Stack.Navigator initialRouteName="SCREEN">
+    <Stack.Navigator
+      initialRouteName="SCREEN"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="SCREEN" component={TodayQuestScreen} />
       <Stack.Screen name="SELECTOR" component={TodayQuestSelector} />
       <Stack.Screen name="ADDER" component={TodayQuestAdder} />

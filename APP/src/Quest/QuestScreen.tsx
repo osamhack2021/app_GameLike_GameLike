@@ -19,7 +19,9 @@ export default function QuestScreen() {
   );
 
   return (
-    <Stack.Navigator initialRouteName="TODAY">
+    <Stack.Navigator
+      initialRouteName="TODAY"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="TODAY" component={TodayNavigator} />
       <Stack.Screen name="CURRENT" component={CurrentQuestScreen} />
     </Stack.Navigator>
