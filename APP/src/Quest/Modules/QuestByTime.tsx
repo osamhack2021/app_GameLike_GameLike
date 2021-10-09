@@ -11,8 +11,8 @@ type QuestByTimeProps = {
 };
 
 const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
-  const startDate = new Date(date);
-  const endDate = new Date(date);
+  let startDate = new Date(date);
+  let endDate = new Date(date);
   endDate.setMinutes(endDate.getMinutes() + during);
   const myTime =
     startDate.getHours() +
@@ -31,6 +31,9 @@ const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
     <View style={styles.view}>
       <Text>{"'" + date + "'"}</Text>
       <Text>{startDate.toString()}</Text>
+      <Text>{new Date().toString()}</Text>
+      <Text>{new Date(date).toString()}</Text>
+      <Text>{new Date('2021-10-09 12:30:25').toString()}</Text>
       <Text>{myTime}</Text>
       <TouchableOpacity style={styles.tco} onPress={onPress}>
         <Text>{task}</Text>
