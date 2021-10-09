@@ -1,6 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
-import GetTodayString from '../Times/GetTodayString';
 import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
 import {QuestData} from '../Datas';
@@ -9,13 +8,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {insertTodayQuestsAction} from '../../Store';
 import {useNavigation} from '@react-navigation/core';
+import getDateString from '../Times/getDateString';
 
 const ex: QuestData.DataType = {
   id: 0,
   name: '휴식',
   fieldName: '휴식',
-  startTime: 0,
-  date: 0,
+  date: '',
   userId: '',
   isPerformed: 0,
 };
@@ -24,26 +23,28 @@ const during = 30; //각 퀘스트당 몇 분 진행할지
 
 export default function TodayQuestScreen({navigation}: {navigation: any}) {
   const dispatch = useDispatch();
-  const today = 20211007;
   const userId = '';
-  let curTime = 1800;
   //const [quests, setQuests] = useState<QuestData.DataType[]>(questInit());
   const quests = useSelector<AppState, QuestData.DataType[]>(
     state => state.questDatas.todayDatas,
   );
   useEffect(() => {
+    //현재 시각 이후부터 21시까지의 QuestData를 생성함
     const cquests: QuestData.DataType[] = [];
-    for (let i = curTime; i < 2100; i += during) {
-      if (i % 100 >= 60) {
-        i -= 60;
-        i += 100;
-      }
-      cquests.push({...ex, startTime: i, date: today, userId: userId});
+    const curDate = new Date();
+    if (curDate.getMinutes() >= 30) {
+      curDate.setMinutes(60);
+    } else {
+      curDate.setMinutes(30);
+    }
+    while (curDate.getHours() < 21) {
+      cquests.push({...ex, date: getDateString(curDate), userId: userId});
+      curDate.setMinutes(curDate.getMinutes() + 30);
     }
     dispatch(insertTodayQuestsAction(cquests));
-  }, [curTime, dispatch]);
+  }, [dispatch]);
 
-  const todayStr = GetTodayString();
+  const todayStr = new Date().toLocaleDateString();
 
   return (
     <View>
@@ -53,7 +54,7 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
         data={quests}
         renderItem={ri => (
           <QuestByTime
-            startTime={ri.item.startTime}
+            date={ri.item.date}
             during={30}
             task={ri.item.name}
             onPress={() => navigation.navigate('SELECTOR', {index: ri.index})}

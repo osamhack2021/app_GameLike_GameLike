@@ -5,8 +5,7 @@ type DataType = {
   name: string;
   fieldName: string;
 
-  startTime: number;
-  date: number;
+  date: string;
 
   userId: string;
   isPerformed: number;

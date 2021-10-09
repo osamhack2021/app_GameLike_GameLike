@@ -1,32 +1,27 @@
 import React, {FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import get2Digits from '../Times/get2Digits';
 
 type QuestByTimeProps = {
-  startTime: number;
+  date: string;
   during: number;
   task: string;
   onPress?: () => void;
 };
 
-const QuestByTime: FC<QuestByTimeProps> = ({
-  startTime,
-  during,
-  task,
-  onPress,
-}) => {
-  const startHour = Math.floor(startTime / 100);
-  const startMinute = startTime % 100;
-  const endHour = Math.floor((startMinute + during) / 60) + startHour;
-  const endMinute = (startMinute + during) % 60;
+const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
+  const startDate = new Date(date);
+  const endDate = new Date(date);
+  endDate.setMinutes(endDate.getMinutes() + during);
   const myTime =
-    startHour.toString() +
+    get2Digits(startDate.getHours()) +
     ':' +
-    startMinute.toString() +
+    get2Digits(startDate.getMinutes()) +
     '~' +
-    endHour.toString() +
+    get2Digits(endDate.getHours()) +
     ':' +
-    endMinute.toString();
+    get2Digits(endDate.getMinutes());
 
   if (!onPress) {
     onPress = () => {};
