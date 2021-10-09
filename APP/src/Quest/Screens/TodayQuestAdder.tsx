@@ -30,26 +30,30 @@ export default function TodayQuestAdder({
   //2. redux todayDatas 수정 후 dispatch
   //3. gototop
 
-  const onQuestAdd = useCallback(() => {
-    //입력 데이터 검증
-    if (questName === '') {
-      Alert.alert('퀘스트 이름을 입력해주세요!');
-      return;
-    }
-    if (fieldName === '') {
-      Alert.alert('분야 이름을 입력해주세요!');
-      return;
-    }
-    //기존 redux 내 quest 배열을 replace할 배열 생성
-    const cquests = [...quests];
-    cquests[index] = {
-      ...cquests[index],
-      name: questName,
-      fieldName: fieldName,
-    };
-    //redux dispatch
-    dispatch(replaceTodayQuestsAction(cquests));
-  }, [dispatch, fieldName, questName, index, quests]);
+  const onQuestAdd = useCallback(
+    nav => {
+      //입력 데이터 검증
+      if (questName === '') {
+        Alert.alert('퀘스트 이름을 입력해주세요!');
+        return;
+      }
+      if (fieldName === '') {
+        Alert.alert('분야 이름을 입력해주세요!');
+        return;
+      }
+      //기존 redux 내 quest 배열을 replace할 배열 생성
+      const cquests = [...quests];
+      cquests[index] = {
+        ...cquests[index],
+        name: questName,
+        fieldName: fieldName,
+      };
+      //redux dispatch
+      dispatch(replaceTodayQuestsAction(cquests));
+      nav.popToTop();
+    },
+    [dispatch, fieldName, questName, index, quests],
+  );
 
   return (
     <View>
@@ -69,8 +73,7 @@ export default function TodayQuestAdder({
       <TouchableOpacity
         style={styles.tco}
         onPress={() => {
-          onQuestAdd();
-          navigation.popToTop();
+          onQuestAdd(navigation);
         }}>
         <Text>입력 완료</Text>
       </TouchableOpacity>
