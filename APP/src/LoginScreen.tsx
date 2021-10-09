@@ -3,34 +3,14 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
-const LoginScreen = ({navigation}: {navigation: any}) => {
-  /*
-  const express = require('express');
-  const app = express();
-  app.get('/', (req: any, res: {send: (arg0: string) => void}) => {
-    res.send('Hello World');
-  });
-
-  axios
-    .post('http://52.231.66.60/auth/join', {
-      id: 4,
-      name: 'Cho',
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    //실패 시 catch 실행
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  const users = [
-    {id: 1, name: '유저1'},
-    {id: 2, name: '유저2'},
-    {id: 3, name: '유저3'},
-  ];
-
-  */
+export default function LoginScreen({navigation}: {navigation: any}) {
+  
+  const [log, setLog] = useState('');
+  const [plog, setPLog] = useState('');
+  const [email, setEmail] = useState('');
+  const [nick, setNick] = useState('');
+  const [pw, setPW] = useState('');
+  
 
   axios
     .get('https://52.231.66.60/auth/join')
@@ -67,7 +47,7 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -87,5 +67,3 @@ const styles = StyleSheet.create({
     margin: 30,
   },
 });
-
-export default LoginScreen;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 
-import Screen from './src/App';
+import Screen from './App';
 
 export default function AppOnWeb() {
   return (
