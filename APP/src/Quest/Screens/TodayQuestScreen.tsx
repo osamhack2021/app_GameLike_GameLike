@@ -33,6 +33,8 @@ export default function TodayQuestScreen({navigation}: {navigation: any}) {
     //현재 시각 이후부터 21시까지의 QuestData를 생성함
     const cquests: QuestData.DataType[] = [];
     const curDate = getDate();
+    curDate.setSeconds(0);
+    curDate.setMilliseconds(0);
     if (curDate.getMinutes() >= 30) {
       curDate.setMinutes(60);
     } else {
