@@ -42,9 +42,9 @@ export default function TodayQuestScreen({
     curDate.setSeconds(0);
     curDate.setMilliseconds(0);
     if (curDate.getMinutes() >= 30) {
-      curDate.setMinutes(60);
-    } else {
       curDate.setMinutes(30);
+    } else {
+      curDate.setMinutes(0);
     }
     while (curDate.getHours() < 21) {
       cquests.push({...ex, date: getDateString(curDate), userId: userId});
