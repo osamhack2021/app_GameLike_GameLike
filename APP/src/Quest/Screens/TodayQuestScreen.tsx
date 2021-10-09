@@ -70,16 +70,16 @@ export default function TodayQuestScreen({
         )}
       />
       <TouchableOpacity
+        style={styles.tco}
         onPress={() => {
           navigation.navigate('CURRENT');
         }}>
         <Text>확인</Text>
       </TouchableOpacity>
-      <View style={styles.v} />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  v: {height: 300},
+  tco: {marginBottom: 300},
 });
