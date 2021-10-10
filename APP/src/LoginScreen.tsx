@@ -12,21 +12,27 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const [errortext, setErrortext] = useState('');
   const passwordInputRef = createRef();
 
-  const handleSubmitPress = useCallback(() => {
-    // 서버에 보내기
-    let body = {
-      email: userEmail,
-      password: userPassword,
-    };
-
-    axios.post('http://52.231.66.60/auth/login', body).then(response => {
-      if (response.request.login) {
+  const onClickLogin = () => {
+    axios
+      .post('http://52.231.66.60/auth/login', null, {
+        params: {
+          user_id: userEmail,
+          user_pw: userPassword,
+        },
+      })
+      .then(res => {
+        console.log(res);
         navigation.navigate('MAIN');
-      } else {
-        Alert.alert('Error');
-      }
-    });
-  }, [navigation, userEmail, userPassword]);
+      })
+      .catch();
+  };
+
+  useEffect(() => {
+    axios
+      .get('http://52.231.66.60/auth/login')
+      .then(res => console.log(res))
+      .catch();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -53,7 +59,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       </View>
       <View>
         {errortext !== '' ? <Text>{errortext}</Text> : null}
-        <Button title="로그인" onPress={handleSubmitPress} />
+        <Button title="로그인" onPress={onClickLogin} />
         <Button
           title="회원가입"
           onPress={() => navigation.navigate('REGISTER')}
