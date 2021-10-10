@@ -1,33 +1,21 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
-import HomeScreen from './Component/HomeScreen';
-import SettingScreen from './Component/SettingScreen';
-import QuestScreen from './Quest/QuestScreen';
-import ProfileScreen from './Component/ProfileScreen';
-import DungeonScreen from './Component/DungeonScreen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import TodayNavigator from './Quest/Screens/TodayNavigator';
+import HomeScreen from './Home/HomeScreen';
+import {createStackNavigator} from '@react-navigation/stack';
+import TodayQuestScreen from './Quest/Screens/TodayQuestScreen';
+import CurrentQuestScreen from './Quest/Screens/CurrentQuestScreen';
+import PrevQuestScreen from './Quest/Screens/PrevQuestScreen';
 
-// import Icon from 'react-native-vector-icons/Ionicons';
-
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function MainScreen() {
   return (
-    <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveBackgroundColor: 'gray',
-      })}>
-      <Tab.Screen name="홈" component={HomeScreen} />
-      <Tab.Screen name="퀘스트" component={QuestScreen} />
-      <Tab.Screen name="던전" component={DungeonScreen} />
-      <Tab.Screen name="프로필" component={ProfileScreen} />
-      <Tab.Screen name="설정" component={SettingScreen} />
-    </Tab.Navigator>
+    <Stack.Navigator
+      initialRouteName="HOME"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="HOME" component={HomeScreen} />
+      <Stack.Screen name="PREV" component={PrevQuestScreen} />
+      <Stack.Screen name="TODAY" component={TodayQuestScreen} />
+      <Stack.Screen name="CURRENT" component={CurrentQuestScreen} />
+    </Stack.Navigator>
   );
 }

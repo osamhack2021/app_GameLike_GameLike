@@ -1,5 +1,5 @@
 import type {Action} from 'redux';
-import {QuestData} from '../Quest/Datas';
+import {QuestData} from '../Quest_backup/Datas';
 
 export type LoginActions = Action;
 export type QuestCheckActions =
