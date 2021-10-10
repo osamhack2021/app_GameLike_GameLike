@@ -1,9 +1,7 @@
 type DataType = {
   id: number;
-  name: string;
-  fieldName: string;
-
-  lastDate: string;
+  questId: number;
+  date: string;
   userId: string;
 };
 
