@@ -26,27 +26,6 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
-router.post('/quest', isLoggedIn, async (req, res, next) => {
-    const { email, nick, password } = req.body;
-    try {
-      const exUser = await User.findOne({ where: { email } });
-      if (exUser) {
-        return res.redirect('/join?error=exist');
-      }
-      const hash = await bcrypt.hash(password, 12);
-      await User.create({
-        email,
-        nick,
-        password: hash,
-      });
-      return res.redirect('/');
-    } catch (error) {
-      console.error(error);
-      return next(error);
-    }
-  });
-=======
 router.get('/join', async(req, res, next) => {
 	const { email, password } = req.body;
 	// const email = "a@n.n"
@@ -58,7 +37,6 @@ router.get('/join', async(req, res, next) => {
 		return next(error);
 	  }
 });
->>>>>>> prototype_server
 
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
