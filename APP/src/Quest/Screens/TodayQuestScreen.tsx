@@ -62,6 +62,8 @@ export default function TodayQuestScreen({
   }, [dispatch]);
   const todayStr = getDate().toLocaleDateString();
 
+  const [log, setLog] = useState('');
+
   const postQuestDatas = useCallback(
     (postQuests: QuestData.DataType[], nav: any) => {
       for (let i of postQuests) {
@@ -72,12 +74,11 @@ export default function TodayQuestScreen({
             date: i.date,
           })
           .then(response => {
-            Alert.alert(JSON.stringify(response.data));
+            //Alert.alert(JSON.stringify(response.data));
             nav.navigate('CURRENT');
           })
           .catch(error => {
-            Alert.alert(JSON.stringify(error));
-            Alert.alert('서버 에러');
+            setLog(JSON.stringify(error));
           });
       }
     },
@@ -106,6 +107,7 @@ export default function TodayQuestScreen({
         }}>
         <Text>확인</Text>
       </TouchableOpacity>
+      <Text>{log}</Text>
     </ScrollView>
   );
 }
