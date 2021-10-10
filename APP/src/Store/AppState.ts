@@ -1,4 +1,4 @@
-import {QuestData} from '../Quest_backup/Datas';
+import {QuestData} from '../Quest/Datas';
 
 export type User = {
   name: string;

@@ -4,7 +4,6 @@ import {View, Text, ScrollView, StyleSheet, Button} from 'react-native';
 const HomeScreen = ({navigation}: {navigation: any}) => {
   const [topText, setTopText] = useState('오늘의 퀘스트를 만들어주세요!');
 
-  const [canFight, setCanFight] = useState(true);
   const [canQuestAdd, setCanQuestAdd] = useState(true);
   const [canDoQuest, setCanDoQuest] = useState(true);
   return (

@@ -1,12 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import {View, Text} from 'react-native';
 
 const SettingScreen = () => {
-    return (
-      <View>
-        <Text>SettingScreen</Text>      
-      </View>
-    );
+  return (
+    <View>
+      <Text>SettingScreen</Text>
+    </View>
+  );
 };
 
 export default SettingScreen;
