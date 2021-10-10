@@ -20,7 +20,7 @@ export default function App() {
   return (
     <ReduxProvider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MAIN">
+        <Stack.Navigator initialRouteName="START">
           <Stack.Screen
             name="START"
             component={StartScreen}

@@ -1,50 +1,72 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback, createRef} from 'react';
 import axios from 'axios';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button, Alert} from 'react-native';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
-  
   const [log, setLog] = useState('');
   const [plog, setPLog] = useState('');
-  const [email, setEmail] = useState('');
-  const [nick, setNick] = useState('');
-  const [pw, setPW] = useState('');
-  
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errortext, setErrortext] = useState('');
 
-  axios
-    .get('https://52.231.66.60/auth/join')
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const passwordInputRef = createRef();
+
+  const handleSubmitPress = () => {
+    setErrortext('');
+    if (!userEmail) {
+      Alert.alert('Please fill Email');
+      return;
+    }
+    if (!userPassword) {
+      Alert.alert('Please fill Password');
+      return;
+    }
+    setLoading(true);
+
+    if (userEmail === 'a' && userPassword === 'b') {
+      navigation.navigate('MAIN');
+      Alert.alert('Login Success');
+      console.log('Login Success');
+    } else {
+      setErrortext('Please check your email id or password');
+      Alert.alert('Please check your email id or password');
+      console.log('Please check your email id or password');
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.yellow}>LOGIN</Text>
-      <TextInput
-        style={styles.textFormTop}
-        placeholder={'아이디'}
-        autoCapitalize="none"
-        returnKeyType="next"
-        underlineColorAndroid="#f000"
-        blurOnSubmit={false}
-      />
-      <TextInput
-        style={styles.textFormTop}
-        placeholder={'비밀번호'}
-        autoCapitalize="none"
-        returnKeyType="next"
-        underlineColorAndroid="#f000"
-        blurOnSubmit={false}
-      />
-      <Button title="로그인" onPress={() => navigation.navigate('MAIN')} />
-      <Button
-        title="회원가입"
-        onPress={() => navigation.navigate('REGISTER')}
-      />
+      <View>
+        <Text style={styles.yellow}>LOGIN</Text>
+        <TextInput
+          style={styles.textFormTop}
+          onChangeText={UserEmail => setUserEmail(UserEmail)}
+          placeholder={'이메일'}
+          autoCapitalize="none"
+          returnKeyType="next"
+          underlineColorAndroid="#f000"
+          blurOnSubmit={false}
+        />
+        <TextInput
+          style={styles.textFormTop}
+          onChangeText={UserPassword => setUserPassword(userPassword)}
+          placeholder={'비밀번호'}
+          autoCapitalize="none"
+          returnKeyType="next"
+          underlineColorAndroid="#f000"
+          blurOnSubmit={false}
+        />
+      </View>
+      <View>
+        {errortext !== '' ? <Text>{errortext}</Text> : null}
+        <Button title="로그인" onPress={handleSubmitPress} />
+        <Button
+          title="회원가입"
+          onPress={() => navigation.navigate('REGISTER')}
+        />
+      </View>
     </View>
   );
 }
