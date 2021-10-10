@@ -38,7 +38,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const handleSubmitPress = useCallback(() => {
     try {
       axios
-        .get('http://52.231.66.60/auth/join?email=${userEmail}')
+        .get(`http://52.231.66.60/auth/join?email=${userEmail}`)
         .then(response => {
           Alert.alert('then');
           try {
