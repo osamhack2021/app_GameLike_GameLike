@@ -27,10 +27,11 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
 });
 
 router.get('/join', async(req, res, next) => {
-	const email = "a@n.n"
+	const { email, password } = req.body;
+	// const email = "a@n.n"
     try {
 		const exUser = await User.findOne({ where: { email } });
-		res.json({email : exUser.email, nick : exUser.nick, password : exUser.password});
+		res.json({email : exUser.email, password : exUser.password});
 	  } catch (error) {
 		console.error(error);
 		return next(error);
@@ -44,13 +45,16 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       return next(authError);
     }
     if (!user) {
+		res.send(false);
       return res.redirect(`/?loginError=${info.message}`);
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         console.error(loginError);
+		res.send(false);
         return next(loginError);
       }
+	  res.send(true);
       return res.redirect('/');
     });
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.

@@ -8,25 +8,25 @@ const Quest = require('../models/quest');
 const router = express.Router();
 
 //퀘스트 생성
-router.post('/create', isLoggedIn, async (req, res, next) => {
+router.post('/create', async (req, res, next) => {
   const { 
     name,
     fieldName,
     date,
   } = req.body;
   try {
-    const exQuest = await User.findOne({ where: { name } });
+    const exQuest = await Quest.findOne({ where: { name } });
     // 퀘스트 제목으로 찾는 기존 퀘스트 있는지
-    if (exUser) {
+    /*if (exQuest) {
       return res.redirect('/quest');
-    }
-    const hash = await bcrypt.hash(password, 12);
+    }*/
+    
     await Quest.create({
       name,
       fieldName,
       date,
       isPerformed: false,
-      creatorId: req.user.id,
+      creatorId: 44445,
     });
     //return res.redirect('/');
   } catch (error) {
