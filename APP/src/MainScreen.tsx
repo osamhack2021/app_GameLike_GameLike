@@ -13,7 +13,6 @@ export default function MainScreen() {
       initialRouteName="HOME"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="HOME" component={HomeScreen} />
-      <Stack.Screen name="PREV" component={PrevQuestScreen} />
       <Stack.Screen name="TODAY" component={TodayQuestScreen} />
       <Stack.Screen name="CURRENT" component={CurrentQuestScreen} />
     </Stack.Navigator>
