@@ -23,7 +23,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       Alert.alert('Please check your email id or password');
       console.log('Please check your email id or password');
     }
-    setErrortext('');
+     setErrortext('');
     if (!userEmail) {
       Alert.alert('Please fill Email');
       return;
@@ -38,7 +38,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const handleSubmitPress = useCallback(() => {
     try {
       axios
-        .get('http://52.231.66.60/auth/join')
+        .get('http://52.231.66.60/auth/join?email=${userEmail}')
         .then(response => {
           Alert.alert('then');
           try {
