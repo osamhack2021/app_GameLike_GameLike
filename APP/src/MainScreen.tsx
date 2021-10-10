@@ -16,7 +16,10 @@ import TodayNavigator from './Quest/Screens/TodayNavigator';
 
 const Tab = createBottomTabNavigator();
 
-export default function MainScreen() {
+export default function MainScreen(this: any) {
+  const {navigation} = this.props;
+  const u_email = navigation.getParam('u_email');
+  const u_pass = navigation.getParam('u_passs');
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

@@ -6,7 +6,10 @@ var name = 'name';
 var email = 'email';
 var day = 'day';
 
-const ProfileScreen = () => {
+export default function ProfileScreen(this: any) {
+  const {navigation} = this.props;
+  const u_email = navigation.getParam('u_email');
+  const u_pass = navigation.getParam('u_passs');
   return (
     <View>
       <View>
@@ -14,12 +17,11 @@ const ProfileScreen = () => {
       </View>
       <View>
         <Text>이름 : {name} </Text>
-        <Text>이메일 : {email} </Text>
+        <Text>이메일 : {u_email} </Text>
+        <Text>비밀번호 : {u_pass} </Text>
         <Text>입대일자 : {day} </Text>
         <Text>D-DAY : </Text>
       </View>
     </View>
   );
-};
-
-export default ProfileScreen;
+}

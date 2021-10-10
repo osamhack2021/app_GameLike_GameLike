@@ -21,9 +21,15 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         },
       })
       .then(res => {
-        console.log(res);
-        Alert.alert(`${res} success`);
-        navigation.navigate('MAIN');
+        if (res) {
+          Alert.alert(`${res} success`);
+          navigation.navigate('MAIN', {
+            u_email: userEmail,
+            u_pass: userPassword,
+          });
+        } else {
+          Alert.alert('패스워드를 확인하세요');
+        }
       })
       .catch(error => {
         Alert.alert(`${error} catch`);
