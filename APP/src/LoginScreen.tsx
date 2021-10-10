@@ -16,15 +16,18 @@ export default function LoginScreen({navigation}: {navigation: any}) {
     axios
       .post('http://52.231.66.60/auth/login', null, {
         params: {
-          user_id: userEmail,
-          user_pw: userPassword,
+          email: userEmail,
+          password: userPassword,
         },
       })
       .then(res => {
         console.log(res);
+        Alert.alert(`${res} success`);
         navigation.navigate('MAIN');
       })
-      .catch();
+      .catch(error => {
+        Alert.alert(`${error} catch`);
+      });
   };
 
   useEffect(() => {
