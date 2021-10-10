@@ -13,7 +13,16 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const passwordInputRef = createRef();
 
-  const handleSubmitPress = () => {
+  /*
+    if (userEmail === 'a' && userPassword === 'b') {
+      navigation.navigate('MAIN');
+      Alert.alert('Login Success');
+      console.log('Login Success');
+    } else {
+      setErrortext('Please check your email id or password');
+      Alert.alert('Please check your email id or password');
+      console.log('Please check your email id or password');
+    }
     setErrortext('');
     if (!userEmail) {
       Alert.alert('Please fill Email');
@@ -24,17 +33,37 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       return;
     }
     setLoading(true);
+    */
 
-    if (userEmail === 'a' && userPassword === 'b') {
-      navigation.navigate('MAIN');
-      Alert.alert('Login Success');
-      console.log('Login Success');
-    } else {
-      setErrortext('Please check your email id or password');
-      Alert.alert('Please check your email id or password');
-      console.log('Please check your email id or password');
+  const handleSubmitPress = useCallback(() => {
+    try {
+      axios
+        .get('http://52.231.66.60/auth/join')
+        .then(response => {
+          Alert.alert('then');
+          try {
+            setLog(JSON.stringify(response.data));
+          } catch (e) {
+            setLog('일단 잘 됨');
+          }
+        })
+        .catch(error => {
+          Alert.alert('catch');
+          if (error instanceof Error) {
+            setLog(error.message);
+          } else {
+            setLog('error ocurred');
+          }
+        });
+    } catch (e) {
+      Alert.alert('뭔가 잘못됨');
+      if (e instanceof Error) {
+        setLog(e.message);
+      } else {
+        setLog('뭔가 잘못됨');
+      }
     }
-  };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -51,7 +80,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         />
         <TextInput
           style={styles.textFormTop}
-          onChangeText={UserPassword => setUserPassword(userPassword)}
+          onChangeText={UserPassword => setUserPassword(UserPassword)}
           placeholder={'비밀번호'}
           autoCapitalize="none"
           returnKeyType="next"
@@ -67,6 +96,8 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           onPress={() => navigation.navigate('REGISTER')}
         />
       </View>
+      <Text>{log}</Text>
+      <Text>{plog}</Text>
     </View>
   );
 }
