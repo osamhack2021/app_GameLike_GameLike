@@ -10,60 +10,23 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const [userPassword, setUserPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
-
   const passwordInputRef = createRef();
 
-  /*
-    if (userEmail === 'a' && userPassword === 'b') {
-      navigation.navigate('MAIN');
-      Alert.alert('Login Success');
-      console.log('Login Success');
-    } else {
-      setErrortext('Please check your email id or password');
-      Alert.alert('Please check your email id or password');
-      console.log('Please check your email id or password');
-    }
-     setErrortext('');
-    if (!userEmail) {
-      Alert.alert('Please fill Email');
-      return;
-    }
-    if (!userPassword) {
-      Alert.alert('Please fill Password');
-      return;
-    }
-    setLoading(true);
-    */
-
   const handleSubmitPress = useCallback(() => {
-    try {
-      axios
-        .get(`http://52.231.66.60/auth/join?email=${userEmail}`)
-        .then(response => {
-          Alert.alert('then');
-          try {
-            setLog(JSON.stringify(response.data));
-          } catch (e) {
-            setLog('일단 잘 됨');
-          }
-        })
-        .catch(error => {
-          Alert.alert('catch');
-          if (error instanceof Error) {
-            setLog(error.message);
-          } else {
-            setLog('error ocurred');
-          }
-        });
-    } catch (e) {
-      Alert.alert('뭔가 잘못됨');
-      if (e instanceof Error) {
-        setLog(e.message);
+    // 서버에 보내기
+    let body = {
+      email: userEmail,
+      password: userPassword,
+    };
+
+    axios.post('http://52.231.66.60/auth/login', body).then(response => {
+      if (response.request.login) {
+        navigation.navigate('MAIN');
       } else {
-        setLog('뭔가 잘못됨');
+        Alert.alert('Error');
       }
-    }
-  }, [userEmail]);
+    });
+  }, [navigation, userEmail, userPassword]);
 
   return (
     <View style={styles.container}>
