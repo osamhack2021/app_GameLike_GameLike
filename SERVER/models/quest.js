@@ -6,7 +6,7 @@ module.exports = class Quest extends Sequelize.Model {
       name: {
         type: Sequelize.STRING(30),
         allowNull: false,
-        unique: true,
+        unique: false,
       },
       fieldName: {
         type: Sequelize.STRING(15),
