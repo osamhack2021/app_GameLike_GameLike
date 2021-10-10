@@ -23,7 +23,7 @@ const TodayQuestSelector = ({
     state => state.questDatas.todayDatas,
   );
   const element = quests[index];
-  const date = getDate(element.date);
+  const date = getDate(element.lastDate);
 
   return (
     <View>

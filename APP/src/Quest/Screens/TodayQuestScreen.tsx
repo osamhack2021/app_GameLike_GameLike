@@ -24,9 +24,8 @@ const ex: QuestData.DataType = {
   id: 0,
   name: '휴식',
   fieldName: '휴식',
-  date: '',
+  lastDate: '',
   userId: '',
-  isPerformed: 0,
 };
 
 const during = 30; //각 퀘스트당 몇 분 진행할지
@@ -55,7 +54,7 @@ export default function TodayQuestScreen({
       curDate.setMinutes(0);
     }
     while (curDate.getHours() < 21) {
-      cquests.push({...ex, date: getDateString(curDate), userId: userId});
+      cquests.push({...ex, lastDate: getDateString(curDate), userId: userId});
       curDate.setMinutes(curDate.getMinutes() + 30);
     }
     dispatch(insertTodayQuestsAction(cquests));
@@ -71,7 +70,7 @@ export default function TodayQuestScreen({
           .post('http://52.231.66.60/quest/create', {
             name: i.name,
             fieldName: i.fieldName,
-            date: i.date,
+            date: i.lastDate,
           })
           .then(response => {
             //Alert.alert(JSON.stringify(response.data));
@@ -93,7 +92,7 @@ export default function TodayQuestScreen({
         data={quests}
         renderItem={ri => (
           <QuestByTime
-            date={ri.item.date}
+            date={ri.item.lastDate}
             during={30}
             task={ri.item.name}
             onPress={() => navigation.navigate('SELECTOR', {index: ri.index})}

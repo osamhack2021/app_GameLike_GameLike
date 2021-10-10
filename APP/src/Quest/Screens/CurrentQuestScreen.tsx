@@ -12,9 +12,8 @@ const emptyQuest: QuestData.DataType = {
   id: 0,
   name: '현재 퀘스트가 없습니다.',
   fieldName: '',
-  date: '',
+  lastDate: '',
   userId: '',
-  isPerformed: 0,
 };
 
 export default function CurrentQuestScreen() {
@@ -30,8 +29,8 @@ export default function CurrentQuestScreen() {
   const getCurrentQuest = useCallback(
     (qs: QuestData.DataType[], date: Date) => {
       for (let q of qs) {
-        const l = getDate(q.date);
-        const r = getDate(q.date);
+        const l = getDate(q.lastDate);
+        const r = getDate(q.lastDate);
         r.setMinutes(r.getMinutes() + 30);
         if (l < date && r > date) {
           return q;
