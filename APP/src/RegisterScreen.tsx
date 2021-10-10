@@ -1,5 +1,4 @@
-import React, {useState, createRef} from 'react';
-
+import React, {useEffect, useCallback, useState, createRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,35 +10,74 @@ import {
   Modal,
   ScrollView,
   Button,
+  Alert,
 } from 'react-native';
+import axios from 'axios';
 
 const RegisterScreen = ({navigation}: {navigation: any}) => {
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [userNickname, setUserNickname] = useState('');
+  const [userDate, setUserDate] = useState('');
+  const [plog, setPLog] = useState('');
+
+  const onClickRegister = useCallback((e, p, n) => {
+    axios
+      .post('http://52.231.66.60/auth/join', {
+        email: e,
+        password: p,
+        nick: n,
+        // date: d,
+      })
+      .then(response => {
+        setPLog(JSON.stringify(response.data));
+      })
+      .catch(error => {
+        setPLog(JSON.stringify(error));
+      });
+  }, []);
+
   return (
     <View style={styles.Container}>
       <View style={styles.SectionStyle}>
-        <TextInput style={styles.inputStyle} placeholder="아이디" />
+        <TextInput
+          style={styles.inputStyle}
+          onChangeText={UserEmail => setUserEmail(UserEmail)}
+          placeholder="이메일"
+        />
       </View>
 
       <View style={styles.SectionStyle}>
-        <TextInput style={styles.inputStyle} placeholder="비밀번호" />
+        <TextInput
+          style={styles.inputStyle}
+          onChangeText={UserPassword => setUserPassword(UserPassword)}
+          placeholder="비밀번호"
+        />
       </View>
 
       <View style={styles.SectionStyle}>
-        <TextInput style={styles.inputStyle} placeholder="이름" />
+        <TextInput
+          style={styles.inputStyle}
+          onChangeText={UserNickname => setUserNickname(UserNickname)}
+          placeholder="이름"
+        />
       </View>
 
       <View style={styles.SectionStyle}>
-        <TextInput style={styles.inputStyle} placeholder="이메일" />
-      </View>
-
-      <View style={styles.SectionStyle}>
-        <TextInput style={styles.inputStyle} placeholder="입대일자" />
+        <TextInput
+          style={styles.inputStyle}
+          onChangeText={UserDate => setUserDate(UserDate)}
+          placeholder="입대일자"
+        />
       </View>
       <TouchableOpacity
         style={styles.buttonStyle}
         activeOpacity={0.5}
-        onPress={() => navigation.navigate('MAIN')}>
+        onPress={() => {
+          onClickRegister(userEmail, userPassword, userNickname);
+        }}>
         <Text style={styles.buttonTextStyle}>회원가입</Text>
+        <Text>{plog}</Text>
       </TouchableOpacity>
     </View>
   );

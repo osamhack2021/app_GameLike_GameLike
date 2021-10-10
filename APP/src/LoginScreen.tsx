@@ -29,14 +29,14 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         Alert.alert(`${error} catch`);
       });
   };
-
+  /*
   useEffect(() => {
     axios
       .get('http://52.231.66.60/auth/login')
       .then(res => console.log(res))
       .catch();
   }, []);
-
+*/
   return (
     <View style={styles.container}>
       <View>
