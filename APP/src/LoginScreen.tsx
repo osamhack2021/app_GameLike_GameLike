@@ -63,7 +63,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         setLog('뭔가 잘못됨');
       }
     }
-  }, []);
+  }, [userEmail]);
 
   return (
     <View style={styles.container}>

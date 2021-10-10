@@ -36,6 +36,11 @@ export default function App() {
             component={MainScreen}
             options={{title: '메인화면'}}
           />
+          <Stack.Screen
+            name="REGISTER"
+            component={RegisterScreen}
+            options={{title: '회원가입'}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </ReduxProvider>
