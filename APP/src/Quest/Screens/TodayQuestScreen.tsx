@@ -1,5 +1,12 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {FlatList, SafeAreaView, Text, View, StyleSheet} from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
 import {QuestData} from '../Datas';
@@ -11,6 +18,7 @@ import {useNavigation} from '@react-navigation/core';
 import getDateString from '../Times/getDateString';
 import getDate from '../Times/getDate';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import axios from 'axios';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -54,6 +62,28 @@ export default function TodayQuestScreen({
   }, [dispatch]);
   const todayStr = getDate().toLocaleDateString();
 
+  const postQuestDatas = useCallback(
+    (postQuests: QuestData.DataType[], nav: any) => {
+      for (let i of postQuests) {
+        axios
+          .post('http://52.231.66.60/quest/create', {
+            name: i.name,
+            fieldName: i.fieldName,
+            date: i.date,
+          })
+          .then(response => {
+            Alert.alert(JSON.stringify(response.data));
+            nav.navigate('CURRENT');
+          })
+          .catch(error => {
+            Alert.alert(JSON.stringify(error));
+            Alert.alert('서버 에러');
+          });
+      }
+    },
+    [],
+  );
+
   return (
     <ScrollView>
       <Text style={textStyles.small}>{todayStr}</Text>
@@ -72,7 +102,7 @@ export default function TodayQuestScreen({
       <TouchableOpacity
         style={styles.tco}
         onPress={() => {
-          navigation.navigate('CURRENT');
+          postQuestDatas(quests, navigation);
         }}>
         <Text>확인</Text>
       </TouchableOpacity>
