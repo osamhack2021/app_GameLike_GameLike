@@ -6,6 +6,14 @@ cd ..
 cp android/app/build/outputs/apk/debug/app-debug.apk __tests__/app-debug.apk
 cd ../
 git add .
+<<<<<<< HEAD
 git commit -m "$1"
+=======
+<<<<<<< HEAD
+git commit -m "apk testing $1"
+=======
+git commit -m "${1}"
+>>>>>>> 3d2c2e25361c4a4726f87b04dfb8f21100a13f3c
+>>>>>>> prototype_server
 git push
 cd APP/

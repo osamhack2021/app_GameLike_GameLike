@@ -8,34 +8,47 @@ const Quest = require('../models/quest');
 const router = express.Router();
 
 //퀘스트 생성
-router.post('/create', isLoggedIn, async (req, res, next) => {
+router.post('/create', async (req, res, next) => {
   const { 
-    name, 
-    fieldId,
-    estimatedTime,
-    isRepeat,
-    isPublic
+    name,
+    fieldName,
+    date,
   } = req.body;
   try {
-    const exQuest = await User.findOne({ where: { name } });
+    const exQuest = await Quest.findOne({ where: { name } });
     // 퀘스트 제목으로 찾는 기존 퀘스트 있는지
-    if (exUser) {
+    /*if (exQuest) {
       return res.redirect('/quest');
-    }
-    const hash = await bcrypt.hash(password, 12);
+    }*/
+    
     await Quest.create({
       name,
-      fieldId,
-      estimatedTime,
-      createdDate : Sequelize.Now(),
-      creatorId : 1,
-      isRepeat,
-      isPublic,
+      fieldName,
+      date,
+      isPerformed: false,
+      creatorId: 44445,
     });
     //return res.redirect('/');
   } catch (error) {
     console.error(error);
     return next(error);
+  }
+});
+
+//자신의 퀘스트 전부 불러오기
+router.get('/', async (req, res, next) => {
+  try {
+    const quests = await Quest.findAll({
+      // include: {
+      //    model: User,
+      //    attributes: ['id', 'nick'],
+      // },
+      // order: [['createdAt', 'DESC']],
+    });
+    res.send(quests);
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
 });
 
