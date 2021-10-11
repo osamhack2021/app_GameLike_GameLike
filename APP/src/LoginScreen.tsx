@@ -12,6 +12,28 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const [errortext, setErrortext] = useState('');
   const passwordInputRef = createRef();
 
+  const gotoMain = () => {
+    navigation.navigate('MAIN');
+  };
+
+  const onClickLogout = () => {
+    axios
+      .get('http://52.231.66.60/auth/logout')
+      .then(response => {
+        try {
+          setLog(`로그아웃 성공이오 ${JSON.stringify(response.data)}`);
+        } catch (e) {
+          setLog('로그아웃 성공 했지만');
+        }
+      })
+      .catch(error => {
+        if (error instanceof Error) {
+          setLog(error.message);
+        } else {
+          setLog('로그아웃 error ocurred');
+        }
+      });
+  };
   const onClickLogin = () => {
     axios
       .post('http://52.231.66.60/auth/login', null, {
@@ -23,7 +45,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       .then(res => {
         if (res.data) {
           setPLog(`로그인 성공 ${res.data}`);
-          navigation.replace('MAIN');
+          gotoMain();
           /*
           navigation.replace('MAIN', {
             u_email: userEmail,
@@ -72,11 +94,13 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       <View>
         {errortext !== '' ? <Text>{errortext}</Text> : null}
         <Button title="로그인" onPress={onClickLogin} />
+        <Button title="로그아웃" onPress={onClickLogout} />
         <Button
           title="회원가입"
           onPress={() => navigation.navigate('REGISTER')}
         />
       </View>
+      <Text>{log}</Text>
       <Text>{plog}</Text>
     </View>
   );
