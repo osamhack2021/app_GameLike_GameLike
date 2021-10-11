@@ -45,13 +45,13 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       return next(authError);
     }
     if (!user) {
-		res.send(false);
-      return res.redirect(`/?loginError=${info.message}`);
+		//res.send(false);
+		return res.redirect(`/?loginError=${info.message}`);
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         console.error(loginError);
-		res.send(false);
+		// res.send(false);
         return next(loginError);
       }
 	  res.send(true);
