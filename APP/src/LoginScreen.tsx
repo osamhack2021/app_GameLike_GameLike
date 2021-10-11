@@ -21,14 +21,13 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         },
       })
       .then(res => {
-        if (res.data) {
-          Alert.alert(`success ${res.data}`);
+        if (res.data === true) {
           navigation.navigate('MAIN', {
             u_email: userEmail,
             u_pass: userPassword,
           });
         } else {
-          setPLog('비밀번호를 확인하세요');
+          setPLog(`아이디와 비밀번호를 확인하세요 ${res.data}`);
         }
       })
       .catch(error => {
