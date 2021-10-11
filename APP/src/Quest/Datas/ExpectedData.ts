@@ -3,6 +3,7 @@ type DataType = {
   questId: number;
   userId: string;
   date: string;
+  name: string;
 };
 
 export type {DataType};

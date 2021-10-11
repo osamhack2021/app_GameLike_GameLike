@@ -30,9 +30,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   const [canDoQuest, setCanDoQuest] = useState(true);
   const [log, setLog] = useState('');
 
-  //처음 로드할 때 expected quests 가져와야함
-  //(연습할 땐 db 대신 static에서 load, empty array와 ex array 만들어서 가져오기)
-  //1. redux에서 expected load
+  //expected reload 요청
   const datas = useSelector<AppState, ExpectedData.DataType[]>(
     state => state.expectedDatas,
   );
@@ -42,9 +40,6 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
     setCanQuestAdd(true);
   }
   useEffect(() => {
-    //2. length: 0이면 db에서 expected를 load하여 redux에 저장
-    //2.1. axios를 이용하여 date, userId가 같은 expected 값 load
-    //3. db에서 load한 값을 redux에 dispatch
     if (datas.length === 0) {
       //db에서 load
       const [l, arr] = reloadExpected();

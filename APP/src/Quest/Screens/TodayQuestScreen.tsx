@@ -19,6 +19,8 @@ import getDateFullString from '../Times/getDateFullString';
 import getDate from '../Times/getDate';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
+import reloadExpected from 'src/connection/reloadExpected';
+import getTodayString from '../Times/getTodayString';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -37,55 +39,18 @@ export default function TodayQuestScreen({
   route: any;
   navigation: any;
 }) {
+  //1. reload expects
+  //2. expect에 따른 FlatList 출력
+
+  //expected reload 요청
+  const todayStr = getTodayString(new Date());
   const dispatch = useDispatch();
-  const userId = '';
-  const quests = useSelector<AppState, QuestData.DataType[]>(
-    state => state.questDatas.todayDatas,
-  );
   useEffect(() => {
-    //현재 시각 이후부터 21시까지의 QuestData를 생성함
-    const cquests: QuestData.DataType[] = [];
-    const curDate = getDate();
-    curDate.setSeconds(0);
-    curDate.setMilliseconds(0);
-    if (curDate.getMinutes() >= 30) {
-      curDate.setMinutes(30);
-    } else {
-      curDate.setMinutes(0);
-    }
-    while (curDate.getHours() < 21) {
-      cquests.push({
-        ...ex,
-        lastDate: getDateFullString(curDate),
-        userId: userId,
-      });
-      curDate.setMinutes(curDate.getMinutes() + 30);
-    }
-    dispatch(insertTodayQuestsAction(cquests));
+    dispatch(reloadExpected());
   }, [dispatch]);
-  const todayStr = getDate().toLocaleDateString();
 
-  const [log, setLog] = useState('');
-
-  const postExpectedDatas = useCallback(
-    (postQuests: ExpectedData.DataType[], nav: any) => {
-      for (let i of postQuests) {
-        axios
-          .post('http://52.231.66.60/quest/create', {
-            name: i.,
-            fieldName: i.fieldName,
-            date: i.lastDate,
-          })
-          .then(response => {
-            //Alert.alert(JSON.stringify(response.data));
-            nav.navigate('CURRENT');
-          })
-          .catch(error => {
-            setLog(JSON.stringify(error));
-          });
-      }
-    },
-    [],
+  const expects = useSelector<AppState, ExpectedData.DataType[]>(
+    state => state.expectedDatas,
   );
 
   return (
@@ -93,24 +58,19 @@ export default function TodayQuestScreen({
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList
-        data={quests}
+        data={expects}
         renderItem={ri => (
           <QuestByTime
-            date={ri.item.lastDate}
+            date={ri.item.date}
             during={30}
             task={ri.item.name}
-            onPress={() => navigation.navigate('SELECTOR', {index: ri.index})}
+            onPress={() => {}}
           />
         )}
       />
-      <TouchableOpacity
-        style={styles.tco}
-        onPress={() => {
-          postExpectedDatas(quests, navigation);
-        }}>
+      <TouchableOpacity style={styles.tco} onPress={() => {}}>
         <Text>확인</Text>
       </TouchableOpacity>
-      <Text>{log}</Text>
     </ScrollView>
   );
 }
