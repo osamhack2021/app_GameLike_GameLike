@@ -3,6 +3,9 @@ const path = require('path');
 const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const { Post, User } = require('../models');
+const Quest = require('../models/quest');
+const expectedQuest = require('../models/expectedquest');
+const performedQuest = require('../models/performedquest');
 
 router.use((req, res, next) => {
   res.locals.user = req.user;
@@ -13,6 +16,25 @@ router.use((req, res, next) => {
   next();
 });
 
+router.get('/home', async (req, res, next) => {
+  try {
+    const isExists = true;
+    const exQuests = await expectedQuest.findAll({
+      // include: {
+      //    model: User,
+      //    attributes: ['id', 'nick'],
+      // },
+      // order: [['createdAt', 'DESC']],
+    });  
+    if(exQuests.length == 0){
+      isExists = false;
+    }
+    res.json({isExists: isExists, expectedQuest: exQuests});
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
 // 프로필 페이지
 router.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile', { title: '내 정보 - NodeBird' , user: req.user});
@@ -21,7 +43,7 @@ router.get('/profile', isLoggedIn, (req, res) => {
 //회원가입 페이지
 router.get('/join', isNotLoggedIn, (req, res) => {
   res.render('join', {
-    title: '회원가입 - NodeBird',
+    title: '회원가입',
 	  user: req.user,
 	  joinError : req.flash('joinError'),
   });
