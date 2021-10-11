@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import QuestByTime from '../Modules/QuestByTime';
 import textStyles from '../Styles/QuestTextStyles';
-import {QuestData} from '../Datas';
+import {ExpectedData, QuestData} from '../Datas';
 import TodayQuestSelector from './TodayQuestSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
-import {insertTodayQuestsAction} from '../../Store';
+import {insertTodayQuestsAction} from '../../Store/Actions';
 import {useNavigation} from '@react-navigation/core';
-import getDateString from '../Times/getDateString';
+import getDateFullString from '../Times/getDateFullString';
 import getDate from '../Times/getDate';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -54,7 +54,11 @@ export default function TodayQuestScreen({
       curDate.setMinutes(0);
     }
     while (curDate.getHours() < 21) {
-      cquests.push({...ex, lastDate: getDateString(curDate), userId: userId});
+      cquests.push({
+        ...ex,
+        lastDate: getDateFullString(curDate),
+        userId: userId,
+      });
       curDate.setMinutes(curDate.getMinutes() + 30);
     }
     dispatch(insertTodayQuestsAction(cquests));
@@ -63,12 +67,12 @@ export default function TodayQuestScreen({
 
   const [log, setLog] = useState('');
 
-  const postQuestDatas = useCallback(
-    (postQuests: QuestData.DataType[], nav: any) => {
+  const postExpectedDatas = useCallback(
+    (postQuests: ExpectedData.DataType[], nav: any) => {
       for (let i of postQuests) {
         axios
           .post('http://52.231.66.60/quest/create', {
-            name: i.name,
+            name: i.,
             fieldName: i.fieldName,
             date: i.lastDate,
           })
@@ -102,7 +106,7 @@ export default function TodayQuestScreen({
       <TouchableOpacity
         style={styles.tco}
         onPress={() => {
-          postQuestDatas(quests, navigation);
+          postExpectedDatas(quests, navigation);
         }}>
         <Text>확인</Text>
       </TouchableOpacity>

@@ -2,8 +2,7 @@ type DataType = {
   id: number;
   questId: number;
   userId: string;
-  startDate: string;
-  endDate: string;
+  date: string;
 };
 
 export type {DataType};
