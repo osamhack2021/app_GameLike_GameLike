@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const User = require('../models/user');
 const Quest = require('../models/quest');
+const expectedQuest = require('../models/expectedquest');
+const performedQuest = require('../models/performedquest');
 
 const router = express.Router();
 
@@ -11,19 +13,12 @@ const router = express.Router();
 router.post('/create', async (req, res, next) => {
   const { 
     name,
-    fieldName,
     date,
   } = req.body;
   try {
-    const exQuest = await Quest.findOne({ where: { name } });
-    // 퀘스트 제목으로 찾는 기존 퀘스트 있는지
-    /*if (exQuest) {
-      return res.redirect('/quest');
-    }*/
-    
+    const exQuest = await expectedQuest.findOne({ where: { name } });    
     await Quest.create({
       name,
-      fieldName,
       date,
       isPerformed: false,
       creatorId: 44445,
@@ -38,12 +33,13 @@ router.post('/create', async (req, res, next) => {
 //자신의 퀘스트 전부 불러오기
 router.get('/', async (req, res, next) => {
   try {
-    const quests = await Quest.findAll({
+    const exQuests = await expectedQuest.findAll({
+      attributes: ['name', 'date'],
       // include: {
       //    model: User,
       //    attributes: ['id', 'nick'],
       // },
-      // order: [['createdAt', 'DESC']],
+       order: [['createdAt', 'DESC']],
     });
     res.send(quests);
   } catch (err) {

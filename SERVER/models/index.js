@@ -6,6 +6,8 @@ const Post = require('./post');
 const Hashtag = require('./hashtag');
 const Quest = require('./quest');
 const Field = require('./field');
+const expectedQuest = require('./expectedquest');
+const performedQuest = require('./performedquest');
 
 const db = {};
 const sequelize = new Sequelize(
@@ -18,18 +20,24 @@ db.Post = Post;
 db.Hashtag = Hashtag;
 db.Quest = Quest;
 db.Field = Field;
+db.expectedQuest = expectedQuest;
+db.performedQuest = performedQuest;
 
 User.init(sequelize);
 Post.init(sequelize);
 Hashtag.init(sequelize);
 Quest.init(sequelize);
 Field.init(sequelize);
+expectedQuest.init(sequelize);
+performedQuest.init(sequelize);
 
 User.associate(db);
 Post.associate(db);
 Hashtag.associate(db);
 Quest.associate(db);
 Field.associate(db);
+expectedQuest.associate(db);
+performedQuest.associate(db);
 
 module.exports = db;
 /*const Sequelize = require('sequelize');

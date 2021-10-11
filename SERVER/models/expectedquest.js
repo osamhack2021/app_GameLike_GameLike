@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Quest extends Sequelize.Model {
+module.exports = class expectedQuest extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       name: {
@@ -11,14 +11,6 @@ module.exports = class Quest extends Sequelize.Model {
       date: {
         type: Sequelize.STRING(30),
         allowNull: false,
-      },
-      startDate: {
-        type: Sequelize.STRING(30),
-        allowNull: true,
-      },
-      endDate: {
-        type: Sequelize.STRING(30),
-        allowNull: true,
       },
       isPerformed: {
         type: Sequelize.BOOLEAN,
@@ -36,8 +28,8 @@ module.exports = class Quest extends Sequelize.Model {
       sequelize,
       timestamps: true,
       underscored: false,
-      modelName: 'Quest',
-      tableName: 'quests',
+      modelName: 'expectedQuest',
+      tableName: 'expectedquests',
       paranoid: true,
       charset: 'utf8',
       collate: 'utf8_general_ci',
@@ -45,17 +37,5 @@ module.exports = class Quest extends Sequelize.Model {
   }
 
   static associate(db) {
-    /*db.Quest.belongsTo(db.User, {
-      foreignKey: 'creatorId', targetKey: 'id'
-    });*/
-    db.Quest.belongsTo(db.Field, {
-      //foreignKey: 'fieldName', targetKey: 'name'
-    });
-
-    db.Quest.belongsToMany(db.Hashtag, { through: 'QuestHashtag' });
-    /*db.Quest.belongsToMany(db.User, {
-      through : 'Like', 
-      as: 'Liker',
-    });*/
   }
 };

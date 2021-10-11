@@ -24,10 +24,11 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - ./app      
+      - ./:/usr/src/app  
+      - /usr/src/app/node_modules  
     restart: always
     ports:
-      - "8001:8001"
+      - "80:80"
     links:
       - mysql
     depends_on:

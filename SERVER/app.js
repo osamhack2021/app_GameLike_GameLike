@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const https = require('https');
 const fs = require('fs');
+const cors = require('cors');
 
 dotenv.config();
 const pageRouter = require('./routes/page');
@@ -49,6 +50,7 @@ sequelize.sync({force:false})
 	console.error(err);
 })
 
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public'))); // main.css
 app.use('/img', express.static(path.join(__dirname, 'uploads'))); // /img/abc.png

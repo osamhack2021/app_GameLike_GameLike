@@ -38,7 +38,7 @@ router.get('/join', async(req, res, next) => {
 	  }
 });
 
-router.post('/login', isNotLoggedIn, (req, res, next) => {
+router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {
       console.error(authError);
@@ -46,16 +46,18 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
     }
     if (!user) {
 		res.send(false);
-      return res.redirect(`/?loginError=${info.message}`);
+		//return res.redirect(`/?loginError=${info.message}`);
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         console.error(loginError);
-		res.send(false);
-        return next(loginError);
+		//res.send(false);
+        //return next(loginError);
       }
-	  res.send(true);
-      return res.redirect('/');
+	  else{
+	  	res.send(true);
+	  }
+      //return res.redirect('/');
     });
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
 });
@@ -64,7 +66,8 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 router.get('/logout', isLoggedIn, (req, res)=>{
 	req.logout(); // req에서 지워준다
 	req.session.destroy(); // 세션 지우기
-	res.redirect('/');
+	res.send('Logout complete!!!');
+	//res.redirect('/');
 });
 
 // (1)
