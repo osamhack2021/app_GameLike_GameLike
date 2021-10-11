@@ -5,7 +5,7 @@ import {AppState} from '../Store';
 import {ExpectedData} from '../Quest/Datas';
 import axios from 'axios';
 import reloadExpected from '../connection/reloadExpected';
-import {replaceExpectedAction} from 'src/Store/Actions';
+import {reloadExpectedAction, replaceExpectedAction} from '../Store/Actions';
 
 //1. 처음 로드할 때 expected quests 가져와야함
 //(연습할 땐 db 대신 static에서 load, empty array와 ex array 만들어서 가져오기)
@@ -17,9 +17,9 @@ import {replaceExpectedAction} from 'src/Store/Actions';
 
 const zeroDatas: ExpectedData.DataType[] = [];
 const exDatas: ExpectedData.DataType[] = [
-  {id: 0, questId: 0, userId: 'user', date: '2021-10-11'},
-  {id: 1, questId: 1, userId: 'user', date: '2021-10-11'},
-  {id: 2, questId: 2, userId: 'user', date: '2021-10-11'},
+  {id: 0, questId: 0, userId: 'user', date: '2021-10-11', name: '할일'},
+  {id: 1, questId: 1, userId: 'user', date: '2021-10-11', name: '할일2'},
+  {id: 2, questId: 2, userId: 'user', date: '2021-10-11', name: '할일3'},
 ];
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
@@ -40,14 +40,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
     setCanQuestAdd(true);
   }
   useEffect(() => {
-    if (datas.length === 0) {
-      //db에서 load
-      const [l, arr] = reloadExpected();
-      setLog(l);
-      if (arr.length !== 0) {
-        dispatch(replaceExpectedAction(arr));
-      }
-    }
+    dispatch(reloadExpectedAction());
   }, [datas.length, dispatch]);
 
   return (

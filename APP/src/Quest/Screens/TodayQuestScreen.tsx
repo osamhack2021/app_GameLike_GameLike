@@ -22,7 +22,7 @@ import getDateFullString from '../Times/getDateFullString';
 import getDate from '../Times/getDate';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
-import reloadExpected from 'src/connection/reloadExpected';
+import reloadExpected from '../../connection/reloadExpected';
 import getTodayString from '../Times/getTodayString';
 
 const ex: QuestData.DataType = {
