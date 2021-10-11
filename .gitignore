@@ -2,3 +2,8 @@
 .expo
 settings.json
 node_modules/
+/SERVER/node_modules/
+/SERVER/keys/
+/SERVER/greenlock.d
+/node_modules/
+.expo

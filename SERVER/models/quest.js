@@ -4,34 +4,42 @@ module.exports = class Quest extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       name: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+        unique: false,
+      },
+      fieldName: {
         type: Sequelize.STRING(15),
         allowNull: false,
-        unique: true,
       },
-      fieldId: {
-        type: Sequelize.INTEGER,
+      date: {
+        type: Sequelize.STRING(30),
         allowNull: false,
       },
-      estimatedTime: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      createdDate: {
-        type: Sequelize.DATE,
+      isPerformed: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       creatorId: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
-      isRepeat: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-      },
-      isPublic: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-      },
+      // createdDate: {
+      //   type: Sequelize.DATE,
+      //   allowNull: false,
+      // },
+      // creatorId: {
+      //   type: Sequelize.INTEGER,
+      //   allowNull: false,
+      // },
+      // isRepeat: {
+      //   type: Sequelize.BOOLEAN,
+      //   allowNull: false,
+      // },
+      // isPublic: {
+      //   type: Sequelize.BOOLEAN,
+      //   allowNull: false,
+      // },
     }, {
       sequelize,
       timestamps: true,
@@ -45,11 +53,17 @@ module.exports = class Quest extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Quest.belongsTo(db.User);
+    /*db.Quest.belongsTo(db.User, {
+      foreignKey: 'creatorId', targetKey: 'id'
+    });*/
+    db.Quest.belongsTo(db.Field, {
+      //foreignKey: 'fieldName', targetKey: 'name'
+    });
+
     db.Quest.belongsToMany(db.Hashtag, { through: 'QuestHashtag' });
-    db.Quest.belongsToMany(db.User, {
+    /*db.Quest.belongsToMany(db.User, {
       through : 'Like', 
       as: 'Liker',
-    });
+    });*/
   }
 };
