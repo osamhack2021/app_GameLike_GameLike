@@ -1,3 +1,3 @@
 export * from './AppState';
-export * from './actions';
+export * from './Actions/actions';
 export * from './makeStore';

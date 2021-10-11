@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, ScrollView, StyleSheet, Button} from 'react-native';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
@@ -7,6 +7,10 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   const [canFight, setCanFight] = useState(true);
   const [canQuestAdd, setCanQuestAdd] = useState(true);
   const [canDoQuest, setCanDoQuest] = useState(true);
+
+  //1. 처음 로드할 때 expected quests 가져와야함
+  useEffect(() => {}, []);
+
   return (
     <View style={styles.container}>
       <View>

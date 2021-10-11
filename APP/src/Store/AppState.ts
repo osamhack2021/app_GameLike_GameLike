@@ -1,4 +1,4 @@
-import {QuestData} from '../Quest/Datas';
+import {ExpectedData, PerformedData, QuestData} from '../Quest/Datas';
 
 export type User = {
   name: string;
@@ -20,4 +20,6 @@ export type AppState = {
   //loggedUser: User;
   questScreenState: QuestScreenState;
   questDatas: QuestDatas;
+  expectedDatas: ExpectedData.DataType[];
+  performedDatas: PerformedData.DataType[];
 };
