@@ -13,7 +13,10 @@ import {ExpectedData, QuestData} from '../Datas';
 import TodayQuestSelector from './TodayQuestSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
-import {insertTodayQuestsAction} from '../../Store/Actions';
+import {
+  insertTodayQuestsAction,
+  replaceExpectedAction,
+} from '../../Store/Actions';
 import {useNavigation} from '@react-navigation/core';
 import getDateFullString from '../Times/getDateFullString';
 import getDate from '../Times/getDate';
@@ -51,7 +54,8 @@ export default function TodayQuestScreen({
   );
 
   useEffect(() => {
-    dispatch(reloadExpected());
+    const [rl, e] = reloadExpected();
+    dispatch(replaceExpectedAction(e));
   }, [dispatch, expects]);
 
   return (
@@ -62,6 +66,13 @@ export default function TodayQuestScreen({
         data={expects}
         renderItem={ri => <QuestElement name={ri.item.name} />}
       />
+      <TouchableOpacity
+        style={styles.tco}
+        onPress={() => {
+          navigation.navigate('SELECTOR');
+        }}>
+        <Text>퀘스트 추가하기</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.tco} onPress={() => {}}>
         <Text>확인</Text>
       </TouchableOpacity>
