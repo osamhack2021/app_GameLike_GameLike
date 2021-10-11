@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const User = require('../models/user');
 const Quest = require('../models/quest');
-const expectedQuest = require('./expectedquest');
-const performedQuest = require('./performedquest');
+const expectedQuest = require('../models/expectedquest');
+const performedQuest = require('../models/performedquest');
 
 const router = express.Router();
 
