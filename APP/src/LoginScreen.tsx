@@ -21,18 +21,18 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         },
       })
       .then(res => {
-        if (res) {
-          Alert.alert(`${res} success`);
+        if (res.data) {
+          Alert.alert(`success ${res.data}`);
           navigation.navigate('MAIN', {
             u_email: userEmail,
             u_pass: userPassword,
           });
         } else {
-          Alert.alert('패스워드를 확인하세요');
+          setPLog('비밀번호를 확인하세요');
         }
       })
       .catch(error => {
-        Alert.alert(`${error} catch`);
+        setPLog(JSON.stringify(error));
       });
   };
   /*
@@ -74,7 +74,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           onPress={() => navigation.navigate('REGISTER')}
         />
       </View>
-      <Text>{log}</Text>
       <Text>{plog}</Text>
     </View>
   );
