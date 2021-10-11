@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import QuestByTime from '../Modules/QuestByTime';
+import QuestElement from '../Modules/QuestElement';
 import textStyles from '../Styles/QuestTextStyles';
 import {ExpectedData, QuestData} from '../Datas';
 import TodayQuestSelector from './TodayQuestSelector';
@@ -45,13 +45,14 @@ export default function TodayQuestScreen({
   //expected reload 요청
   const todayStr = getTodayString(new Date());
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(reloadExpected());
-  }, [dispatch]);
 
   const expects = useSelector<AppState, ExpectedData.DataType[]>(
     state => state.expectedDatas,
   );
+
+  useEffect(() => {
+    dispatch(reloadExpected());
+  }, [dispatch, expects]);
 
   return (
     <ScrollView>
@@ -59,14 +60,7 @@ export default function TodayQuestScreen({
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList
         data={expects}
-        renderItem={ri => (
-          <QuestByTime
-            date={ri.item.date}
-            during={30}
-            task={ri.item.name}
-            onPress={() => {}}
-          />
-        )}
+        renderItem={ri => <QuestElement name={ri.item.name} />}
       />
       <TouchableOpacity style={styles.tco} onPress={() => {}}>
         <Text>확인</Text>

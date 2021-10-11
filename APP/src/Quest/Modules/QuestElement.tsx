@@ -5,34 +5,19 @@ import get2Digits from '../Times/get2Digits';
 import getDate from '../Times/getDate';
 
 type QuestByTimeProps = {
-  date: string;
-  during: number;
-  task: string;
+  name: string;
   onPress?: () => void;
 };
 
-const QuestByTime: FC<QuestByTimeProps> = ({date, during, task, onPress}) => {
-  const startDate = getDate(date);
-  const endDate = getDate(date);
-  endDate.setMinutes(endDate.getMinutes() + during);
-  const myTime =
-    get2Digits(startDate.getHours()) +
-    ':' +
-    get2Digits(startDate.getMinutes()) +
-    '~' +
-    get2Digits(endDate.getHours()) +
-    ':' +
-    get2Digits(endDate.getMinutes());
-
+const QuestElement: FC<QuestByTimeProps> = ({name, onPress}) => {
   if (!onPress) {
     onPress = () => {};
   }
 
   return (
     <View style={styles.view}>
-      <Text>{myTime}</Text>
       <TouchableOpacity style={styles.tco} onPress={onPress}>
-        <Text>{task}</Text>
+        <Text>{name}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -43,4 +28,4 @@ const styles = StyleSheet.create({
   tco: {width: '100%', height: 75, borderColor: '#000000', borderWidth: 3},
 });
 
-export default QuestByTime;
+export default QuestElement;

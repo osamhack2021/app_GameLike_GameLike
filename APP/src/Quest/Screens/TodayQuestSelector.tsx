@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo, useState, FC} from 'react';
 import {FlatList, Text, View, StyleSheet} from 'react-native';
-import QuestByTime from '../Modules/QuestByTime';
+import QuestElement from '../Modules/QuestElement';
 import textStyles from '../Styles/QuestTextStyles';
 import {QuestData} from '../Datas';
 import {TouchableOpacity} from 'react-native-gesture-handler';
