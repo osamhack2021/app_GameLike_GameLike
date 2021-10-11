@@ -1,24 +1,24 @@
 FROM node:14
 
-ENV DOCKERIZE_VERSION v0.2.0
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \  
-    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz 
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 #npm install 을 위해, package.json과 package-lock.json을 먼저 copy해둠
-COPY package*.json /app/
-
+COPY package*.json .
 RUN npm install
 
-COPY . /app
+COPY . .
 
 RUN chmod +x docker-entrypoint.sh  
 ENTRYPOINT ./docker-entrypoint.sh
 
-EXPOSE 8001
+EXPOSE 80
 
 #컨테이너가 켜지자마자 실행할 명령어 
 #npm start : package.json의 scripts에 있는 start 명령어를 실행
