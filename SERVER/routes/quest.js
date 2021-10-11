@@ -16,12 +16,7 @@ router.post('/create', async (req, res, next) => {
     date,
   } = req.body;
   try {
-    const exQuest = await expectedQuest.findOne({ where: { name } });
-    // 퀘스트 제목으로 찾는 기존 퀘스트 있는지
-    /*if (exQuest) {
-      return res.redirect('/quest');
-    }*/
-    
+    const exQuest = await expectedQuest.findOne({ where: { name } });    
     await Quest.create({
       name,
       date,
@@ -39,6 +34,7 @@ router.post('/create', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const exQuests = await expectedQuest.findAll({
+      attributes: ['name', 'date'],
       // include: {
       //    model: User,
       //    attributes: ['id', 'nick'],
