@@ -23,12 +23,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       .then(res => {
         if (res.data) {
           setPLog(`로그인 성공 ${res.data}`);
-          /*
-          navigation.navigate('MAIN', {
-            u_email: userEmail,
-            u_pass: userPassword,
-          });
-          */
+          navigation.navigate('MAIN');
         } else {
           setPLog(`아이디와 비밀번호를 확인하세요 ${res.data}`);
         }
