@@ -6,17 +6,17 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 # Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/src/app/
+WORKDIR /usr/src/app/
 
 #npm install 을 위해, package.json과 package-lock.json을 먼저 copy해둠
-COPY package*.json .
+COPY package*.json ./
 RUN npm install
 
-COPY . .
+COPY ./ ./
 
-RUN chmod +x docker-entrypoint.sh  
-ENTRYPOINT ./docker-entrypoint.sh
+RUN ["chmod", "+x", "/usr/src/app/docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "/usr/src/app/docker-entrypoint.sh"]
 
 EXPOSE 80
 
