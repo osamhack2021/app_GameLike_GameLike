@@ -66,7 +66,8 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 router.get('/logout', isLoggedIn, (req, res)=>{
 	req.logout(); // req에서 지워준다
 	req.session.destroy(); // 세션 지우기
-	res.redirect('/');
+	res.send('Logout complete!!!');
+	//res.redirect('/');
 });
 
 // (1)
