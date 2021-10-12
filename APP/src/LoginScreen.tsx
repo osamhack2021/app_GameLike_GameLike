@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useState, useEffect, useCallback, createRef} from 'react';
 import axios from 'axios';
 import {StyleSheet, Text, View, TextInput, Button, Alert} from 'react-native';
+import {json} from 'stream/consumers';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
@@ -16,6 +17,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
     navigation.navigate('MAIN');
   };
 */
+  setLog(JSON.stringify(navigation));
   const onClickLogout = () => {
     axios
       .get('http://52.231.66.60/auth/logout')
@@ -35,7 +37,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       });
   };
 
-  const onClickLogin = (nav: any) => {
+  const onClickLogin = useCallback((nav: any) => {
     try {
       setLog(JSON.stringify(nav));
       //nav.navigate('MAIN');
@@ -71,7 +73,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
     //   .catch(error => {
     //     setPLog(JSON.stringify(error));
     //   });
-  };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -108,7 +110,11 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         <Button title="로그아웃" onPress={onClickLogout} />
         <Button
           title="회원가입"
-          onPress={() => navigation.navigate('REGISTER')}
+          onPress={() =>
+            /*() => navigation.navigate('REGISTER')*/ setPLog(
+              JSON.stringify(navigation),
+            )
+          }
         />
       </View>
       <Text>{log}</Text>
