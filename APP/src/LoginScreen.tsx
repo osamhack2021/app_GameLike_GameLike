@@ -52,7 +52,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
             if (e instanceof Error) {
               setLog(e.message);
             } else {
-              setLog('뭔가잘못');
+              setLog('뭘까');
             }
           }
 
