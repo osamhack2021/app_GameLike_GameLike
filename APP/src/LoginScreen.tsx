@@ -12,12 +12,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
   const passwordInputRef = createRef();
-  /*
-  const gotoMain = () => {
-    navigation.navigate('MAIN');
-  };
-*/
-  setLog(JSON.stringify(navigation));
   const onClickLogout = () => {
     axios
       .get('http://52.231.66.60/auth/logout')
