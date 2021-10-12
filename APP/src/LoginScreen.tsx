@@ -1,7 +1,15 @@
 import * as React from 'react';
 import {useState, useEffect, useCallback, createRef} from 'react';
 import axios from 'axios';
-import {StyleSheet, Text, View, TextInput, Button, Alert} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
@@ -35,10 +43,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       });
   };
 
-  
-  const onClickLogin = (nav: any) => {
-    nav.navigate('MAIN');
-
+  const onClickLogin = () => {
     axios
       .post('http://52.231.66.60/auth/login', null, {
         params: {
@@ -51,7 +56,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           setPLog(`로그인 성공 ${res.data}`);
           try {
             setLog('뭐가문젤까');
-            nav.navigate('MAIN');
+            navigation.relpace('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               setLog(e.message);
@@ -93,12 +98,13 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       </View>
       <View>
         {errortext !== '' ? <Text>{errortext}</Text> : null}
-        <Button
-          title="로그인"
+        <TouchableOpacity
           onPress={() => {
-            onClickLogin(navigation);
-          }}
-        />
+            onClickLogin();
+          }}>
+          <Text>Login</Text>
+        </TouchableOpacity>
+
         <Button title="로그아웃" onPress={onClickLogout} />
         <Button
           title="회원가입"
