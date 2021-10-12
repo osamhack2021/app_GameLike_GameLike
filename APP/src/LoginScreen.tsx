@@ -101,6 +101,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         <Button
           title="로그인"
           onPress={() => {
+            setPLog(JSON.stringify(navigation));
             onClickLogin(navigation);
           }}
         />
