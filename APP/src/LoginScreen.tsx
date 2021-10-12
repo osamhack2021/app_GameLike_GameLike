@@ -33,11 +33,13 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickLogin = useCallback((nav: any) => {
     try {
-      setLog(JSON.stringify(nav));
-      //nav.navigate('MAIN');
+      //setLog(JSON.stringify(nav));
+      nav.navigate('MAIN');
     } catch (e) {
       if (e instanceof Error) {
         setLog(e.message);
+      } else {
+        setLog('몰라');
       }
     }
     // axios
@@ -104,11 +106,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         <Button title="로그아웃" onPress={onClickLogout} />
         <Button
           title="회원가입"
-          onPress={() =>
-            /*() => navigation.navigate('REGISTER')*/ setPLog(
-              JSON.stringify(navigation),
-            )
-          }
+          onPress={() => navigation.navigate('REGISTER')}
         />
       </View>
       <Text>{log}</Text>
