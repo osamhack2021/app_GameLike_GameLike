@@ -90,9 +90,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         <Button
           title="로그인"
           onPress={() => {
-            if (onClickLogin()) {
-              navigation.navigate('MAIN');
-            }
+            navigation.navigate('MAIN');
           }}
         />
         <Button title="로그아웃" onPress={onClickLogout} />
