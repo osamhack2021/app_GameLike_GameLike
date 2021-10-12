@@ -31,17 +31,8 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       });
   };
 
-  const onClickLogin = useCallback((nav: any) => {
-    try {
-      //setLog(JSON.stringify(nav));
-      nav.navigate('MAIN');
-    } catch (e) {
-      if (e instanceof Error) {
-        setLog(e.message);
-      } else {
-        setLog('몰라');
-      }
-    }
+  const onClickLogin = useCallback(() => {
+    return true;
     // axios
     //   .post('http://52.231.66.60/auth/login', null, {
     //     params: {
@@ -99,8 +90,9 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         <Button
           title="로그인"
           onPress={() => {
-            setPLog(JSON.stringify(navigation));
-            onClickLogin(navigation);
+            if (onClickLogin()) {
+              navigation.navigate('MAIN');
+            }
           }}
         />
         <Button title="로그아웃" onPress={onClickLogout} />
