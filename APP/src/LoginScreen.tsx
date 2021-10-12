@@ -45,7 +45,17 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       .then(res => {
         if (res.data) {
           setPLog(`로그인 성공 ${res.data}`);
-          gotoMain();
+          try {
+            setLog('뭐가문젤까');
+            gotoMain();
+          } catch (e) {
+            if (e instanceof Error) {
+              setLog(e.message);
+            } else {
+              setLog('뭔가잘못');
+            }
+          }
+
           /*
           navigation.replace('MAIN', {
             u_email: userEmail,
