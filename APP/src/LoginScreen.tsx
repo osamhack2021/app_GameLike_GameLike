@@ -56,7 +56,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           setPLog(`로그인 성공 ${res.data}`);
           try {
             setLog('뭐가문젤까');
-            navigation.relpace('MAIN');
+            navigation.replace('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               setLog(e.message);
