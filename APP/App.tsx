@@ -21,7 +21,11 @@ export default function App() {
     const rv = (
       <ReduxProvider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="START">
+          <Stack.Navigator
+            initialRouteName="START"
+            screenOptions={{
+              animationEnabled: false, // hack
+            }}>
             <Stack.Screen
               name="START"
               component={StartScreen}

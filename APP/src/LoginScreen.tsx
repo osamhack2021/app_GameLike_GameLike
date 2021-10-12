@@ -53,10 +53,11 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       })
       .then(res => {
         if (res.data) {
-          setPLog(`로그인 성공 ${res.data}`);
           try {
             setLog('뭐가문젤까');
-            navigation.replace('MAIN');
+            setPLog(`로그인 성공 ${res.data}`);
+            return res.data;
+            //navigation.replace('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               setLog(e.message);
@@ -71,6 +72,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       .catch(error => {
         setPLog(JSON.stringify(error));
       });
+    return false;
   };
 
   return (
@@ -100,7 +102,10 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         {errortext !== '' ? <Text>{errortext}</Text> : null}
         <TouchableOpacity
           onPress={() => {
-            onClickLogin();
+            const result = onClickLogin();
+            if (result) {
+              navigation.navigate('MAIN');
+            }
           }}>
           <Text>Login</Text>
         </TouchableOpacity>
