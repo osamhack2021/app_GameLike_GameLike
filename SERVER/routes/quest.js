@@ -41,7 +41,8 @@ router.get('/', async (req, res, next) => {
       // },
        order: [['createdAt', 'DESC']],
     });
-    res.send(quests);
+    const data = JSON.stringify(exQuests);
+    res.json(data);
   } catch (err) {
     console.error(err);
     next(err);

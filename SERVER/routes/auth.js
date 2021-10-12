@@ -48,14 +48,23 @@ router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
 		res.send(false);
 		//return res.redirect(`/?loginError=${info.message}`);
     }
-    return req.login(user, (loginError) => {
+    return req.login(user, async (loginError) => {
       if (loginError) {
         console.error(loginError);
 		//res.send(false);
         //return next(loginError);
       }
 	  else{
-	  	res.send(true);
+		  try{
+			  const exUser = await User.findAll({});
+			  const data = JSON.stringify(exUser);
+			  res.send(data);
+		  } catch(error){
+			  console.log(error);
+			  next(error);
+		  }	
+		  
+	  	//res.send(true);
 	  }
       //return res.redirect('/');
     });
