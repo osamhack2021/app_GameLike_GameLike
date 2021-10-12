@@ -6,10 +6,7 @@ var name = 'name';
 var email = 'email';
 var day = 'day';
 
-export default function ProfileScreen(this: any) {
-  const {navigation} = this.props;
-  const u_email = navigation.getParam('u_email');
-  const u_pass = navigation.getParam('u_passs');
+export default function ProfileScreen() {
   return (
     <View>
       <View>

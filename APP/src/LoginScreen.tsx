@@ -103,6 +103,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         <TouchableOpacity
           onPress={() => {
             const result = onClickLogin();
+            Alert.alert(`${result}`);
             if (result) {
               navigation.navigate('MAIN');
             }
