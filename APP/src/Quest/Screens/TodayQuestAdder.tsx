@@ -7,6 +7,9 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {replaceTodayQuestsAction} from '../../Store';
+import insertExpected from 'src/connection/insertExpected';
+import getDateString from '../Times/getDateString';
+import {insertExpectedAction} from 'src/Store/Actions';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
 export default function TodayQuestAdder({
@@ -21,7 +24,7 @@ export default function TodayQuestAdder({
   const [fieldName, setField] = useState('');
   const dispatch = useDispatch();
 
-  const quests = useSelector<AppState, QuestData.DataType[]>(
+  const quests = useSelector<AppState, Exp.DataType[]>(
     state => state.questDatas.todayDatas,
   );
 
@@ -41,15 +44,16 @@ export default function TodayQuestAdder({
         Alert.alert('분야 이름을 입력해주세요!');
         return;
       }
-      //기존 redux 내 quest 배열을 replace할 배열 생성
-      const cquests = [...quests];
-      cquests[index] = {
-        ...cquests[index],
-        name: questName,
-        fieldName: fieldName,
-      };
+      const today = getDateString();
       //redux dispatch
-      dispatch(replaceTodayQuestsAction(cquests));
+      insertExpected({
+        id: 0,
+        questId: 0,
+        userId: '',
+        name: questName,
+        date: today,
+      });
+      dispatch(insertExpectedAction());
       nav.popToTop();
     },
     [dispatch, fieldName, questName, index, quests],

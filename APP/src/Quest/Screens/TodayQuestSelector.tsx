@@ -1,14 +1,17 @@
-import React, {useCallback, useMemo, useState, FC} from 'react';
-import {FlatList, Text, View, StyleSheet} from 'react-native';
-import QuestElement from '../Modules/QuestElement';
-import textStyles from '../Styles/QuestTextStyles';
-import {QuestData} from '../Datas';
+import React, {useCallback, useMemo, useState, FC, useEffect} from 'react';
+import {
+  FlatList,
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  ScrollView,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useSelector} from 'react-redux';
-import {AppState} from '../../Store';
-import get2Digits from '../Times/get2Digits';
-import getHoursColonMinutes from '../Times/getHoursColonMinutes';
-import getDate from '../Times/getDate';
+import insertExpected from 'src/connection/insertExpected';
+import loadRecentQuests from 'src/connection/loadRecentQuests';
+import {ExpectedData, QuestData} from '../Datas';
+import getDateString from '../Times/getDateString';
 
 const TodayQuestSelector = ({
   route,
@@ -18,17 +21,41 @@ const TodayQuestSelector = ({
   route: any;
 }) => {
   const {index} = route.params;
+  const [recentQuest, setRecent] = useState<ExpectedData.DataType[]>([]);
 
-  const quests = useSelector<AppState, QuestData.DataType[]>(
-    state => state.questDatas.todayDatas,
-  );
-  const element = quests[index];
-  const date = getDate(element.lastDate);
+  useEffect(() => {
+    const [log, rq] = loadRecentQuests();
+    const today = getDateString();
+    for (let i of rq) {
+      recentQuest.push({
+        id: 0,
+        userId: '',
+        questId: i.id,
+        date: today,
+        name: i.name,
+      });
+    }
+  }, [recentQuest]);
+
+  const postExpected = useCallback((data: ExpectedData.DataType) => {
+    insertExpected(data);
+  }, []);
 
   return (
-    <View>
+    <ScrollView>
       <Text>이 창에서 퀘스트를 선택해주세요</Text>
-      <Text>{getHoursColonMinutes(date) + '에 수행할 퀘스트'}</Text>
+      <FlatList
+        data={recentQuest}
+        renderItem={ri => (
+          <Button
+            title={ri.item.name}
+            onPress={() => {
+              postExpected(ri.item);
+              navigation.goBack();
+            }}
+          />
+        )}
+      />
       <TouchableOpacity
         style={styles.tco}
         onPress={() => navigation.navigate('ADDER', {index: index})}>
@@ -36,9 +63,9 @@ const TodayQuestSelector = ({
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.tco} onPress={() => navigation.goBack()}>
-        <Text>확인</Text>
+        <Text>뒤로</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

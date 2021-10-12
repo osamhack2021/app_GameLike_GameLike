@@ -3,6 +3,8 @@ import {useDispatch} from 'react-redux';
 import {QuestData} from 'src/Quest/Datas';
 import getDateString from 'src/Quest/Times/getDateString';
 
+//- quest table, userid가 같은 데이터를, 최근순으로 요청
+
 function loadRecentQuests(): [string, QuestData.DataType[]] {
   let arr: QuestData.DataType[] = [];
   return ['test', arr];

@@ -3,9 +3,8 @@ import {useDispatch} from 'react-redux';
 import {ExpectedData} from 'src/Quest/Datas';
 import getDateString from 'src/Quest/Times/getDateString';
 
-function insertExpected(): [string, ExpectedData.DataType[]] {
-  let arr: ExpectedData.DataType[] = [];
-  return ['test', arr];
+function insertExpected(data: ExpectedData.DataType): string {
+  return 'test';
   // let log = '';
   // const date = getDateString();
   // try {
