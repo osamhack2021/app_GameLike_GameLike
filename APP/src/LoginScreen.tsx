@@ -34,8 +34,10 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         }
       });
   };
-  const onClickLogin = () => {
-    //navigation.navigate('MAIN');
+
+  
+  const onClickLogin = (nav: any) => {
+    nav.navigate('MAIN');
 
     axios
       .post('http://52.231.66.60/auth/login', null, {
@@ -49,7 +51,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           setPLog(`로그인 성공 ${res.data}`);
           try {
             setLog('뭐가문젤까');
-            navigation.navigate('MAIN');
+            nav.navigate('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               setLog(e.message);
@@ -91,7 +93,12 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       </View>
       <View>
         {errortext !== '' ? <Text>{errortext}</Text> : null}
-        <Button title="로그인" onPress={() => onClickLogin} />
+        <Button
+          title="로그인"
+          onPress={() => {
+            onClickLogin(navigation);
+          }}
+        />
         <Button title="로그아웃" onPress={onClickLogout} />
         <Button
           title="회원가입"
