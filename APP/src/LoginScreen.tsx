@@ -36,14 +36,13 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   };
 
   const onClickLogin = (nav: any) => {
-    try {
-      nav.navigate('MAIN');
-    } catch (e) {
-      if (e instanceof Error) {
-        setLog(e.message);
-      }
-    }
-
+    // try {
+    //   nav.navigate('MAIN');
+    // } catch (e) {
+    //   if (e instanceof Error) {
+    //     setLog(e.message);
+    //   }
+    // }
     // axios
     //   .post('http://52.231.66.60/auth/login', null, {
     //     params: {
