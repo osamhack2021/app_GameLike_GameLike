@@ -17,8 +17,7 @@ export default function ProfileScreen(this: any) {
       </View>
       <View>
         <Text>이름 : {name} </Text>
-        <Text>이메일 : {u_email} </Text>
-        <Text>비밀번호 : {u_pass} </Text>
+        <Text>이메일 : {email} </Text>
         <Text>입대일자 : {day} </Text>
         <Text>D-DAY : </Text>
       </View>
