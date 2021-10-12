@@ -35,37 +35,42 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       });
   };
 
-  
   const onClickLogin = (nav: any) => {
-    nav.navigate('MAIN');
+    try {
+      nav.navigate('MAIN');
+    } catch (e) {
+      if (e instanceof Error) {
+        setLog(e.message);
+      }
+    }
 
-    axios
-      .post('http://52.231.66.60/auth/login', null, {
-        params: {
-          email: userEmail,
-          password: userPassword,
-        },
-      })
-      .then(res => {
-        if (res.data) {
-          setPLog(`로그인 성공 ${res.data}`);
-          try {
-            setLog('뭐가문젤까');
-            nav.navigate('MAIN');
-          } catch (e) {
-            if (e instanceof Error) {
-              setLog(e.message);
-            } else {
-              setLog('뭘까');
-            }
-          }
-        } else {
-          setPLog(`아이디와 비밀번호를 확인하세요 ${res.data}`);
-        }
-      })
-      .catch(error => {
-        setPLog(JSON.stringify(error));
-      });
+    // axios
+    //   .post('http://52.231.66.60/auth/login', null, {
+    //     params: {
+    //       email: userEmail,
+    //       password: userPassword,
+    //     },
+    //   })
+    //   .then(res => {
+    //     if (res.data) {
+    //       setPLog(`로그인 성공 ${res.data}`);
+    //       try {
+    //         setLog('뭐가문젤까');
+    //         nav.navigate('MAIN');
+    //       } catch (e) {
+    //         if (e instanceof Error) {
+    //           setLog(e.message);
+    //         } else {
+    //           setLog('뭘까');
+    //         }
+    //       }
+    //     } else {
+    //       setPLog(`아이디와 비밀번호를 확인하세요 ${res.data}`);
+    //     }
+    //   })
+    //   .catch(error => {
+    //     setPLog(JSON.stringify(error));
+    //   });
   };
 
   return (
