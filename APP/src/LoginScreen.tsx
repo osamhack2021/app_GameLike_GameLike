@@ -11,11 +11,11 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
   const passwordInputRef = createRef();
-
+  /*
   const gotoMain = () => {
     navigation.navigate('MAIN');
   };
-
+*/
   const onClickLogout = () => {
     axios
       .get('http://52.231.66.60/auth/logout')
@@ -35,6 +35,8 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       });
   };
   const onClickLogin = () => {
+    navigation.navigate('MAIN');
+    /*
     axios
       .post('http://52.231.66.60/auth/login', null, {
         params: {
@@ -47,7 +49,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           setPLog(`로그인 성공 ${res.data}`);
           try {
             setLog('뭐가문젤까');
-            gotoMain();
+            navigation.navigate('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               setLog(e.message);
@@ -55,13 +57,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
               setLog('뭘까');
             }
           }
-
-          /*
-          navigation.replace('MAIN', {
-            u_email: userEmail,
-            u_pass: userPassword,
-          });
-          */
         } else {
           setPLog(`아이디와 비밀번호를 확인하세요 ${res.data}`);
         }
@@ -69,15 +64,9 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       .catch(error => {
         setPLog(JSON.stringify(error));
       });
+      */
   };
-  /*
-  useEffect(() => {
-    axios
-      .get('http://52.231.66.60/auth/login')
-      .then(res => console.log(res))
-      .catch();
-  }, []);
-*/
+
   return (
     <View style={styles.container}>
       <View>
