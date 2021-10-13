@@ -22,6 +22,7 @@ module.exports = () => {
           snsId: profile.id,
           provider: 'kakao',
         });
+        res.json({email : newUser.email, nick : newUser.nick});
         done(null, newUser);
       }
     } catch (error) {

@@ -55,16 +55,16 @@ router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
         //return next(loginError);
       }
 	  else{
-		  try{
-			  const exUser = await User.findAll({});
-			  const data = JSON.stringify(exUser);
-			  res.send(data);
-		  } catch(error){
-			  console.log(error);
-			  next(error);
-		  }	
+		//   try{
+		// 	  const exUser = await User.findAll({});
+		// 	  const data = JSON.stringify(exUser);
+		// 	  res.send(data);
+		//   } catch(error){
+		// 	  console.log(error);
+		// 	  next(error);
+		//   }	
 		  
-	  	//res.send(true);
+	  	res.send(true);
 	  }
       //return res.redirect('/');
     });
@@ -75,7 +75,7 @@ router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
 router.get('/logout', isLoggedIn, (req, res)=>{
 	req.logout(); // req에서 지워준다
 	req.session.destroy(); // 세션 지우기
-	res.send('Logout complete!!!');
+	res.send(true);
 	//res.redirect('/');
 });
 
