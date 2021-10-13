@@ -12,6 +12,7 @@ import RegisterScreen from './src/RegisterScreen';
 
 import {Provider as ReduxProvider, useSelector} from 'react-redux';
 import {AppState, makeStore} from './src/Store';
+import HomeScreen from './src/Component/HomeScreen';
 
 const Stack = createStackNavigator();
 const store = makeStore();
@@ -38,7 +39,7 @@ export default function App() {
             />
             <Stack.Screen
               name="MAIN"
-              component={MainScreen}
+              component={HomeScreen}
               options={{title: '메인화면'}}
             />
             <Stack.Screen

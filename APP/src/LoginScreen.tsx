@@ -56,8 +56,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           try {
             setLog('뭐가문젤까');
             setPLog(`로그인 성공 ${res.data}`);
-            return res.data;
-            //navigation.replace('MAIN');
+            navigation.navigate('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               setLog(e.message);
@@ -102,11 +101,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         {errortext !== '' ? <Text>{errortext}</Text> : null}
         <TouchableOpacity
           onPress={() => {
-            const result = onClickLogin();
-            Alert.alert(`${result}`);
-            if (result) {
-              navigation.navigate('MAIN');
-            }
+            onClickLogin();
           }}>
           <Text>Login</Text>
         </TouchableOpacity>
