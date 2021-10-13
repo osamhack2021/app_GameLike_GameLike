@@ -27,6 +27,36 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickLogin = () => {
     axios
+      .post('http://52.231.66.60/auth/kakao', null, {
+        params: {
+          email: userEmail,
+          password: userPassword,
+        },
+      })
+      .then(res => {
+        if (res.data) {
+          try {
+            setPLog(`로그인 성공 ${res.data}`);
+            navigation.navigate('MAIN');
+          } catch (e) {
+            if (e instanceof Error) {
+              setLog(e.message);
+            } else {
+              setLog('뭘까');
+            }
+          }
+        } else {
+          setPLog(`아이디와 비밀번호를 확인하세요 ${res.data}`);
+        }
+      })
+      .catch(error => {
+        setPLog(JSON.stringify(error));
+      });
+    return false;
+  };
+
+  const onClickKakaoLogin = () => {
+    axios
       .post('http://52.231.66.60/auth/login', null, {
         params: {
           email: userEmail,
@@ -36,9 +66,8 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       .then(res => {
         if (res.data) {
           try {
-            setLog('뭐가문젤까');
             setPLog(`로그인 성공 ${res.data}`);
-            navigation.navigate('MAIN');
+            //navigation.navigate('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               setLog(e.message);
@@ -81,7 +110,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       </View>
       <View>
         {errortext !== '' ? <Text>{errortext}</Text> : null}
-
+        <Button title="카카오로그인" onPress={() => onClickKakaoLogin()} />
         <Button title="로그인" onPress={() => onClickLogin()} />
         <Button
           title="회원가입"

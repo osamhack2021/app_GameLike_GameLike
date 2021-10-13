@@ -41,7 +41,7 @@ export default function ProfileScreen() {
         <Text>입대일자 : {day} </Text>
         <Text>D-DAY : </Text>
         <Button title="로그아웃" onPress={() => onClickLogout()} />
-        <Text>log</Text>
+        <Text>{log}</Text>
       </View>
     </View>
   );
