@@ -24,24 +24,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
     navigation.navigate('MAIN');
   };
 */
-  const onClickLogout = () => {
-    axios
-      .get('http://52.231.66.60/auth/logout')
-      .then(response => {
-        try {
-          setLog(`로그아웃 성공이오 ${JSON.stringify(response.data)}`);
-        } catch (e) {
-          setLog('로그아웃 성공 했지만');
-        }
-      })
-      .catch(error => {
-        if (error instanceof Error) {
-          setLog(error.message);
-        } else {
-          setLog('로그아웃 error ocurred');
-        }
-      });
-  };
 
   const onClickLogin = () => {
     axios
@@ -99,17 +81,11 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       </View>
       <View>
         {errortext !== '' ? <Text>{errortext}</Text> : null}
-        <TouchableOpacity
-          onPress={() => {
-            onClickLogin();
-          }}>
-          <Text>Login</Text>
-        </TouchableOpacity>
 
-        <Button title="로그아웃" onPress={onClickLogout} />
+        <Button title="로그인" onPress={() => onClickLogin()} />
         <Button
           title="회원가입"
-          onPress={() => navigation.navigate('MAIN')}
+          onPress={() => navigation.navigate('REGISTER')}
         />
       </View>
       <Text>{log}</Text>
