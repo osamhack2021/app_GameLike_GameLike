@@ -109,7 +109,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         <Button title="로그아웃" onPress={onClickLogout} />
         <Button
           title="회원가입"
-          onPress={() => navigation.navigate('REGISTER')}
+          onPress={() => navigation.navigate('MAIN')}
         />
       </View>
       <Text>{log}</Text>

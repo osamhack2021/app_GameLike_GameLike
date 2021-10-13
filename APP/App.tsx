@@ -39,7 +39,7 @@ export default function App() {
             />
             <Stack.Screen
               name="MAIN"
-              component={HomeScreen}
+              component={MainScreen}
               options={{title: '메인화면'}}
             />
             <Stack.Screen
