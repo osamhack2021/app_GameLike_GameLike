@@ -40,11 +40,11 @@ router.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile', { title: '내 정보 - NodeBird', user: req.user });
 });
 
-// 테스트용 프로필 페이지
+// 테스트용 프로필 페이지, 상단 정보 리턴
 router.get('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
   const { email } = req.body;
   try {
-    const User = await User.findOne({ where: { email } 
+    const User = await User.findOne({ where: { email },
     attributes: ['name', 'exp'], // 수정필요
     });
     const data = JSON.stringify(User);
