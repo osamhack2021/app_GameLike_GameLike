@@ -4,24 +4,25 @@ const bcrypt = require('bcrypt');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const User = require('../models/user');
 const Quest = require('../models/quest');
-const expectedQuest = require('../models/expectedquest');
-const performedQuest = require('../models/performedquest');
+const Expected = require('../models/expected');
+const Performed = require('../models/performed');
 
 const router = express.Router();
 
 //퀘스트 생성
 router.post('/create', async (req, res, next) => {
   const { 
-    name,
+    questName,
     date,
+    userId
   } = req.body;
   try {
-    const exQuest = await expectedQuest.findOne({ where: { name } });    
+    const exQuest = await Expected.findOne({ where: { questName } });    
     await Quest.create({
-      name,
+      questName,
       date,
       isPerformed: false,
-      creatorId: 44445,
+      userId: userId,
     });
     //return res.redirect('/');
   } catch (error) {
@@ -31,9 +32,9 @@ router.post('/create', async (req, res, next) => {
 });
 
 //자신의 퀘스트 전부 불러오기
-router.get('/', async (req, res, next) => {
+router.get('/expected', async (req, res, next) => {
   try {
-    const exQuests = await expectedQuest.findAll({
+    const exQuests = await Expected.findAll({
       attributes: ['name', 'date'],
       // include: {
       //    model: User,

@@ -4,8 +4,8 @@ const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const { Post, User } = require('../models');
 const Quest = require('../models/quest');
-const expectedQuest = require('../models/expectedquest');
-const performedQuest = require('../models/performedquest');
+const Expected = require('../models/expected');
+const Performed = require('../models/performed');
 
 router.use((req, res, next) => {
   res.locals.user = req.user;
@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 router.get('/home', async (req, res, next) => {
   try {
     const isExists = true;
-    const exQuests = await expectedQuest.findAll({
+    const exQuests = await Expected.findAll({
       // include: {
       //    model: User,
       //    attributes: ['id', 'nick'],
@@ -29,7 +29,7 @@ router.get('/home', async (req, res, next) => {
     if (exQuests.length == 0) {
       isExists = false;
     }
-    res.json({ isExists: isExists, expectedQuest: exQuests });
+    res.json({ isExists: isExists, Expected: exQuests });
   } catch (err) {
     console.error(err);
     next(err);

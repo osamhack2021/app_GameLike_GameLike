@@ -23,5 +23,8 @@ module.exports = class Hashtag extends Sequelize.Model {
   static associate(db) {
     db.Hashtag.belongsToMany(db.Post, { through: 'PostHashtag' });
     db.Hashtag.belongsToMany(db.Quest, {through: 'QuestHashtag'});
+
+    db.Hashtag.belongsToMany(db.Expected, {through: 'ExpectedHashTag'});
+    db.Hashtag.belongsToMany(db.Performed, {through: 'PerformedHashTag'});
   }
 };

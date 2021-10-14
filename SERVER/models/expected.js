@@ -1,14 +1,22 @@
 const Sequelize = require('sequelize');
 
-module.exports = class expectedQuest extends Sequelize.Model {
+module.exports = class Expected extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      name: {
-        type: Sequelize.STRING(30),
+      questName: {
+        type: Sequelize.STRING(40),
         allowNull: false,
         unique: false,
       },
+      hashTag: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
       date: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
+      detail: {
         type: Sequelize.STRING(30),
         allowNull: false,
       },
@@ -17,8 +25,8 @@ module.exports = class expectedQuest extends Sequelize.Model {
         allowNull: true,
       },
       userId: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+        type: Sequelize.STRING(40),
+        allowNull: false,
       },
       isPublic: {
         type: Sequelize.BOOLEAN,
@@ -28,8 +36,8 @@ module.exports = class expectedQuest extends Sequelize.Model {
       sequelize,
       timestamps: true,
       underscored: false,
-      modelName: 'expectedQuest',
-      tableName: 'expectedquests',
+      modelName: 'Expected',
+      tableName: 'expected',
       paranoid: true,
       charset: 'utf8',
       collate: 'utf8_general_ci',
@@ -37,5 +45,6 @@ module.exports = class expectedQuest extends Sequelize.Model {
   }
 
   static associate(db) {
+    db.Expected.belongsToMany(db.Hashtag, { through: 'ExpectedHashTag' });
   }
 };

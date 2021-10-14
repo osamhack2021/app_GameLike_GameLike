@@ -16,26 +16,26 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(100),
         allowNull: true,
       },
-      // enlistDate: {
-      //   type: Sequelize.STRING(30),
-      //   allowNull: true,
-      // },
-      // //복무시작일
-      // dischargeDate:{
-      //   type: Sequelize.STRING(40),
-      //   allowNull: true,
-      // },
-      // exp: {
-      //   type:Sequelize.INTEGER,
-      //   allowNull: true,
-      //   defaultValue: 0,
-      // },
-      // level: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: true,
-      //   defaultValue: 0,
-      // },      
-      // 경험치
+      enlistDate: {
+        type: Sequelize.STRING(30),
+        allowNull: true,
+      },
+      //복무시작일
+      dischargeDate:{
+        type: Sequelize.STRING(40),
+        allowNull: true,
+      },
+      exp: {
+        type:Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: 0,
+      },
+      level: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: 0,
+      },      
+      //경험치
       provider: {
         type: Sequelize.STRING(10),
         allowNull: false,
