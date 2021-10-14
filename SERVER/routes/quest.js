@@ -9,49 +9,137 @@ const Performed = require('../models/performed');
 
 const router = express.Router();
 
-//퀘스트 생성
-router.post('/create', async (req, res, next) => {
+const expectedLimit = 20;
+
+//1번 : O
+//2번 : O
+//3번 : O
+//4번 : O
+//5번 : O
+//6번 :
+
+// 3번 Expected 생성
+router.post('/createEx', async (req, res, next) => {
   const { 
     questName,
+    hashTag,
     date,
     userId
   } = req.body;
   try {
-    const exQuest = await Expected.findOne({ where: { questName } });    
-    await Quest.create({
-      questName,
-      date,
+    //const exQuest = await Expected.findOne({ where: { questName } });    
+    const expected = await Expected.create({
+      questName : questName,
+      hashTag: hashTag,
+      date: date,
       isPerformed: false,
       userId: userId,
     });
+    res.json({
+      message: "Expected Create SUCCESS!", success : true
+    });
     //return res.redirect('/');
-  } catch (error) {
+  } catch (error) {    
     console.error(error);
-    return next(error);
+    res.json({
+      message: "Expected Create FAILED!", success : false
+    });
+    //return next(error);
   }
 });
 
-//자신의 퀘스트 전부 불러오기
+//4번 Performed 생성 
+router.post('/createPe', async (req, res, next) => {
+  const { 
+    questName,
+    hashTag,
+    date,
+    startTime,
+    endTime,
+    detail,
+    userId
+  } = req.body;
+  try {
+    const performed = await Performed.create({
+      questName : questName,
+      hashTag: hashTag,
+      date: date,
+      startTime: startTime,
+      endTime: endTime,
+      detail: detail,
+      isPerformed: false,
+      userId: userId,
+    });
+    res.json({
+      message: "Performed Create SUCCESS!", success : true, id: performed.id
+    });
+    //return res.redirect('/');
+  } catch (error) {    
+    console.error(error);
+    res.json({
+      message: "Perfomred Create FAILED!", success : false, id: -1
+    });
+    //return next(error);
+  }
+});
+
+// 2번 Expected 20개 불러오기
 router.get('/expected', async (req, res, next) => {
   try {
-    const exQuests = await Expected.findAll({
-      attributes: ['name', 'date'],
-      // include: {
-      //    model: User,
-      //    attributes: ['id', 'nick'],
-      // },
-       order: [['createdAt', 'DESC']],
+    const expected = await Expected.findAll({
+      attributes: ['questName', 'hashTag', 'date'],
+      order: [['createdAt', 'DESC']],
+      limit: expectedLimit,
     });
-    const data = JSON.stringify(exQuests);
+    const data = JSON.stringify(expected);
     res.json(data);
   } catch (err) {
     console.error(err);
-    next(err);
+    res.json(err);
+    //next(err);
+  }
+});
+
+// 1번 오늘의(date) Expected 불러오기
+router.get('/expected', async (req, res, next) => {
+  const {date} = req.body;
+  try {
+    const expected = await Expected.findAll({
+      where: {date : date},
+      attributes: ['questName', 'hashTag', 'date'],
+      order: [['createdAt', 'ASC']],
+    });
+    const data = JSON.stringify(expected);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.json(err);
+    //next(err);
+  }
+});
+
+// 5번 Performed endTime 수정
+router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정예제
+  const {id, endTime} = req.body;
+  try {
+    const performed = await Performed.update({where})
+    await Quest.update({ endTime: req.body.endTime }, {
+      where: { id: req.body.id },
+    })
+    res.json({
+      message: "Performed Update SUCCESS!", success : true,
+    });
+  } catch(error){
+    console.log(error);
+    res.json({
+      message: "Performed Update FAILED!", success : false,
+    });
+    // next(error);
   }
 });
 
 // 퀘스트 삭제
-router.delete('/:id', async (req, res, next) => {
+/*router.delete('/:id', async (req, res, next) => {
     try{
         await Quest.destroy({ where: { id : req.params.id, UserId: req.user.id}});
         res.send('OK');
@@ -59,7 +147,7 @@ router.delete('/:id', async (req, res, next) => {
         console.error(error);
         next(error);
     }
-});
+});*/
 
 /*
 // 퀘스트 수정

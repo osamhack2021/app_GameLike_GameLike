@@ -26,7 +26,7 @@ module.exports = class Performed extends Sequelize.Model {
       },
       detail: {
         type: Sequelize.STRING(40),
-        allowNull : false,
+        allowNull : true,
       },
       userId: {
         type: Sequelize.STRING(40),

@@ -18,7 +18,7 @@ module.exports = class Expected extends Sequelize.Model {
       },
       detail: {
         type: Sequelize.STRING(30),
-        allowNull: false,
+        allowNull: true,
       },
       isPerformed: {
         type: Sequelize.BOOLEAN,
