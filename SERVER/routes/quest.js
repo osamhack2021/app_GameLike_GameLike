@@ -138,6 +138,23 @@ router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정
   }
 });
 
+// 6번 performed endTime NULL인 값 가져오기
+router.get('/performedE', async (req, res, next) => {
+  try {
+    const performed = await Performed.findAll({
+      where: {endTime : NULL},
+      attributes: ['questName', 'hashTag', 'date'],
+      order: [['createdAt', 'ASC']],
+    });
+    const data = JSON.stringify(performed);
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.json(err);
+    //next(err);
+  }
+});
+
 // 퀘스트 삭제
 /*router.delete('/:id', async (req, res, next) => {
     try{
