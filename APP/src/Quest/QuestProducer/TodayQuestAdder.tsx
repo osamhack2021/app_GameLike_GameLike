@@ -1,8 +1,8 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {FlatList, Text, TextInput, View, StyleSheet, Alert} from 'react-native';
-import QuestElement from '../Modules/QuestElement';
+import ExpectedElement from './ExpectedElement';
 import textStyles from '../Styles/QuestTextStyles';
-import {QuestData} from '../Datas';
+import {ExpectedData, QuestData} from '../Datas';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
@@ -24,9 +24,9 @@ export default function TodayQuestAdder({
   const [fieldName, setField] = useState('');
   const dispatch = useDispatch();
 
-  const quests = useSelector<AppState, Exp.DataType[]>(
-    state => state.questDatas.todayDatas,
-  );
+  // const quests = useSelector<AppState, ExpectedData.DataType[]>(
+  //   state => state.questDatas.todayDatas,
+  // );
 
   //퀘스트 추가 버튼을 눌렀을 경우
   //1. 입력 데이터 검증
@@ -53,10 +53,10 @@ export default function TodayQuestAdder({
         name: questName,
         date: today,
       });
-      dispatch(insertExpectedAction());
+      //dispatch(insertExpectedAction());
       nav.popToTop();
     },
-    [dispatch, fieldName, questName, index, quests],
+    [fieldName, questName],
   );
 
   return (
