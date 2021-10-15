@@ -8,7 +8,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {replaceTodayQuestsAction} from '../../Store';
 import getDateString from '../Times/getDateString';
-import {insertExpectedAction} from 'src/Store/Actions';
+import {insertExpectedAction, replaceExpectedAction} from '../../Store/Actions';
+import PostNewExpectedData from '../Datas/Connection/PostNewExpectedData';
+import {reloadTodayExpected} from '../Datas/Connection';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
 export default function TodayQuestAdder({navigation}: {navigation: any}) {
@@ -37,18 +39,20 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         return;
       }
       const today = getDateString();
-      //redux dispatch
-      // insertExpected({
-      //   id: 0,
-      //   questId: 0,
-      //   userId: '',
-      //   questName: questName,
-      //   date: today,
-      // });
-      //dispatch(insertExpectedAction());
+      const data: ExpectedData.DataType = {
+        id: -1,
+        questName: questName,
+        hashTag: fieldName,
+        userId: 'testid',
+        date: '2021-10-15',
+      };
+      PostNewExpectedData(data);
+      const result = reloadTodayExpected();
+      dispatch(replaceExpectedAction(result));
+
       nav.popToTop();
     },
-    [fieldName, questName],
+    [fieldName, questName, dispatch],
   );
 
   return (
