@@ -7,19 +7,11 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {replaceTodayQuestsAction} from '../../Store';
-import insertExpected from 'src/connection/insertExpected';
 import getDateString from '../Times/getDateString';
 import {insertExpectedAction} from 'src/Store/Actions';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
-export default function TodayQuestAdder({
-  navigation,
-  route,
-}: {
-  navigation: any;
-  route: any;
-}) {
-  const {index} = route.params;
+export default function TodayQuestAdder({navigation}: {navigation: any}) {
   const [questName, setQuest] = useState('');
   const [fieldName, setField] = useState('');
   const dispatch = useDispatch();
@@ -46,13 +38,13 @@ export default function TodayQuestAdder({
       }
       const today = getDateString();
       //redux dispatch
-      insertExpected({
-        id: 0,
-        questId: 0,
-        userId: '',
-        name: questName,
-        date: today,
-      });
+      // insertExpected({
+      //   id: 0,
+      //   questId: 0,
+      //   userId: '',
+      //   questName: questName,
+      //   date: today,
+      // });
       //dispatch(insertExpectedAction());
       nav.popToTop();
     },

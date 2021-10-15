@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import TodayQuestScreen from './Quest/QuestProducer/TodayQuestScreen';
 import CurrentQuestScreen from './Quest/QuestExecuter/CurrentQuestScreen';
 import PrevQuestScreen from './Quest/Screens/PrevQuestScreen';
+import TodayNavigator from './Quest/QuestProducer/TodayNavigator';
 
 const Stack = createStackNavigator();
 
@@ -13,7 +14,7 @@ export default function MainScreen() {
       initialRouteName="HOME"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="HOME" component={HomeScreen} />
-      <Stack.Screen name="TODAY" component={TodayQuestScreen} />
+      <Stack.Screen name="TODAY" component={TodayNavigator} />
       <Stack.Screen name="CURRENT" component={CurrentQuestScreen} />
     </Stack.Navigator>
   );
