@@ -8,13 +8,15 @@ import {
   ScrollView,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import insertExpected from 'src/connection/insertExpected';
 import loadRecentQuests from '../Datas/Connection/loadRecentExpected';
-import {AppState} from '../../Store';
+import {AppState, replaceExpectedAction} from '../../Store';
 import {ExpectedData, QuestData} from '../Datas';
 import loadRecentExpected from '../Datas/Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
+import PostNewExpectedData from '../Datas/Connection/PostNewExpectedData';
+import {reloadTodayExpected} from '../Datas/Connection';
 
 const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   const [recentQuest, setRecent] = useState<ExpectedData.DataType[]>([]);
@@ -42,9 +44,15 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
     setRecent(results);
   }, [currentExpected]);
 
-  const postExpected = useCallback((data: ExpectedData.DataType) => {
-    //insertExpected(data);
-  }, []);
+  const dispatch = useDispatch();
+  const postExpected = useCallback(
+    (data: ExpectedData.DataType) => {
+      PostNewExpectedData(data);
+      const result = reloadTodayExpected();
+      dispatch(replaceExpectedAction(result));
+    },
+    [dispatch],
+  );
 
   return (
     <View>
