@@ -45,7 +45,10 @@ router.get('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
   const { email } = req.body;
   try {
     const User = await User.findOne({ where: { email },
-    attributes: ['name', 'exp'], // 수정필요
+    attributes: [
+      'nick', 'dischargeDate', 'exp', 'level',
+      [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
+      ], // (순위)
     });
     const data = JSON.stringify(User);
     res.json(data);
@@ -90,6 +93,7 @@ router.get('/', async (req, res, next) => {
       },
       order: [['createdAt', 'DESC']],
     });
+    //console.log(posts.length);
     res.render('main', {
       title: 'NodeBird',
       twits: posts,

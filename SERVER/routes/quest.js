@@ -16,7 +16,7 @@ const expectedLimit = 20;
 //3번 : O
 //4번 : O
 //5번 : O
-//6번 :
+//6번 : O
 
 // 3번 Expected 생성
 router.post('/createEx', async (req, res, next) => {
@@ -148,6 +148,23 @@ router.get('/performedE', async (req, res, next) => {
     });
     const data = JSON.stringify(performed);
     res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.json(err);
+    //next(err);
+  }
+});
+
+// peopleWith 프로토타입
+router.get('/complete', async (req, res, next) => {
+  const {hashTag} = req.body;
+  try {
+    const performed = await Performed.findAll({
+      where: {hashTag : req.body.hashTag},
+    });
+    const length = performed.length;
+    // const data = JSON.stringify(performed);
+    res.json({peopleWith : length });
   } catch (err) {
     console.error(err);
     res.json(err);
