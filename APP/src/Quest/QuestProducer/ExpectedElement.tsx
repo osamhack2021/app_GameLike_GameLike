@@ -6,17 +6,30 @@ import getDate from '../Times/getDate';
 
 type QuestByTimeProps = {
   name: string;
+  hashTag: string;
+  disabled?: boolean;
   onPress?: () => void;
 };
 
-const QuestElement: FC<QuestByTimeProps> = ({name, onPress}) => {
+const ExpectedElement: FC<QuestByTimeProps> = ({
+  name,
+  hashTag,
+  disabled,
+  onPress,
+}) => {
   if (!onPress) {
     onPress = () => {};
   }
 
   return (
     <View style={styles.view}>
-      <TouchableOpacity style={styles.tco} onPress={onPress}>
+      <View>
+        <Text>{'#' + hashTag}</Text>
+      </View>
+      <TouchableOpacity
+        style={styles.tco}
+        onPress={onPress}
+        disabled={disabled || false}>
         <Text>{name}</Text>
       </TouchableOpacity>
     </View>
@@ -28,4 +41,4 @@ const styles = StyleSheet.create({
   tco: {width: '100%', height: 75, borderColor: '#000000', borderWidth: 3},
 });
 
-export default QuestElement;
+export default ExpectedElement;

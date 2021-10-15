@@ -65,7 +65,9 @@ export default function TodayQuestScreen({
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList
         data={expects}
-        renderItem={ri => <ExpectedElement name={ri.item.questName} />}
+        renderItem={ri => (
+          <ExpectedElement name={ri.item.questName} hashTag={ri.item.hashTag} />
+        )}
       />
       <TouchableOpacity
         style={styles.tco}
