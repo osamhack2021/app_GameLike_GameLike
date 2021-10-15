@@ -3,10 +3,10 @@
 //     res:    date 값이 일치하는 같은 모든 expected data
 
 import {ExpectedData} from '..';
-import datas from './expectedTestDatas';
+import testDatas from './expectedTestDatas';
 
 export function reloadTodayExpected(): ExpectedData.DataType[] {
-  return datas;
+  return testDatas;
 }
 
 export default reloadTodayExpected;

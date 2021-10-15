@@ -45,7 +45,6 @@ export default function TodayQuestScreen({
 }) {
   //1. reload expects
   //2. expect에 따른 FlatList 출력
-
   const todayStr = getTodayString(new Date());
   const dispatch = useDispatch();
 
@@ -66,7 +65,11 @@ export default function TodayQuestScreen({
       <FlatList
         data={expects}
         renderItem={ri => (
-          <ExpectedElement name={ri.item.questName} hashTag={ri.item.hashTag} />
+          <ExpectedElement
+            name={ri.item.questName}
+            hashTag={ri.item.hashTag}
+            onPress={() => navigation.navigate('CURRENT', {expected: ri.item})}
+          />
         )}
       />
       <TouchableOpacity
