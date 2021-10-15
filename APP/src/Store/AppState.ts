@@ -11,15 +11,11 @@ export type QuestScreenState = {
   todayTaskChecked: boolean;
 };
 
-export type QuestDatas = {
-  todayDatas: QuestData.DataType[];
-};
-
 export type AppState = {
   //loggedIn: boolean;
   //loggedUser: User;
   questScreenState: QuestScreenState;
-  questDatas: QuestDatas;
+  questDatas: QuestData.DataType[];
   expectedDatas: ExpectedData.DataType[];
-  performedDatas: PerformedData.DataType[];
+  //performedDatas: PerformedData.DataType[];
 };

@@ -1,10 +1,12 @@
 type DataType = {
   id: number;
-  questId: number;
+  questName: string;
+  hashTag: string;
   date: string;
   userId: string;
-  startDate: string;
-  endDate: string;
+  startTime: string;
+  endTime: string;
+  detail: string;
 };
 
 export type {DataType};

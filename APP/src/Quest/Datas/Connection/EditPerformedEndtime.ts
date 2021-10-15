@@ -2,4 +2,4 @@
 //     post:   id, endTime
 //     res:    성공 여부
 
-export function AddExpectedData() {}
+export default function EditPerformedEndtime() {}

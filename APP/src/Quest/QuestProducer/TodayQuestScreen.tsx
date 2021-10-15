@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import QuestElement from '../Modules/QuestElement';
+import ExpectedElement from './ExpectedElement';
 import textStyles from '../Styles/QuestTextStyles';
 import {ExpectedData, QuestData} from '../Datas';
 import TodayQuestSelector from './TodayQuestSelector';
@@ -24,6 +24,7 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
 import reloadExpected from '../../connection/reloadExpected';
 import getTodayString from '../Times/getTodayString';
+import {reloadTodayExpected} from '../Datas/Connection';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -45,7 +46,6 @@ export default function TodayQuestScreen({
   //1. reload expects
   //2. expect에 따른 FlatList 출력
 
-  //expected reload 요청
   const todayStr = getTodayString(new Date());
   const dispatch = useDispatch();
 
@@ -53,31 +53,35 @@ export default function TodayQuestScreen({
     state => state.expectedDatas,
   );
 
+  //expected reload 요청
   useEffect(() => {
-    const [rl, e] = reloadExpected();
-    dispatch(replaceExpectedAction(e));
-  }, [dispatch, expects]);
+    const datas = reloadTodayExpected();
+    dispatch(replaceExpectedAction(datas));
+  }, [dispatch]);
 
   return (
-    <ScrollView>
-      <!--asdf-->
+    <View>
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList
         data={expects}
-        renderItem={ri => <QuestElement name={ri.item.name} />}
+        renderItem={ri => <ExpectedElement name={ri.item.questName} />}
       />
       <TouchableOpacity
         style={styles.tco}
         onPress={() => {
           navigation.navigate('SELECTOR');
         }}>
-        <Text>퀘스트 추가하기</Text>
+        <Text>오늘의 퀘스트 추가하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.tco} onPress={() => {}}>
-        <Text>확인</Text>
+      <TouchableOpacity
+        style={styles.tco}
+        onPress={() => {
+          navigation.goBack();
+        }}>
+        <Text>완료</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 }
 

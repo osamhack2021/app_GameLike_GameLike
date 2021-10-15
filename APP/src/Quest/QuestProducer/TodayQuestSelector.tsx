@@ -30,9 +30,9 @@ const TodayQuestSelector = ({
       recentQuest.push({
         id: 0,
         userId: '',
-        questId: i.id,
+        hashTag: '#예시',
         date: today,
-        name: i.name,
+        questName: i.name,
       });
     }
   }, [recentQuest]);
@@ -48,7 +48,7 @@ const TodayQuestSelector = ({
         data={recentQuest}
         renderItem={ri => (
           <Button
-            title={ri.item.name}
+            title={ri.item.questName}
             onPress={() => {
               postExpected(ri.item);
               navigation.goBack();

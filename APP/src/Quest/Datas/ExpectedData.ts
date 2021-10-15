@@ -1,9 +1,9 @@
 type DataType = {
   id: number;
-  questId: number;
+  questName: string;
   userId: string;
   date: string;
-  name: string;
+  hashTag: string;
 };
 
 export type {DataType};
