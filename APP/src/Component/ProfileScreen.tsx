@@ -11,13 +11,13 @@ var day = 'day';
 
 export default function ProfileScreen() {
   const [log, setLog] = useState('');
-  const testEmail = 'test@n.n';
+  //const testEmail = 'test@n.n';
 
   const onClickUserinfo = () => {
     axios
       .post('http://52.231.66.60/profiles', null, {
         params: {
-          email: testEmail,
+          email: 'test@n.n',
         },
       })
       .then(response => {
@@ -77,8 +77,8 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    //justifyContent: 'center',
+    //alignItems: 'center',
     //backgroundColor: '#008080',
   },
   profileCom: {
