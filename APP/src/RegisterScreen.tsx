@@ -18,15 +18,18 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userNickname, setUserNickname] = useState('');
-  const [userDate, setUserDate] = useState('');
+  const [userenDate, setUserenDate] = useState('');
+  const [userdisDate, setUserdisDate] = useState('');
   const [plog, setPLog] = useState('');
 
-  const onClickRegister = useCallback((e, p, n) => {
+  const onClickRegister = useCallback((e, p, n, en, dis) => {
     axios
       .post('http://52.231.66.60/auth/join', {
         email: e,
         password: p,
         nick: n,
+        enlistDate: en,
+        dischargeDate: dis,
         // date: d,
       })
       .then(response => {
@@ -66,15 +69,30 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
       <View style={styles.SectionStyle}>
         <TextInput
           style={styles.inputStyle}
-          onChangeText={UserDate => setUserDate(UserDate)}
+          onChangeText={UserenDate => setUserenDate(UserenDate)}
           placeholder="입대일자"
         />
       </View>
+
+      <View style={styles.SectionStyle}>
+        <TextInput
+          style={styles.inputStyle}
+          onChangeText={UserdisDate => setUserdisDate(UserdisDate)}
+          placeholder="전역일자"
+        />
+      </View>
+
       <TouchableOpacity
         style={styles.buttonStyle}
         activeOpacity={0.5}
         onPress={() => {
-          onClickRegister(userEmail, userPassword, userNickname);
+          onClickRegister(
+            userEmail,
+            userPassword,
+            userNickname,
+            userenDate,
+            userdisDate,
+          );
         }}>
         <Text style={styles.buttonTextStyle}>회원가입</Text>
         <Text>{plog}</Text>
