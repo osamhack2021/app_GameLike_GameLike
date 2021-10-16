@@ -42,10 +42,10 @@ router.get('/profile', isLoggedIn, (req, res) => {
 });
 
 // 테스트용 프로필 페이지, 상단 정보 리턴
-router.post('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
+router.post('/profiles', isNotLoggedIn, async (req, res, next) => {
   const { email } = req.body;
   try {
-    const exUser = await User.findAll({ where: { email } });
+    const exUser = await User.findOne({ where: { email } });
       /*
       attributes: [
         'nick', 'dischargeDate', 'exp', 'level',
