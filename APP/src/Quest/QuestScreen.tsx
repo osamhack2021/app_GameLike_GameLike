@@ -12,13 +12,6 @@ import ConnectScreen from './Connection/ConnectScreen';
 
 const Stack = createStackNavigator();
 export default function QuestScreen() {
-  const prevTask = useSelector<AppState, boolean>(
-    state => state.questScreenState.prevTaskChecked,
-  );
-  const curTask = useSelector<AppState, boolean>(
-    state => state.questScreenState.todayTaskChecked,
-  );
-
   return (
     <Stack.Navigator
       initialRouteName="CONNECTION"

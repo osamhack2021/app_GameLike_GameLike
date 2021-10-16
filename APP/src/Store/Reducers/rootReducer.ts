@@ -1,13 +1,9 @@
 import {AppState} from '../AppState';
 import {combineReducers} from 'redux';
-import {questDatasReducer} from './questDatasReducer';
-import {questStateReducer} from './questStateReducer';
 import {expectedDatasReducer} from './expectedDatasReducer';
-import {performedDatasReducer} from './performedDatasReducer';
+import {levelReducer} from './levelReducer';
 
 export const rootReducer = combineReducers({
-  questScreenState: questStateReducer,
-  questDatas: questDatasReducer,
   expectedDatas: expectedDatasReducer,
-  //performedDatas: performedDatasReducer,
+  level: levelReducer,
 });

@@ -1,8 +1,7 @@
 import type {Action} from 'redux';
 import {ExpectedDataActions} from './expectedDataActions';
-import {QuestDataActions} from './questDataActions';
-import {QuestGotoActions} from './questGotoActions';
+import {LevelActions} from './levelActions';
 
 export type LoginActions = Action;
 
-export type Actions = QuestGotoActions | QuestDataActions | ExpectedDataActions;
+export type Actions = ExpectedDataActions | LevelActions;

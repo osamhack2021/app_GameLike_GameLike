@@ -1,4 +1,4 @@
-import {ExpectedDataActions, QuestDataActions} from '../Actions';
+import {ExpectedDataActions} from '../Actions';
 
 export const expectedDatasReducer = (
   state = [],

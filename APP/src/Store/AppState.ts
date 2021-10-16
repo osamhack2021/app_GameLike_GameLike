@@ -6,16 +6,13 @@ export type User = {
   password: string;
 };
 
-export type QuestScreenState = {
-  prevTaskChecked: boolean;
-  todayTaskChecked: boolean;
+export type Level = {
+  exp: number;
 };
 
 export type AppState = {
   //loggedIn: boolean;
   //loggedUser: User;
-  questScreenState: QuestScreenState;
-  questDatas: QuestData.DataType[];
   expectedDatas: ExpectedData.DataType[];
-  //performedDatas: PerformedData.DataType[];
+  level: Level;
 };
