@@ -46,13 +46,13 @@ router.get('/profiles', isNotLoggedIn, async (req, res, next) => {
   //const { email } = req.body;
   const email = 'test@n.n'
   try {
-    const exUser = await User.findOne({ where: { email } });
-      /*
+    const exUser = await User.findOne({ 
+      where: { email }, 
       attributes: [
         'nick', 'dischargeDate', 'exp', 'level',
         [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
       ], // (순위)
-    );*/
+    });
     if (!exUser) {
       res.json('no user founded');
     }
