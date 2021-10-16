@@ -6,6 +6,7 @@ const { Post, User } = require('../models');
 const Quest = require('../models/quest');
 const Expected = require('../models/expected');
 const Performed = require('../models/performed');
+const Sequelize = require('sequelize');
 
 router.use((req, res, next) => {
   res.locals.user = req.user;
