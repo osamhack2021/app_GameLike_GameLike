@@ -42,9 +42,9 @@ router.get('/profile', isLoggedIn, (req, res) => {
 
 // 테스트용 프로필 페이지, 상단 정보 리턴
 router.get('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
-  const { email } = req.body;
+  //const { email } = req.body;
   try {
-    const User = await User.findOne({ where: { email },
+    const User = await User.findOne({ where: { email: 'test@n.n' },
     attributes: [
       'nick', 'dischargeDate', 'exp', 'level',
       [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
