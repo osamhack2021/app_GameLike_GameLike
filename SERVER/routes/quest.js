@@ -124,7 +124,7 @@ router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정
   const {userId, startTime, endTime} = req.body;
   try {
     // const performed = await Performed.update({where})
-    await Quest.update({ endTime: req.body.endTime }, {
+    await Performed.update({ endTime: req.body.endTime }, {
       where: { 
         userId: req.body.userId,
         startTime: startTime,
