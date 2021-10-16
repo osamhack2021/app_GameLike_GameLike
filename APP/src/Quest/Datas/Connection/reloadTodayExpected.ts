@@ -1,47 +1,64 @@
 // 1. 오늘의 expected list 가져오기
-//     post:   date
+//     get
 //     res:    date 값이 일치하는 같은 모든 expected data
 
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
-import getDateString from 'src/Quest/Times/getDateString';
+import getDateString from '../../Times/getDateString';
 import {ExpectedData} from '..';
 import testDatas from './expectedTestDatas';
 
-export function reloadTodayExpected(): ExpectedData.DataType[] {
-  let log = '';
-  const date = getDateString();
-  try {
-    axios
-      .post('http://52.231.66.60/auth/join', {date: date})
-      .then(response => {
-        try {
-          log = 'get well:' + JSON.stringify(response.data);
-          Alert.alert(JSON.stringify(response.data));
-          //데이터 반환하기
-          //arr = response.data
-        } catch (e) {
-          log = '일단 잘 됨';
-        }
+type ReturnedExpected = {
+  questName: string;
+  hashTag: string;
+  date: string;
+};
 
-        return testDatas;
-      })
-      .catch(error => {
-        if (error instanceof Error) {
-          log = error.message;
-        } else {
-          log = 'error ocurred while getting expected datas';
+type DateWrapper = {
+  date: string;
+};
+
+export async function reloadTodayExpected() {
+  const date = getDateString();
+  const result: ExpectedData.DataType[] = [];
+
+  const ax = axios
+    .post<DateWrapper, AxiosResponse<string>>(
+      'http://52.231.66.60/quest/expectedToday',
+      {
+        date: date,
+      },
+    )
+    .then(response => {
+      try {
+        const arr = JSON.parse(response.data);
+
+        for (let i of arr) {
+          const t: ExpectedData.DataType = {
+            id: -1,
+            questName: i.questName,
+            hashTag: i.hashTag,
+            date: i.date,
+            userId: 'test@n.n',
+          };
+          result.push(t);
         }
-      });
-  } catch (e) {
-    if (e instanceof Error) {
-      log = 'axios:' + e.message;
-    } else {
-      log = 'axios 실행 중 오류';
-    }
-    Alert.alert(log);
-  }
-  return [];
+      } catch (e) {
+        Alert.alert('전송받은 데이터 값 오류');
+      }
+      //Alert.alert(JSON.stringify(result));
+      return result;
+    })
+    .catch(error => {
+      if (error instanceof Error) {
+        Alert.alert('error: ' + error.message);
+      } else {
+        Alert.alert('error: 네트워크 오류');
+      }
+      return result;
+    });
+
+  return ax;
 }
 
 export default reloadTodayExpected;

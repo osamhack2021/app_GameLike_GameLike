@@ -47,6 +47,7 @@ export default function TodayQuestScreen({
   //2. expect에 따른 FlatList 출력
   const todayStr = getTodayString(new Date());
   const dispatch = useDispatch();
+  const [log, setLog] = useState('');
 
   const expects = useSelector<AppState, ExpectedData.DataType[]>(
     state => state.expectedDatas,
@@ -54,12 +55,14 @@ export default function TodayQuestScreen({
 
   //expected reload 요청
   useEffect(() => {
-    const datas = reloadTodayExpected();
-    dispatch(replaceExpectedAction(datas));
+    reloadTodayExpected().then(res => {
+      dispatch(replaceExpectedAction(res));
+    });
   }, [dispatch]);
 
   return (
     <View>
+      <Text>{'log: ' + log}</Text>
       <Text style={textStyles.small}>{todayStr}</Text>
       <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
       <FlatList

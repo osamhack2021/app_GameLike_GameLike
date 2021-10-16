@@ -17,6 +17,7 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
   const [questName, setQuest] = useState('');
   const [fieldName, setField] = useState('');
   const dispatch = useDispatch();
+  const [log, setLog] = useState('');
 
   // const quests = useSelector<AppState, ExpectedData.DataType[]>(
   //   state => state.questDatas.todayDatas,
@@ -44,11 +45,14 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         questName: questName,
         hashTag: fieldName,
         userId: 'testid',
-        date: '2021-10-15',
+        date: today,
       };
       postNewExpectedData(data);
-      const result = reloadTodayExpected();
-      dispatch(replaceExpectedAction(result));
+
+      //expected reload 요청
+      reloadTodayExpected().then(res => {
+        dispatch(replaceExpectedAction(res));
+      });
 
       nav.popToTop();
     },
@@ -57,6 +61,7 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
 
   return (
     <View>
+      <Text>{'log: ' + log}</Text>
       <View>
         <Text>추가할 퀘스트의 정보를 입력해주세요</Text>
       </View>
