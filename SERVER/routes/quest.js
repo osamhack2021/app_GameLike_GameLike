@@ -101,7 +101,7 @@ router.get('/expected', async (req, res, next) => {
 });
 
 // 1번 오늘의(date) Expected 불러오기
-router.post('/expectedToday', async (req, res, next) => {
+router.get('/expectedToday', async (req, res, next) => {
   const {date} = req.body;
   try {
     const expected = await Expected.findAll({
