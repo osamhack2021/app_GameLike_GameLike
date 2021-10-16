@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Button, Alert, StyleSheet} from 'react-native';
 import {useState, useEffect, useCallback, createRef} from 'react';
 import axios from 'axios';
+import {color} from 'native-base/lib/typescript/theme/styled-system';
 
 // default값들임, 데이터 불러왔으면 지우기
 var name = 'name';
@@ -10,10 +11,15 @@ var day = 'day';
 
 export default function ProfileScreen() {
   const [log, setLog] = useState('');
+  const testEmail = 'test@n.n';
 
   const onClickUserinfo = () => {
     axios
-      .get('http://52.231.66.60/profiles')
+      .post('http://52.231.66.60/profiles', null, {
+        params: {
+          email: testEmail,
+        },
+      })
       .then(response => {
         try {
           setLog(JSON.stringify(response.data));
@@ -56,15 +62,9 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.profileCom}>
-        <Text>Profile Component</Text>
-        <Text>닉네임 : {name} </Text>
-        <Text>입대일자 : {email} </Text>
-        <Text>경험치 : {day} </Text>
-        <Text>레벨 : {day} </Text>
-        <Text>랭크 : {day} </Text>
-        <Text>D-DAY : </Text>
+        <Text style={styles.profileText}>Profile Component</Text>
         <Button title="로그아웃" onPress={() => onClickLogout()} />
-        <Text>{log}</Text>
+        <Text style={styles.profileText}>{log}</Text>
       </View>
 
       <View style={styles.levelCom}>
@@ -82,14 +82,16 @@ const styles = StyleSheet.create({
     //backgroundColor: '#008080',
   },
   profileCom: {
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 9,
+    //justifyContent: 'center',
+    //alignItems: 'center',
     backgroundColor: '#008080',
+  },
+  profileText: {
     color: 'white',
   },
   levelCom: {
-    flex: 7,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
