@@ -120,11 +120,11 @@ router.post('/expectedToday', async (req, res, next) => {
 
 // 5번 Performed endTime 수정
 router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정예제
-  const {id, endTime} = req.body;
+  const {userId, endTime} = req.body;
   try {
     const performed = await Performed.update({where})
     await Quest.update({ endTime: req.body.endTime }, {
-      where: { id: req.body.id },
+      where: { userId: req.body.userId },
     })
     res.json({
       message: "Performed Update SUCCESS!", success : true,
