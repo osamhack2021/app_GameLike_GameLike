@@ -7,6 +7,8 @@ const Quest = require('../models/quest');
 const Expected = require('../models/expected');
 const Performed = require('../models/performed');
 const Op = require('sequelize').Op;
+const Sequelize = require('sequelize');
+const { sequelize } = require('../models/user');
 
 const router = express.Router();
 
@@ -180,6 +182,29 @@ router.post('/complete', async (req, res, next) => {
     console.error(err);
     res.json(err);
     //next(err);
+  }
+});
+
+// 7번 update Exp
+router.post('/updatePe', async (req, res, next) => { // 프로필 닉네임 수정예제
+  const { email, exp } = req.body;
+  try {
+    // const performed = await Performed.update({where})
+    await User.increment({exp: req.body.exp}, {where : {email : email}});
+    // await User.update({ exp: sequelize.literal('') }, {
+    //   where: {
+    //     email: req.body.email
+    //   }
+    // });
+    res.json({
+      message: "User exp Update SUCCESS!", success: true
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      message: "User exp Update FAILED!", success: false
+    });
+    // next(error);
   }
 });
 
