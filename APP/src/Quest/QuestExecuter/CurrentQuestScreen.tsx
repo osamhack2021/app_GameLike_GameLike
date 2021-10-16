@@ -20,6 +20,7 @@ export function CurrentQuestScreen({
   route: any;
 }) {
   //현재 할 일 불러오기
+  const [log, setLog] = useState('');
   const todayStr = getTodayString();
   const dispatch = useDispatch();
   const expected = route.params.expected;
@@ -30,6 +31,7 @@ export function CurrentQuestScreen({
 
   const [isPerfoming, setIsPerforming] = useState(false); //수행중 여부
   const [performedId, setPerformedId] = useState(-1);
+  const [startTime, setStartTime] = useState('');
   const [detailText, setDetailText] = useState('');
 
   const onStart = useCallback((exp: ExpectedData.DataType, details: string) => {
@@ -47,26 +49,27 @@ export function CurrentQuestScreen({
       endTime: getTimeString(curDate),
       detail: details,
     };
-    const posted: boolean = postNewPerformedData(performed);
-    if (posted) {
+    postNewPerformedData(performed).then(() => {
+      setStartTime(performed.startTime);
       setPerformedId(performed.id);
       setIsPerforming(true);
-    } else {
-      Alert.alert('서버 연결 오류');
-    }
+    });
   }, []);
 
-  const onEnd = useCallback((id: number, endTime: string) => {
-    //서버에 끝 데이터 보내기 (performedId 체크하기)
-    //then 넘어오면 수행 종료 후 rerender
+  const onEnd = useCallback(
+    (userIdValue: string, startTimeValue: string, endTimeValue: string) => {
+      //서버에 끝 데이터 보내기 (performedId 체크하기)
+      //then 넘어오면 수행 종료 후 rerender
 
-    const posted: boolean = postPerformedEndtime(id, endTime);
-    if (posted) {
-      setIsPerforming(false);
-    } else {
-      Alert.alert('서버 연결 오류');
-    }
-  }, []);
+      postPerformedEndtime(userIdValue, startTimeValue, endTimeValue).then(
+        () => {
+          setIsPerforming(false);
+          setLog(userIdValue + ',' + startTimeValue + ',' + endTimeValue);
+        },
+      );
+    },
+    [],
+  );
 
   const onDetailChanged = useCallback(text => {
     setDetailText(text);
@@ -76,6 +79,7 @@ export function CurrentQuestScreen({
   const runWithStr = runWith + '명이 같이 ' + hashTagText + ' 중이에요!';
   return (
     <View>
+      <Text>{log} </Text>
       <Text style={textStyles.small}>{todayStr}</Text>
       <View>
         <Text style={textStyles.small}>지금 할 일은?</Text>
@@ -106,7 +110,7 @@ export function CurrentQuestScreen({
         <Button
           title="수행 종료.."
           onPress={() => {
-            onEnd(performedId, getTimeString());
+            onEnd('test@n.n', startTime, getTimeString());
           }}
         />
       </View>
