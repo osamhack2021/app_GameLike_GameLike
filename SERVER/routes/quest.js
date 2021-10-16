@@ -6,6 +6,7 @@ const User = require('../models/user');
 const Quest = require('../models/quest');
 const Expected = require('../models/expected');
 const Performed = require('../models/performed');
+const Op = require('sequelize').Op;
 
 const router = express.Router();
 
@@ -126,7 +127,7 @@ router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정
     await Quest.update({ endTime: req.body.endTime }, {
       where: { 
         userId: req.body.userId,
-        startTime:startTime,
+        startTime: startTime,
         endTime:{
           [Op.is] : null
         }
