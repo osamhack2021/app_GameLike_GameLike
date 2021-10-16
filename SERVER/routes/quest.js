@@ -122,17 +122,17 @@ router.post('/expectedToday', async (req, res, next) => {
 router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정예제
   const {userId, endTime} = req.body;
   try {
-    const performed = await Performed.update({where})
+    // const performed = await Performed.update({where})
     await Quest.update({ endTime: req.body.endTime }, {
-      where: { userId: req.body.userId },
-    })
+      where: { userId: req.body.userId, startTime:endTime },
+    });
     res.json({
-      message: "Performed Update SUCCESS!", success : true,
+      message: "Performed Update SUCCESS!", success : true
     });
   } catch(error){
     console.log(error);
     res.json({
-      message: "Performed Update FAILED!", success : false,
+      message: "Performed Update FAILED!", success : false
     });
     // next(error);
   }
