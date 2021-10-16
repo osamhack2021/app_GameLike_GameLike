@@ -16,7 +16,7 @@ export default function ProfileScreen() {
 
   const onClickUserinfo = () => {
     axios
-      .post('http://52.231.66.60/profiles', null, {
+      .post('http://52.231.66.60/auth/profiles', null, {
         params: {
           email: testEmail,
         },
