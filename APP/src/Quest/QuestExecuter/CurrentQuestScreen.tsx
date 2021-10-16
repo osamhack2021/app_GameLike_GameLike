@@ -5,6 +5,8 @@ import {TextInput} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {ExpectedData, PerformedData, QuestData} from '../Datas';
+import postPerformedEndtime from '../Datas/Connection/postPerformedEndtime';
+import postNewPerformedData from '../Datas/Connection/postNewPerformedData';
 import textStyles from '../Styles/QuestTextStyles';
 import getDate from '../Times/getDate';
 import getTimeString from '../Times/getTimeString';
@@ -36,7 +38,7 @@ export function CurrentQuestScreen({
     //3. then 넘어오면 수행 시작
     const curDate = getDate();
     const performed: PerformedData.DataType = {
-      id: -1,
+      id: 0,
       questName: exp.questName,
       hashTag: exp.hashTag,
       date: getTodayString(curDate),
@@ -45,14 +47,25 @@ export function CurrentQuestScreen({
       endTime: getTimeString(curDate),
       detail: details,
     };
-    setPerformedId(performed.id);
-    setIsPerforming(true);
+    const posted: boolean = postNewPerformedData(performed);
+    if (posted) {
+      setPerformedId(performed.id);
+      setIsPerforming(true);
+    } else {
+      Alert.alert('서버 연결 오류');
+    }
   }, []);
 
-  const onEnd = useCallback(() => {
+  const onEnd = useCallback((id: number, endTime: string) => {
     //서버에 끝 데이터 보내기 (performedId 체크하기)
     //then 넘어오면 수행 종료 후 rerender
-    setIsPerforming(false);
+
+    const posted: boolean = postPerformedEndtime(id, endTime);
+    if (posted) {
+      setIsPerforming(false);
+    } else {
+      Alert.alert('서버 연결 오류');
+    }
   }, []);
 
   const onDetailChanged = useCallback(text => {
@@ -93,7 +106,7 @@ export function CurrentQuestScreen({
         <Button
           title="수행 종료.."
           onPress={() => {
-            onEnd();
+            onEnd(performedId, getTimeString());
           }}
         />
       </View>

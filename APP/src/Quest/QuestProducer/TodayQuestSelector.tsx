@@ -15,7 +15,7 @@ import {AppState, replaceExpectedAction} from '../../Store';
 import {ExpectedData, QuestData} from '../Datas';
 import loadRecentExpected from '../Datas/Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
-import PostNewExpectedData from '../Datas/Connection/PostNewExpectedData';
+import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Datas/Connection';
 
 const TodayQuestSelector = ({navigation}: {navigation: any}) => {
@@ -47,7 +47,7 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   const dispatch = useDispatch();
   const postExpected = useCallback(
     (data: ExpectedData.DataType) => {
-      PostNewExpectedData(data);
+      postNewExpectedData(data);
       const result = reloadTodayExpected();
       dispatch(replaceExpectedAction(result));
     },

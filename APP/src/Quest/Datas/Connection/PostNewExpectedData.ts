@@ -5,6 +5,6 @@ import {ExpectedData} from '..';
 import testDatas from './expectedTestDatas';
 
 //     res:    성공 여부
-export default function PostNewExpectedData(insertData: ExpectedData.DataType) {
+export default function postNewExpectedData(insertData: ExpectedData.DataType) {
   testDatas.push(insertData);
 }

@@ -4,7 +4,7 @@
 
 import {ExpectedData} from '..';
 
-export default function loadExpectedLatestOrder(): ExpectedData.DataType[] {
+export default function loadRecentExpected(): ExpectedData.DataType[] {
   return [
     {
       id: -1,

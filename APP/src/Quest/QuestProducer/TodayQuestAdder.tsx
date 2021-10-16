@@ -9,7 +9,7 @@ import {AppState} from '../../Store';
 import {replaceTodayQuestsAction} from '../../Store';
 import getDateString from '../Times/getDateString';
 import {insertExpectedAction, replaceExpectedAction} from '../../Store/Actions';
-import PostNewExpectedData from '../Datas/Connection/PostNewExpectedData';
+import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Datas/Connection';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
@@ -46,7 +46,7 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         userId: 'testid',
         date: '2021-10-15',
       };
-      PostNewExpectedData(data);
+      postNewExpectedData(data);
       const result = reloadTodayExpected();
       dispatch(replaceExpectedAction(result));
 
