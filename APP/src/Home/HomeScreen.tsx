@@ -7,6 +7,7 @@ import axios from 'axios';
 import reloadExpected from '../connection/reloadExpected';
 import {reloadExpectedAction, replaceExpectedAction} from '../Store/Actions';
 import {reloadTodayExpected} from '../Quest/Datas/Connection';
+import loadUncompletedPerformed from '../Quest/Datas/Connection/loadUncompletedPerformed';
 
 //1. 처음 로드할 때 expected quests 가져와야함
 //(연습할 땐 db 대신 static에서 load, empty array와 ex array 만들어서 가져오기)
@@ -29,11 +30,21 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
     state => state.expectedDatas,
   );
   useEffect(() => {
-    //dispatch(replaceExpectedAction(reloadTodayExpected()));
+    //dispatch(replaceExpectedAction(reloadTodayExpected()));/
+    loadUncompletedPerformed().then(res => {
+      if (res !== null) {
+        setLog(JSON.stringify(res));
+      } else {
+        setLog('불러올 내용이 없습니다');
+      }
+    });
   }, [dispatch]);
 
   return (
     <View style={styles.container}>
+      <View>
+        <Text>{log}</Text>
+      </View>
       <View>
         <Text>Profile Component</Text>
       </View>
