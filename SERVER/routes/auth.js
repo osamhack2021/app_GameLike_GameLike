@@ -41,7 +41,8 @@ router.get('/join', async(req, res, next) => {
 router.post('/profiles', isNotLoggedIn, async (req, res, next) => {
 	const { email } = req.body;
 	try {
-	  const exUser = await User.findOne({ where: { email } });
+	  const exUser = await User.findOne({ where: { email } 
+	});
 	  if (exUser) {
 		res.json('no user founded');
 		const data = JSON.stringify(exUser);
