@@ -186,7 +186,7 @@ router.post('/complete', async (req, res, next) => {
 });
 
 // 7번 update Exp
-router.post('/updatePe', async (req, res, next) => { // 프로필 닉네임 수정예제
+router.post('/updateExp', async (req, res, next) => { // 프로필 닉네임 수정예제
   const { email, exp } = req.body;
   try {
     // const performed = await Performed.update({where})
