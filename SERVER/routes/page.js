@@ -41,13 +41,14 @@ router.get('/profile', isLoggedIn, (req, res) => {
 });
 
 // 테스트용 프로필 페이지, 상단 정보 리턴
-router.get('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
-  //const { email } = req.body;
+router.post('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
+  const { email } = req.body;
   try {
-    const User = await User.findOne({ where: { email: 'test@n.n' },
-    attributes: [
-      'nick', 'dischargeDate', 'exp', 'level',
-      [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
+    const User = await User.findOne({ 
+      where: { email: req.body.email },
+      attributes: [
+        'nick', 'dischargeDate', 'exp', 'level',
+        [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
       ], // (순위)
     });
     const data = JSON.stringify(User);
