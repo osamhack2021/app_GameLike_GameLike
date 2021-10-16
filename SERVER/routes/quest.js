@@ -21,7 +21,7 @@ const expectedLimit = 20;
 
 // 3번 Expected 생성
 router.post('/createEx', async (req, res, next) => {
-  const { 
+  const {
     questName,
     hashTag,
     date,
@@ -30,20 +30,20 @@ router.post('/createEx', async (req, res, next) => {
   try {
     //const exQuest = await Expected.findOne({ where: { questName } });    
     const expected = await Expected.create({
-      questName : questName,
+      questName: questName,
       hashTag: hashTag,
       date: date,
       isPerformed: false,
       userId: userId,
     });
     res.json({
-      message: "Expected Create SUCCESS!", success : true
+      message: "Expected Create SUCCESS!", success: true
     });
     //return res.redirect('/');
-  } catch (error) {    
+  } catch (error) {
     console.error(error);
     res.json({
-      message: "Expected Create FAILED!", success : false
+      message: "Expected Create FAILED!", success: false
     });
     //return next(error);
   }
@@ -51,7 +51,7 @@ router.post('/createEx', async (req, res, next) => {
 
 //4번 Performed 생성 
 router.post('/createPe', async (req, res, next) => {
-  const { 
+  const {
     questName,
     hashTag,
     date,
@@ -62,7 +62,7 @@ router.post('/createPe', async (req, res, next) => {
   } = req.body;
   try {
     const performed = await Performed.create({
-      questName : questName,
+      questName: questName,
       hashTag: hashTag,
       date: date,
       startTime: startTime,
@@ -72,13 +72,13 @@ router.post('/createPe', async (req, res, next) => {
       userId: userId,
     });
     res.json({
-      message: "Performed Create SUCCESS!", success : true, id: performed.id
+      message: "Performed Create SUCCESS!", success: true, id: performed.id
     });
     //return res.redirect('/');
-  } catch (error) {    
+  } catch (error) {
     console.error(error);
     res.json({
-      message: "Perfomred Create FAILED!", success : false, id: -1
+      message: "Perfomred Create FAILED!", success: false, id: -1
     });
     //return next(error);
   }
@@ -103,10 +103,10 @@ router.get('/expected', async (req, res, next) => {
 
 // 1번 오늘의(date) Expected 불러오기
 router.post('/expectedToday', async (req, res, next) => {
-  const {date} = req.body;
+  const { date } = req.body;
   try {
     const expected = await Expected.findAll({
-      where: {date : date},
+      where: { date: date },
       attributes: ['questName', 'hashTag', 'date'],
       order: [['createdAt', 'ASC']],
     });
@@ -120,26 +120,26 @@ router.post('/expectedToday', async (req, res, next) => {
 });
 
 // 5번 Performed endTime 수정
-router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정예제
-  const {userId, startTime, endTime} = req.body;
+router.post('/updatePe', async (req, res, next) => { // 프로필 닉네임 수정예제
+  const { userId, startTime, endTime } = req.body;
   try {
     // const performed = await Performed.update({where})
     await Performed.update({ endTime: req.body.endTime }, {
-      where: { 
+      where: {
         userId: req.body.userId,
         startTime: startTime,
-        endTime:{
-          [Op.is] : null
+        endTime: {
+          [Op.is]: null
         }
       }
     });
     res.json({
-      message: "Performed Update SUCCESS!", success : true
+      message: "Performed Update SUCCESS!", success: true
     });
-  } catch(error){
+  } catch (error) {
     console.log(error);
     res.json({
-      message: "Performed Update FAILED!", success : false
+      message: "Performed Update FAILED!", success: false
     });
     // next(error);
   }
@@ -149,8 +149,10 @@ router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정
 router.get('/performedE', async (req, res, next) => {
   try {
     const performed = await Performed.findAll({
-      endTime:{
-        [Op.is] : null
+      where: {
+        endTime: {
+          [Op.is]: null
+        }
       },
       attributes: ['questName', 'hashTag', 'date'],
       order: [['createdAt', 'ASC']],
@@ -165,15 +167,15 @@ router.get('/performedE', async (req, res, next) => {
 });
 
 // peopleWith 프로토타입
-router.get('/complete', async (req, res, next) => {
-  const {hashTag} = req.body;
+router.post('/complete', async (req, res, next) => {
+  const { hashTag } = req.body;
   try {
     const performed = await Performed.findAll({
-      where: {hashTag : req.body.hashTag},
+      where: { hashTag: req.body.hashTag },
     });
     const length = performed.length;
     // const data = JSON.stringify(performed);
-    res.json({peopleWith : length });
+    res.json({ peopleWith: length });
   } catch (err) {
     console.error(err);
     res.json(err);
