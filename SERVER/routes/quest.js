@@ -127,7 +127,9 @@ router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정
       where: { 
         userId: req.body.userId,
         startTime:startTime,
-        endTime:NULL,
+        endTime:{
+          [Op.is] : null
+        }
       }
     });
     res.json({
