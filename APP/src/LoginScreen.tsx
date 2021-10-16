@@ -27,7 +27,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickLogin = () => {
     axios
-      .post('http://52.231.66.60/auth/kakao', null, {
+      .post('http://52.231.66.60/auth/login', null, {
         params: {
           email: userEmail,
           password: userPassword,
