@@ -47,7 +47,7 @@ router.post('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
   try {
     const exUser = await User.findOne({ 
       where: {
-        email: req.body.email 
+        email 
       }
       /*
       attributes: [
