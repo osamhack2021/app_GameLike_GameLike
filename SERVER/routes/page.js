@@ -55,8 +55,13 @@ router.post('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
         [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
       ], // (순위)*/
     });
-    const data = JSON.stringify(exUser);
-    res.json(data);
+    if (exUser) {
+      res.json('no user founded');
+    }
+    else{
+      const data = JSON.stringify(exUser);
+      res.json(data);
+    }
   } catch (err) {
     console.log(err);
     next(err);
