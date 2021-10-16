@@ -11,13 +11,14 @@ var day = 'day';
 
 export default function ProfileScreen() {
   const [log, setLog] = useState('');
+  const [testEmail, setTestEmail] = useState('test@n.n');
   //const testEmail = 'test@n.n';
 
   const onClickUserinfo = () => {
     axios
       .post('http://52.231.66.60/profiles', null, {
         params: {
-          email: 'test@n.n',
+          email: testEmail,
         },
       })
       .then(response => {
@@ -57,12 +58,13 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     onClickUserinfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.profileCom}>
-        <Text style={styles.profileText}>Profile Component</Text>
+        <Text style={styles.profileText}>Profile Component, {testEmail}</Text>
         <Button title="로그아웃" onPress={() => onClickLogout()} />
         <Text style={styles.profileText}>{log}</Text>
       </View>
