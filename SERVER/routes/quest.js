@@ -110,7 +110,7 @@ router.get('/expectedToday', async (req, res, next) => {
       order: [['createdAt', 'ASC']],
     });
     const data = JSON.stringify(expected);
-    res.json(data);
+    res.json(expected);
   } catch (err) {
     console.error(err);
     res.json(err);
