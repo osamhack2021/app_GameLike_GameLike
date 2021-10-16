@@ -44,14 +44,14 @@ router.get('/profile', isLoggedIn, (req, res) => {
 router.post('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
   const { email } = req.body;
   try {
-    const User = await User.findOne({ 
+    const exUser = await User.findOne({ 
       where: { email: req.body.email },
       attributes: [
         'nick', 'dischargeDate', 'exp', 'level',
         [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
       ], // (순위)
     });
-    const data = JSON.stringify(User);
+    const data = JSON.stringify(exUser);
     res.json(data);
   } catch (err) {
     console.log(err);
