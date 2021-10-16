@@ -8,6 +8,7 @@ import reloadExpected from '../connection/reloadExpected';
 import {reloadExpectedAction, replaceExpectedAction} from '../Store/Actions';
 import {reloadTodayExpected} from '../Quest/Datas/Connection';
 import loadUncompletedPerformed from '../Quest/Datas/Connection/loadUncompletedPerformed';
+import LevelComponent from '../Level/LevelComponent';
 
 //1. 처음 로드할 때 expected quests 가져와야함
 //(연습할 땐 db 대신 static에서 load, empty array와 ex array 만들어서 가져오기)
@@ -43,13 +44,10 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text>{log}</Text>
-      </View>
-      <View>
         <Text>Profile Component</Text>
       </View>
       <View>
-        <Text>Level Component</Text>
+        <LevelComponent />
       </View>
       <View>
         <Text>{topText}</Text>

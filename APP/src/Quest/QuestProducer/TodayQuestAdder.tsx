@@ -5,8 +5,6 @@ import textStyles from '../Styles/QuestTextStyles';
 import {ExpectedData, QuestData} from '../Datas';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppState} from '../../Store';
-import {replaceTodayQuestsAction} from '../../Store';
 import getDateString from '../Times/getDateString';
 import {insertExpectedAction, replaceExpectedAction} from '../../Store/Actions';
 import postNewExpectedData from '../Datas/Connection/postNewExpectedData';

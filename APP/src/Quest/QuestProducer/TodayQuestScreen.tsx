@@ -13,10 +13,7 @@ import {ExpectedData, QuestData} from '../Datas';
 import TodayQuestSelector from './TodayQuestSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
-import {
-  insertTodayQuestsAction,
-  replaceExpectedAction,
-} from '../../Store/Actions';
+import {replaceExpectedAction} from '../../Store/Actions';
 import {useNavigation} from '@react-navigation/core';
 import getDateFullString from '../Times/getDateFullString';
 import getDate from '../Times/getDate';

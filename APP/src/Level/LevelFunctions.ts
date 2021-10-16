@@ -1,8 +1,3 @@
-type LevelInfo = {
-  levelupTime: number;
-  levelupExp: number;
-};
-
 export function getLevelUpExpArray(): number[] {
   const result: number[] = [];
   let i = 0;
@@ -68,4 +63,12 @@ export function getAccumulatedExpByLevel(level: number) {
   }
 }
 
-export function expToLevel(exp: number) {}
+export function getLevelFromExp(exp: number) {
+  let remained = exp;
+  let level = 0;
+  while (exps[level] <= remained) {
+    remained -= exps[level];
+    ++level;
+  }
+  return [level, remained];
+}
