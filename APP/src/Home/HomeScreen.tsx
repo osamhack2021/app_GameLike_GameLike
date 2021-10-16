@@ -58,17 +58,10 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
         </View>
         <View>
           <Button
-            title="퀘스트 제작하기"
+            title="퀘스트 수행하기"
             disabled={!canQuestAdd}
             onPress={() => {
               navigation.navigate('TODAY');
-            }}
-          />
-          <Button
-            title="퀘스트 수행하기"
-            disabled={!canDoQuest}
-            onPress={() => {
-              navigation.navigate('CURRENT');
             }}
           />
         </View>
