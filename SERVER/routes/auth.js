@@ -38,6 +38,23 @@ router.get('/join', async(req, res, next) => {
 	  }
 });
 
+router.post('/profiles', async (req, res, next) => {
+	const { email } = req.body;
+	try {
+	  const exUser = await User.findOne({ where: { email } });
+	  if (exUser) {
+		res.json('no user founded');
+	  }
+	  else{
+		const data = JSON.stringify(exUser);
+		res.json(data);
+	  }
+	} catch (err) {
+	  console.log(err);
+	  next(err);
+	}
+});
+
 router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {
