@@ -149,7 +149,9 @@ router.post('/updatePe', async(req, res, next) =>{ // 프로필 닉네임 수정
 router.get('/performedE', async (req, res, next) => {
   try {
     const performed = await Performed.findAll({
-      where: {endTime : NULL},
+      endTime:{
+        [Op.is] : null
+      },
       attributes: ['questName', 'hashTag', 'date'],
       order: [['createdAt', 'ASC']],
     });
