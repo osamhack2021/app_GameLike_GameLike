@@ -46,7 +46,10 @@ router.post('/profiles', /*isLoggedIn,*/ async (req, res, next) => {
   const { email } = req.body;
   try {
     const exUser = await User.findOne({ 
-      where: { email: req.body.email }/*
+      where: {
+        email: req.body.email 
+      }
+      /*
       attributes: [
         'nick', 'dischargeDate', 'exp', 'level',
         [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
