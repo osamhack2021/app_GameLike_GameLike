@@ -154,7 +154,7 @@ router.get('/performedE', async (req, res, next) => {
           [Op.is]: null
         }
       },
-      attributes: ['questName', 'hashTag', 'date'],
+      attributes: ['questName', 'hashTag', 'date', 'startTime', 'endTime', 'detail'],
       order: [['createdAt', 'ASC']],
     });
     const data = JSON.stringify(performed);
