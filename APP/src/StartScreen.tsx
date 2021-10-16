@@ -7,7 +7,7 @@ const StartScreen = ({navigation}: {navigation: any}) => {
       <Text style={styles.yellow}>Game Like</Text>
       <Button
         title="TOUCH THE SCREEN"
-        onPress={() => navigation.navigate('MAIN')}
+        onPress={() => navigation.navigate('LOGIN')}
       />
     </View>
   );
