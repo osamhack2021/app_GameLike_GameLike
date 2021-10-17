@@ -169,10 +169,10 @@ router.get('/performedE', async (req, res, next) => {
 });
 
 // peopleWith 프로토타입
-router.get('/complete', async (req, res, next) => {
-  // const { hashTag } = req.body;
-  const hashTag = 'dwgkia';
-  const userId = 'test@n.n'
+router.post('/complete', async (req, res, next) => {
+  const { hashTag , userId} = req.body;
+  //const hashTag = 'dwgkia';
+  //const userId = 'test@n.n'
   try {
     const performed = await Performed.findAll({
       where: { hashTag: hashTag },
