@@ -12,6 +12,8 @@ import getDate from '../Times/getDate';
 import getTimeString from '../Times/getTimeString';
 import getTodayString from '../Times/getTodayString';
 import postGrowExp from '../../Level/postGrowExp';
+import {QuestEndScreenProps} from '../Screens/QuestEndScreen';
+import get2Digits from '../Times/get2Digits';
 
 export function CurrentQuestScreen({
   navigation,
@@ -51,27 +53,71 @@ export function CurrentQuestScreen({
       detail: details,
     };
     postNewPerformedData(performed).then(() => {
-      postGrowExp('test@n.n', 8000).then(() => {
-        setStartTime(performed.startTime);
-        setPerformedId(performed.id);
-        setIsPerforming(true);
-      });
+      setStartTime(performed.startTime);
+      setPerformedId(performed.id);
+      setIsPerforming(true);
     });
   }, []);
 
+  const expCompute = useCallback((start: string, end: string) => {
+    const s = start.split(':');
+    const e = end.split(':');
+    const r: number[] = [];
+    for (let i = 0; i < 3; ++i) {
+      r[i] = parseInt(e[i], 10) - parseInt(s[i], 10);
+    }
+    const result = (r[0] * 60 * 60 + r[1] * 60 + r[0]) / 2;
+    return result;
+  }, []);
+
+  const duringCompute = useCallback(
+    (start: string, end: string = getTimeString()) => {
+      const cur = end;
+      const s = start.split(':');
+      const e = cur.split(':');
+      const r: number[] = [];
+      for (let i = 0; i < 3; ++i) {
+        r[i] = parseInt(e[i], 10) - parseInt(s[i], 10);
+      }
+      for (let i = 1; i < 3; ++i) {
+        if (r[i] < 0) {
+          r[i - 1] -= 1;
+          r[i] += 60;
+        }
+      }
+      return get2Digits(r[0]) + ':' + get2Digits(r[1]) + ':' + get2Digits(r[2]);
+    },
+    [],
+  );
+
   const onEnd = useCallback(
-    (userIdValue: string, startTimeValue: string, endTimeValue: string) => {
+    (
+      userIdValue: string,
+      startTimeValue: string,
+      endTimeValue: string,
+      nav: any,
+    ) => {
       //서버에 끝 데이터 보내기 (performedId 체크하기)
       //then 넘어오면 수행 종료 후 rerender
+      const resultExp = expCompute(startTimeValue, endTimeValue);
 
       postPerformedEndtime(userIdValue, startTimeValue, endTimeValue).then(
         () => {
-          setIsPerforming(false);
-          setLog(userIdValue + ',' + startTimeValue + ',' + endTimeValue);
+          postGrowExp('test@n.n', resultExp).then(() => {
+            setIsPerforming(false);
+            setLog(userIdValue + ',' + startTimeValue + ',' + endTimeValue);
+            const pr: QuestEndScreenProps = {
+              questName: expected.questName,
+              takenExp: resultExp,
+              takenTime: duringCompute(startTimeValue, endTimeValue),
+            };
+            //Alert.alert('성공, 경험치: ' + resultExp);
+            nav.navigate('QUESTEND', {props: pr});
+          });
         },
       );
     },
-    [],
+    [expCompute, duringCompute, expected],
   );
 
   const onDetailChanged = useCallback(text => {
@@ -113,7 +159,7 @@ export function CurrentQuestScreen({
         <Button
           title="수행 종료.."
           onPress={() => {
-            onEnd('test@n.n', startTime, getTimeString());
+            onEnd('test@n.n', startTime, getTimeString(), navigation);
           }}
         />
       </View>

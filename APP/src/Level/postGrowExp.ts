@@ -18,12 +18,12 @@ export default function postGrowExp(userId: string, growExp: number) {
     exp: growExp,
   };
   const ax = axios
-    .post<PostData, AxiosResponse<string>>(
+    .post<PostData, AxiosResponse<any>>(
       'http://52.231.66.60/quest/updateExp',
       postData,
     )
     .then(response => {
-      const res = JSON.parse(response.data);
+      const res = response.data;
       if (res.success) {
         return true;
       } else {

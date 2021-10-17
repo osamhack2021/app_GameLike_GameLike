@@ -15,7 +15,6 @@ export default function MainScreen() {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="HOME" component={HomeScreen} />
       <Stack.Screen name="TODAY" component={TodayNavigator} />
-      <Stack.Screen name="CURRENT" component={CurrentQuestScreen} />
     </Stack.Navigator>
   );
 }
