@@ -6,12 +6,12 @@ import {color} from 'native-base/lib/typescript/theme/styled-system';
 import {json} from 'stream/consumers';
 // import {ProfileData} from './Data/ProfileData';
 // default값들임, 데이터 불러왔으면 지우기
-var nick: any;
-var email: any;
-var enlistDate: any;
-var dischargeDate: any;
-var exp: any;
-var level: any;
+let nick: any;
+let email: any;
+let enlistDate: any;
+let dischargeDate: any;
+let exp: any;
+let level: any;
 export default function ProfileScreen() {
   const [log, setLog] = useState('');
   const [plog, setpLog] = useState('');
@@ -72,7 +72,9 @@ export default function ProfileScreen() {
           const arr = JSON.parse(response.data);
 
           setpLog(`RankInfo
-          ${arr}`);
+          ${arr[0]}
+          ${arr[1]}
+          ${arr[2]}`);
 
           //setLog(obj.email);
         } catch (e) {
@@ -119,6 +121,7 @@ export default function ProfileScreen() {
         <Button title="로그아웃" onPress={() => onClickLogout()} />
         <Text style={styles.profileText}>
           Profile Component, {testEmail}
+          <br />
           {log}
           {plog}
         </Text>
