@@ -1,24 +1,17 @@
 import React, {useState} from 'react';
 import {Alert, ScrollView, Text, View} from 'react-native';
-import CurrentQuestScreen from './Screens/CurrentQuestScreen';
+import CurrentQuestScreen from './QuestExecuter/CurrentQuestScreen';
 import PrevQuestScreen from './Screens/PrevQuestScreen';
-import TodayQuestScreen from './Screens/TodayQuestScreen';
+import TodayQuestScreen from './QuestProducer/TodayQuestScreen';
 import {Provider as ReduxProvider, useSelector} from 'react-redux';
 import {AppState, makeStore} from '../Store';
 import {createStackNavigator} from '@react-navigation/stack';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import TodayNavigator from './Screens/TodayNavigator';
+import TodayNavigator from './QuestProducer/TodayNavigator';
 import ConnectScreen from './Connection/ConnectScreen';
 
 const Stack = createStackNavigator();
 export default function QuestScreen() {
-  const prevTask = useSelector<AppState, boolean>(
-    state => state.questScreenState.prevTaskChecked,
-  );
-  const curTask = useSelector<AppState, boolean>(
-    state => state.questScreenState.todayTaskChecked,
-  );
-
   return (
     <Stack.Navigator
       initialRouteName="CONNECTION"
