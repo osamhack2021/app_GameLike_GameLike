@@ -4,7 +4,7 @@
 
 import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
-import {PerformedData} from '..';
+import {PerformedData} from '../Datas';
 
 type PostData = {
   questName: string;

@@ -1,18 +1,16 @@
-import {HeaderStyleInterpolators} from '@react-navigation/stack';
-import React, {FC, useCallback, useState} from 'react';
-import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import React, {useCallback, useState} from 'react';
+import {Button, Text, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppState} from '../../Store';
-import {ExpectedData, PerformedData, QuestData} from '../Datas';
-import postPerformedEndtime from '../Datas/Connection/postPerformedEndtime';
-import postNewPerformedData from '../Datas/Connection/postNewPerformedData';
+import {useDispatch} from 'react-redux';
+import {ExpectedData, PerformedData} from '../Datas';
+import postPerformedEndtime from '../Connection/postPerformedEndtime';
+import postNewPerformedData from '../Connection/postNewPerformedData';
 import textStyles from '../Styles/QuestTextStyles';
 import getDate from '../Times/getDate';
 import getTimeString from '../Times/getTimeString';
 import getTodayString from '../Times/getTodayString';
-import postGrowExp from '../../Level/postGrowExp';
-import {QuestEndScreenProps} from '../Screens/QuestEndScreen';
+import postGrowExp from '../../Level/Connections/postGrowExp';
+import {QuestEndScreenProps} from './QuestEndScreen';
 import get2Digits from '../Times/get2Digits';
 
 export function CurrentQuestScreen({

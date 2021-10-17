@@ -4,15 +4,8 @@
 
 import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
-import getDateString from '../../Times/getDateString';
-import {ExpectedData} from '..';
-import testDatas from './expectedTestDatas';
-
-type ReturnedExpected = {
-  questName: string;
-  hashTag: string;
-  date: string;
-};
+import getDateString from '../Times/getDateString';
+import {ExpectedData} from '../Datas';
 
 type DateWrapper = {
   date: string;

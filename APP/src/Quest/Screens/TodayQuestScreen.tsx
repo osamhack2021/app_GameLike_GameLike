@@ -1,23 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
-import ExpectedElement from './ExpectedElement';
+import ExpectedElement from '../Components/ExpectedElement';
 import textStyles from '../Styles/QuestTextStyles';
-import {ExpectedData, QuestData} from '../Datas';
+import {ExpectedData} from '../Datas';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {replaceExpectedAction} from '../../Store/Actions';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import getTodayString from '../Times/getTodayString';
-import {reloadTodayExpected} from '../Datas/Connection';
+import {reloadTodayExpected} from '../Connection';
 import {todayQuestScreenStyle} from '../../Styles/TodayQuestScreenStyles';
-
-const ex: QuestData.DataType = {
-  id: 0,
-  name: '휴식',
-  fieldName: '휴식',
-  lastDate: '',
-  userId: '',
-};
 
 const during = 30; //각 퀘스트당 몇 분 진행할지
 

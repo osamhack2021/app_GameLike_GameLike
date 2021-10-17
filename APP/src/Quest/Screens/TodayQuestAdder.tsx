@@ -5,8 +5,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch} from 'react-redux';
 import getDateString from '../Times/getDateString';
 import {replaceExpectedAction} from '../../Store/Actions';
-import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
-import {reloadTodayExpected} from '../Datas/Connection';
+import postNewExpectedData from '../Connection/postNewExpectedData';
+import {reloadTodayExpected} from '../Connection';
 import {todayQuestAdderStyles} from '../../Styles/TodayQuestAdderStyles';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음

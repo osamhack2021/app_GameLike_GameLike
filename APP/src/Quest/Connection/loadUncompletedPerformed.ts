@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 import {Alert} from 'react-native';
-import {PerformedData} from '..';
+import {PerformedData} from '../Datas';
 
 export default function loadUncompletedPerformed() {
   const result: PerformedData.DataType[] = [];

@@ -11,8 +11,8 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../Store';
 import {ExpectedData} from '../Quest/Datas';
-import loadUncompletedPerformed from '../Quest/Datas/Connection/loadUncompletedPerformed';
-import LevelComponent from '../Level/LevelComponent';
+import loadUncompletedPerformed from '../Quest/Connection/loadUncompletedPerformed';
+import LevelComponent from '../Level/Components/LevelComponent';
 import * as Style from '../Styles/HomeScreenStyles';
 
 //1. 처음 로드할 때 expected quests 가져와야함

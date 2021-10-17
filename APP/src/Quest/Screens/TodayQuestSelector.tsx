@@ -4,10 +4,10 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState, replaceExpectedAction} from '../../Store';
 import {ExpectedData} from '../Datas';
-import loadRecentExpected from '../Datas/Connection/loadRecentExpected';
+import loadRecentExpected from '../Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
-import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
-import {reloadTodayExpected} from '../Datas/Connection';
+import postNewExpectedData from '../Connection/postNewExpectedData';
+import {reloadTodayExpected} from '../Connection';
 import {todayQuestSelectorStyles} from '../../Styles/TodayQuestSelectorStyles';
 
 const TodayQuestSelector = ({navigation}: {navigation: any}) => {

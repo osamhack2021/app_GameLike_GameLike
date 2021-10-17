@@ -1,9 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, ScrollView, StyleSheet, Button, Alert} from 'react-native';
 import {useDispatch, useSelector, useStore} from 'react-redux';
-import {growExpAction} from '../Store/Actions/levelActions';
-import {AppState} from '../Store';
-import {getLevelFromExp, getLevelUpExpByLevel} from './LevelFunctions';
+import {growExpAction} from '../../Store/Actions/levelActions';
+import {AppState} from '../../Store';
+import {
+  getLevelFromExp,
+  getLevelUpExpByLevel,
+} from '../Functions/LevelFunctions';
 
 export function LevelComponent() {
   const userExp = useSelector<AppState, number>(state => state.level.exp);

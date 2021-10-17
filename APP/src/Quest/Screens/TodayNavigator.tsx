@@ -4,8 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import TodayQuestScreen from './TodayQuestScreen';
 import TodayQuestSelector from './TodayQuestSelector';
 import TodayQuestAdder from './TodayQuestAdder';
-import QuestEndScreen from '../Screens/QuestEndScreen';
-import CurrentQuestScreen from '../QuestExecuter/CurrentQuestScreen';
+import QuestEndScreen from './QuestEndScreen';
+import CurrentQuestScreen from './CurrentQuestScreen';
 
 const Stack = createStackNavigator();
 

@@ -1,4 +1,4 @@
-import {ExpectedData, PerformedData, QuestData} from '../Quest/Datas';
+import {ExpectedData} from '../Quest/Datas';
 
 export type User = {
   name: string;

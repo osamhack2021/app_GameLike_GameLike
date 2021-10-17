@@ -4,8 +4,8 @@
 
 import axios from 'axios';
 import {Alert} from 'react-native';
-import getDateString from '../../Times/getDateString';
-import {ExpectedData} from '..';
+import getDateString from '../Times/getDateString';
+import {ExpectedData} from '../Datas';
 
 export default async function loadRecentExpected(setLog: any) {
   const result: ExpectedData.DataType[] = [];

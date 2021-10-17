@@ -3,8 +3,7 @@
 
 import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
-import {ExpectedData} from '..';
-import testDatas from './expectedTestDatas';
+import {ExpectedData} from '../Datas';
 
 type PostData = {
   questName: string;

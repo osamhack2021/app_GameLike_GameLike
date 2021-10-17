@@ -1,12 +1,10 @@
 import type {Action} from 'redux';
-import reloadExpected from '../../connection/reloadExpected';
 import {ExpectedData} from '../../Quest/Datas';
 
 export type ExpectedDataActions =
   | InsertExpectedAction
   | ReplaceExpectedAction
-  | ReplaceExpectedActionByIndex
-  | ReloadExpectedAction;
+  | ReplaceExpectedActionByIndex;
 
 export type InsertExpectedAction = Action<'insertExpected'> & {
   datas: ExpectedData.DataType[];
@@ -38,15 +36,3 @@ export const replaceExpectedActionByIndex = (
   data: data,
   index: index,
 });
-
-//data reload actions
-export type ReloadExpectedAction = Action<'reloadExpected'> & {
-  datas: ExpectedData.DataType[];
-};
-export const reloadExpectedAction = () => {
-  const [log, datas] = reloadExpected();
-  return {
-    type: 'reloadExpected',
-    datas: datas,
-  };
-};
