@@ -36,7 +36,9 @@ export default function ProfileScreen() {
             exp = i.exp;
             level = i.level;
           }
-          setLog(`just nick = ${obj[0].nick} user nick = ${nick} obj = ${obj}`);
+          setLog(
+            `just nick = ${obj.nick} user nick = ${response.data.email} obj = ${obj}`,
+          );
           //setLog(obj.email);
         } catch (e) {
           setLog('일단 잘 됨');
@@ -53,7 +55,7 @@ export default function ProfileScreen() {
 
   const onClickRankinfo = () => {
     axios
-      .post('http://52.231.66.60/rank')
+      .get('http://52.231.66.60/rank')
       .then(response => {
         try {
           //setLog(JSON.stringify(response.data));
