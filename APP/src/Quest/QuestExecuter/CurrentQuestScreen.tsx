@@ -37,27 +37,33 @@ export function CurrentQuestScreen({
   const [startTime, setStartTime] = useState('');
   const [detailText, setDetailText] = useState('');
 
-  const onStart = useCallback((exp: ExpectedData.DataType, details: string) => {
-    //1. 데이터 제작하기
-    //2. 서버로 전송하기
-    //3. then 넘어오면 수행 시작
-    const curDate = getDate();
-    const performed: PerformedData.DataType = {
-      id: 0,
-      questName: exp.questName,
-      hashTag: exp.hashTag,
-      date: getTodayString(curDate),
-      userId: 'testid',
-      startTime: getTimeString(curDate),
-      endTime: getTimeString(curDate),
-      detail: details,
-    };
-    postNewPerformedData(performed).then(() => {
-      setStartTime(performed.startTime);
-      setPerformedId(performed.id);
-      setIsPerforming(true);
-    });
-  }, []);
+  const onStart = useCallback(
+    (exp: ExpectedData.DataType, details: string, performing: boolean) => {
+      //1. 데이터 제작하기
+      //2. 서버로 전송하기
+      //3. then 넘어오면 수행 시작
+      if (performing) {
+        return;
+      }
+      const curDate = getDate();
+      const performed: PerformedData.DataType = {
+        id: 0,
+        questName: exp.questName,
+        hashTag: exp.hashTag,
+        date: getTodayString(curDate),
+        userId: 'testid',
+        startTime: getTimeString(curDate),
+        endTime: getTimeString(curDate),
+        detail: details,
+      };
+      postNewPerformedData(performed).then(() => {
+        setStartTime(performed.startTime);
+        setPerformedId(performed.id);
+        setIsPerforming(true);
+      });
+    },
+    [],
+  );
 
   const expCompute = useCallback((start: string, end: string) => {
     const s = start.split(':');
@@ -66,7 +72,7 @@ export function CurrentQuestScreen({
     for (let i = 0; i < 3; ++i) {
       r[i] = parseInt(e[i], 10) - parseInt(s[i], 10);
     }
-    const result = (r[0] * 60 * 60 + r[1] * 60 + r[0]) / 2;
+    const result = (r[0] * 60 * 60 + r[1] * 60 + r[2]) / 2;
     return result;
   }, []);
 
@@ -95,10 +101,15 @@ export function CurrentQuestScreen({
       userIdValue: string,
       startTimeValue: string,
       endTimeValue: string,
+      performing: boolean,
       nav: any,
     ) => {
       //서버에 끝 데이터 보내기 (performedId 체크하기)
       //then 넘어오면 수행 종료 후 rerender
+
+      if (!performing) {
+        return;
+      }
       const resultExp = expCompute(startTimeValue, endTimeValue);
 
       postPerformedEndtime(userIdValue, startTimeValue, endTimeValue).then(
@@ -153,13 +164,19 @@ export function CurrentQuestScreen({
         <Button
           title="수행 시작!"
           onPress={() => {
-            onStart(expected, detailText);
+            onStart(expected, detailText, isPerfoming);
           }}
         />
         <Button
           title="수행 종료.."
           onPress={() => {
-            onEnd('test@n.n', startTime, getTimeString(), navigation);
+            onEnd(
+              'test@n.n',
+              startTime,
+              getTimeString(),
+              isPerfoming,
+              navigation,
+            );
           }}
         />
       </View>

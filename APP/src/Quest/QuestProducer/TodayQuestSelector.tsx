@@ -16,7 +16,7 @@ import {AppState, replaceExpectedAction} from '../../Store';
 import {ExpectedData, QuestData} from '../Datas';
 import loadRecentExpected from '../Datas/Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
-import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
+import postNewExpectedData from '../Datas/Connection/PostNewExpectedData';
 import {reloadTodayExpected} from '../Datas/Connection';
 
 const TodayQuestSelector = ({navigation}: {navigation: any}) => {
