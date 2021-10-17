@@ -18,6 +18,7 @@ import loadRecentExpected from '../Datas/Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
 import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Datas/Connection';
+import {todayQuestSelectorStyles} from '../../Styles/TodayQuestSelectorStyles';
 
 const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   const [recentQuest, setRecent] = useState<ExpectedData.DataType[]>([]);
@@ -68,37 +69,43 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   );
 
   return (
-    <View>
-      <Text>이 창에서 퀘스트를 선택하거나 추가해주세요</Text>
-      <FlatList
-        data={recentQuest}
-        renderItem={ri => (
-          <Button
-            title={ri.item.questName + ' #' + ri.item.hashTag}
-            onPress={() => {
-              postExpected(ri.item);
+    <View style={styles.container}>
+      <View style={styles.topView}>
+        <Text>이 창에서 퀘스트를 선택하거나 추가해주세요</Text>
+      </View>
+      <View style={styles.middleView}>
+        <FlatList
+          data={recentQuest}
+          renderItem={ri => (
+            <Button
+              title={ri.item.questName + ' #' + ri.item.hashTag}
+              onPress={() => {
+                postExpected(ri.item);
 
-              navigation.goBack();
-            }}
-          />
-        )}
-      />
-      <TouchableOpacity
-        style={styles.tco}
-        onPress={() => navigation.navigate('ADDER')}>
-        <Text>퀘스트 추가</Text>
-      </TouchableOpacity>
+                navigation.goBack();
+              }}
+            />
+          )}
+        />
+      </View>
 
-      <TouchableOpacity style={styles.tco} onPress={() => navigation.goBack()}>
-        <Text>뒤로</Text>
-      </TouchableOpacity>
+      <View style={styles.bottomView}>
+        <TouchableOpacity
+          style={styles.tco}
+          onPress={() => navigation.navigate('ADDER')}>
+          <Text>퀘스트 추가</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tco}
+          onPress={() => navigation.goBack()}>
+          <Text>뒤로</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  view: {marginHorizontal: 20, marginVertical: 10},
-  tco: {width: '100%', height: 75, borderColor: '#000000', borderWidth: 3},
-});
+const styles = todayQuestSelectorStyles;
 
 export default TodayQuestSelector;
