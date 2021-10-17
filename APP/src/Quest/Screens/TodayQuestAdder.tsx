@@ -1,7 +1,13 @@
 import React, {useCallback, useState} from 'react';
-import {Text, TextInput, View, StyleSheet, Alert} from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import {ExpectedData} from '../Datas';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch} from 'react-redux';
 import getDateString from '../Times/getDateString';
 import {replaceExpectedAction} from '../../Store/Actions';
@@ -45,7 +51,7 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         date: today,
       };
 
-      postNewExpectedData(data).then(res => {
+      postNewExpectedData(data).then((res: any) => {
         //expected reload 요청
         reloadTodayExpected()
           .then(r => {

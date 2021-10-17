@@ -1,6 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {FlatList, Text, View, Button} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {FlatList, Text, View, Button, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState, replaceExpectedAction} from '../../Store';
 import {ExpectedData} from '../Datas';

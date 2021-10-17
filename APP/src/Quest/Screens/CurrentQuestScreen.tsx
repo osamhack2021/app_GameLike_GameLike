@@ -1,6 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {Button, Text, View} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import {Button, Text, View, TextInput} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {ExpectedData, PerformedData} from '../Datas';
 import postPerformedEndtime from '../Connection/postPerformedEndtime';

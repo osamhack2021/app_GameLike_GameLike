@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 import ExpectedElement from '../Components/ExpectedElement';
 import textStyles from '../Styles/QuestTextStyles';
 import {ExpectedData} from '../Datas';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {replaceExpectedAction} from '../../Store/Actions';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import getTodayString from '../Times/getTodayString';
 import {reloadTodayExpected} from '../Connection';
 import {todayQuestScreenStyle} from '../../Styles/TodayQuestScreenStyles';
