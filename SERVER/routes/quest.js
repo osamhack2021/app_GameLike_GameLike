@@ -169,11 +169,12 @@ router.get('/performedE', async (req, res, next) => {
 });
 
 // peopleWith 프로토타입
-router.post('/complete', async (req, res, next) => {
-  const { hashTag } = req.body;
+router.get('/complete', async (req, res, next) => {
+  // const { hashTag } = req.body;
+  const hashtag = 'dwgkia';
   try {
     const performed = await Performed.findAll({
-      where: { hashTag: req.body.hashTag },
+      where: { hashTag: hashTag },
       attributes: [
         [Sequelize.fn('DISTINCT', sequelize.col('userId')), 'userId']
       ]
