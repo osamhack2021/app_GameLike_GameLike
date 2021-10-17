@@ -21,14 +21,14 @@ export default function ProfileScreen() {
 
   const onClickUserinfo = () => {
     axios
-      .post('http://52.231.66.60/auth/profiles', postData)
+      .post('http://52.231.66.60/profiles', postData)
       .then(response => {
         try {
           //setLog(JSON.stringify(response.data));
           var res = JSON.stringify(response);
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
-          setLog(`email = ${obj.email} nick =${obj.nick} obj = ${obj}`);
+          setLog(`rank = ${obj.rank} user = ${obj.user}`);
 
           //setLog(obj.email);
         } catch (e) {
@@ -40,6 +40,31 @@ export default function ProfileScreen() {
           setLog(error.message);
         } else {
           setLog('에러다 에러');
+        }
+      });
+  };
+
+  const onClickRankinfo = () => {
+    axios
+      .post('http://52.231.66.60/rank')
+      .then(response => {
+        try {
+          //setLog(JSON.stringify(response.data));
+          var res = JSON.stringify(response);
+          var jsonData = JSON.stringify(response.data);
+          var obj = JSON.parse(jsonData);
+          setpLog(`rank data = ${obj}`);
+
+          //setLog(obj.email);
+        } catch (e) {
+          setpLog('일단 잘 됨');
+        }
+      })
+      .catch(error => {
+        if (error instanceof Error) {
+          setpLog(error.message);
+        } else {
+          setpLog('에러다 에러');
         }
       });
   };
