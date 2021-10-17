@@ -28,8 +28,7 @@ export default function ProfileScreen() {
           var res = JSON.stringify(response);
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
-
-          setLog(`string = ${jsonData}`);
+          setLog(`email = ${obj.email} nick =${obj.nick} obj = ${obj}`);
 
           //setLog(obj.email);
         } catch (e) {
