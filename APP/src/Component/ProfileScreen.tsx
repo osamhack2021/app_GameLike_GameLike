@@ -24,10 +24,11 @@ export default function ProfileScreen() {
       .then(response => {
         try {
           //setLog(JSON.stringify(response.data));
+          var res = JSON.stringify(response);
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
 
-          setLog(`obj = ${obj} obj.email = ${obj.email}`);
+          setLog(`key = ${obj.key} obj.email = ${obj.email} response = ${res}`);
           //setLog(obj.email);
         } catch (e) {
           setLog('일단 잘 됨');
