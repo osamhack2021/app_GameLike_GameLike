@@ -7,6 +7,8 @@ const Quest = require('../models/quest');
 const Expected = require('../models/expected');
 const Performed = require('../models/performed');
 const Sequelize = require('sequelize');
+const Op = require('sequelize').Op;
+
 
 router.use((req, res, next) => {
   res.locals.user = req.user;
@@ -42,49 +44,54 @@ router.get('/profile', isLoggedIn, (req, res) => {
 });
 
 // 테스트용 프로필 페이지, 상단 정보 리턴
-router.get('/profiles', isNotLoggedIn, async (req, res, next) => {
-  //const { email } = req.body;
-  const email = 'test@n.n'
+router.post('/profiles', isLoggedIn, async (req, res, next) => {
+  const { email } = req.body;
+  // const email = 'test@n.n';
   try {
-    let exUser = await User.findAll({ 
-      //where: { email }, 
-      attributes: [
-        'nick', 'dischargeDate', 'exp', 'level',
-        [Sequelize.literal('(RANK() OVER (ORDER BY exp DESC))'), 'rank']
-      ], // (순위)
+    const exUser = await User.findOne({
+      where: { email }
     });
-
-    for (let i of exUser){
-      if(i.email == email){
-        console.log(i.rank);
+    const rank = await User.count({
+      where: {
+        exp: {
+          [Op.gt]: exUser.exp  // Op.gt it is syntax for grather then
+        },
       }
+    }) + 1;
+    console.log(rank);
+    if (exUser) {
+      const data = JSON.stringify({ user: exUser, rank: rank });
+      res.json(data);
     }
-    
-
-    
-    if (!exUser) {
-      res.json('no user founded');
-    }
-    else{
-      const data = JSON.stringify(exUser);
-      console.log(exUser.email);
+    else {
+      const data = JSON.stringify({ user: exUser, rank: rank });
       res.json(data);
     }
   } catch (err) {
     console.log(err);
     next(err);
   }
+
+  // let exUser = await User.findAll({ 
+  //   //where: { email }, 
+  //   attributes: [
+  //     'nick', 'dischargeDate', 'exp', 'level',
+  //     [Sequelize.literal('(RANK() OVER (ORDER BY exp DESC))'), 'rank']
+  //   ], // (순위)
+  // });
 });
 
+
 // 랭킹 페이지
-router.get('/rank',/*isLoggedIn,*/ async (req, res, next) => {
-  const { email } = req.body;
+router.get('/rank', isLoggedIn, async (req, res, next) => {
+  //const { email } = req.body;
+  // const email = 'test@n.n';
   try {
-    const exUser = await User.findAll({ 
+    const exUser = await User.findAll({
       attributes: [
         'nick', 'dischargeDate', 'exp', 'level',
-        [Sequelize.literal('(RANK() OVER (ORDER BY exp DESC))'), 'rank']
       ], // (순위)
+      order: [['exp', 'DESC']],
     });
     const data = JSON.stringify(exUser);
     res.json(data);
