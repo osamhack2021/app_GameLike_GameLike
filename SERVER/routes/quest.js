@@ -170,9 +170,9 @@ router.get('/performedE', async (req, res, next) => {
 
 // peopleWith 프로토타입
 router.post('/complete', async (req, res, next) => {
-  const { hashTag , userId} = req.body;
-  //const hashTag = 'dwgkia';
-  //const userId = 'test@n.n'
+  //const { hashTag , userId} = req.body;
+  const hashTag = 'dwgkia';
+  const userId = 'test@n.n'
   try {
     const performed = await Performed.findAll({
       where: { hashTag: hashTag },
@@ -180,10 +180,11 @@ router.post('/complete', async (req, res, next) => {
         [Sequelize.fn('DISTINCT', sequelize.col('userId')), userId]
       ]
     });
+    const cnt = await Performed.count({distinct: 'userId', where: {hashTag: hashTag}});
     const length = performed.length;
     // const data = JSON.stringify(performed);
-    res.json({ peopleWith: length });
-    console.log(length);
+    res.json({ peopleWith: length , cnt: cnt});
+    console.log(length+ " " + cnt);
   } catch (err) {
     console.error(err);
     res.json(err);
