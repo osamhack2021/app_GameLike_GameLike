@@ -36,7 +36,8 @@ export default function ProfileScreen() {
           exp = obj.user.exp;
           level = obj.user.level;
           setLog(
-            `UserInfo
+            `
+            UserInfo
             nick = ${obj.user.nick} 
             email = ${obj.user.email} 
             enlistDate = ${obj.user.enlistDate}
@@ -66,7 +67,7 @@ export default function ProfileScreen() {
       .get('http://52.231.66.60/rank')
       .then(response => {
         try {
-          setLog(JSON.stringify(response.data));
+          setpLog(JSON.stringify(response.data));
           const arr = JSON.parse(response.data);
         } catch (e) {
           setpLog('일단 잘 됨');
@@ -112,7 +113,6 @@ export default function ProfileScreen() {
         <Button title="로그아웃" onPress={() => onClickLogout()} />
         <Text style={styles.profileText}>
           Profile Component, {testEmail}
-          <br />
           {log}
           {plog}
         </Text>
