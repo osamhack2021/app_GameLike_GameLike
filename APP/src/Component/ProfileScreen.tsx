@@ -23,14 +23,12 @@ export default function ProfileScreen() {
       .post('http://52.231.66.60/auth/profiles', postData)
       .then(response => {
         try {
-          setLog(JSON.stringify(response.data));
-          /*
+          //setLog(JSON.stringify(response.data));
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
 
-          setLog(obj);
-          setLog(obj.email);
-          */
+          setLog(`obj = ${obj} obj.email = ${obj.email}`);
+          //setLog(obj.email);
         } catch (e) {
           setLog('일단 잘 됨');
         }
