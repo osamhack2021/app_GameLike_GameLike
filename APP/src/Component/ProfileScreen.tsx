@@ -27,10 +27,16 @@ export default function ProfileScreen() {
           var res = JSON.stringify(response);
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
-
-          setLog(
-            `email = ${obj.email} nick = ${obj.nick} enlistDate = ${obj.enlistDate} exp = ${obj.exp} level = ${obj.level}`,
-          );
+          let txt = '';
+          // 접근법 1
+          for (var i = 0; i < obj.length; i++) {
+            for (var key in obj[i]) {
+              // key값 가져오기
+              txt += key + ':' + obj[i][key];
+            }
+            txt += '<br>';
+          }
+          setLog(`txt = ${txt}`);
           //setLog(obj.email);
         } catch (e) {
           setLog('일단 잘 됨');
