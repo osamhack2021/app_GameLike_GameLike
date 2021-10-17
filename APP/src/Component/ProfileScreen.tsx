@@ -3,18 +3,19 @@ import {View, Text, Button, Alert, StyleSheet} from 'react-native';
 import {useState, useEffect, useCallback, createRef} from 'react';
 import axios from 'axios';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
-
+// import {ProfileData} from './Data/ProfileData';
 // default값들임, 데이터 불러왔으면 지우기
-var name = 'name';
-var email = 'email';
-var day = 'day';
-
+var nick: any;
+var email: any;
+var enlistDate: any;
+var dischargeDate: any;
+var exp: any;
+var level: any;
 export default function ProfileScreen() {
   const [log, setLog] = useState('');
   const [plog, setpLog] = useState('');
   const [testEmail, setTestEmail] = useState('cho@n.n'); // 일단 하드코딩
-  //const testEmail = 'test@n.n';
-
+  // const result: ProfileData.UserData[] = [];
   const postData = {
     email: testEmail,
   };
@@ -25,11 +26,17 @@ export default function ProfileScreen() {
       .then(response => {
         try {
           //setLog(JSON.stringify(response.data));
-          var res = JSON.stringify(response);
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
-          setLog(`rank = ${obj.rank} user = ${obj.user}`);
-
+          for (let i of obj) {
+            nick = i.nick;
+            email = i.email;
+            enlistDate = i.enlistDate;
+            dischargeDate = i.dischargeDate;
+            exp = i.exp;
+            level = i.level;
+          }
+          setLog(`just nick = ${obj[0].nick} user nick = ${nick} obj = ${obj}`);
           //setLog(obj.email);
         } catch (e) {
           setLog('일단 잘 됨');
@@ -53,6 +60,7 @@ export default function ProfileScreen() {
           var res = JSON.stringify(response);
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
+
           setpLog(`rank data = ${obj}`);
 
           //setLog(obj.email);
@@ -90,6 +98,7 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     onClickUserinfo();
+    onClickRankinfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
