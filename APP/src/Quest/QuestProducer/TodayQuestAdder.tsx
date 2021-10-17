@@ -6,9 +6,11 @@ import {ExpectedData, QuestData} from '../Datas';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import getDateString from '../Times/getDateString';
-import {insertExpectedAction, replaceExpectedAction} from '../../Store/Actions';
+import {replaceExpectedAction} from '../../Store/Actions';
 import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Datas/Connection';
+import {todayQuestSelectorStyles} from '../../Styles/TodayQuestSelectorStyles';
+import {todayQuestAdderStyles} from '../../Styles/TodayQuestAdderStyles';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
 export default function TodayQuestAdder({navigation}: {navigation: any}) {
@@ -59,21 +61,24 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
   );
 
   return (
-    <View>
-      <Text>{'log: ' + log}</Text>
-      <View>
-        <Text>추가할 퀘스트의 정보를 입력해주세요</Text>
+    <View style={styles.container}>
+      <View style={styles.topView}>
+        <Text style={styles.topText}>추가할 퀘스트의 정보를 입력해주세요</Text>
       </View>
-      <TextInput
-        value={questName}
-        placeholder="퀘스트 이름"
-        onChangeText={text => setQuest(text)}
-      />
-      <TextInput
-        value={fieldName}
-        placeholder="#분야"
-        onChangeText={text => setField(text)}
-      />
+      <View style={styles.container}>
+        <TextInput
+          style={styles.textInput}
+          value={questName}
+          placeholder="퀘스트 이름 입력"
+          onChangeText={text => setQuest(text)}
+        />
+        <TextInput
+          style={styles.textInput}
+          value={fieldName}
+          placeholder="#분야 입력"
+          onChangeText={text => setField(text)}
+        />
+      </View>
       <TouchableOpacity
         style={styles.tco}
         onPress={() => {
@@ -85,7 +90,4 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
   );
 }
 
-const styles = StyleSheet.create({
-  view: {marginHorizontal: 20, marginVertical: 10},
-  tco: {width: '100%', height: 75, borderColor: '#000000', borderWidth: 3},
-});
+const styles = todayQuestAdderStyles;

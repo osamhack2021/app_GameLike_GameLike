@@ -1,35 +1,24 @@
 import {StyleSheet} from 'react-native';
 
-export const todayQuestSelectorStyles = StyleSheet.create({
+export const todayQuestAdderStyles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  topText: {
+    marginTop: 0,
+    marginLeft: 5,
+    fontSize: 20,
+    fontFamily: 'NotoSansKR-Bold',
   },
 
   topView: {
     width: '100%',
     height: 80,
   },
-  middleView: {
-    flex: 1,
-    borderTopWidth: 3,
-    borderBottomWidth: 3,
-    borderColor: '#333333',
-  },
-  bottomView: {
-    width: '100%',
-    height: 150,
-    justifyContent: 'center',
-  },
 
   tcoView: {
     width: '80%',
     height: 50,
-  },
-
-  centerView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   textInput: {
