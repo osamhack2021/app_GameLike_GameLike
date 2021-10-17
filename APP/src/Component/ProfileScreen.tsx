@@ -29,9 +29,8 @@ export default function ProfileScreen() {
       )
       .then(response => {
         try {
-          //setLog(JSON.stringify(response.data));
-          var jsonData = response.data;
-          var obj = JSON.parse(jsonData);
+          let jsonData = response.data;
+          let obj = JSON.parse(jsonData);
           nick = obj.user.nick;
           email = obj.user.email;
           enlistDate = obj.user.enlistDate;
@@ -39,11 +38,14 @@ export default function ProfileScreen() {
           exp = obj.user.exp;
           level = obj.user.level;
           setLog(
-            `just nick = ${obj.user.nick} user nick = ${obj.user.email} obj = ${obj}`,
+            `UserInfo
+            nick = ${obj.user.nick} 
+            email = ${obj.user.email} 
+            enlistDate = ${obj.user.enlistDate}
+            dischargeDate = ${obj.user.dischargeDate}
+            exp = ${obj.user.exp}
+            level = ${obj.user.level}`,
           );
-          //setLog(JSON.stringify(obj.user));
-          //setLog(jsonData);
-          //setLog(obj.email);
         } catch (e) {
           if (e instanceof Error) {
             setLog('일단 잘 됨: ' + e.message);
@@ -69,7 +71,7 @@ export default function ProfileScreen() {
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
 
-          setpLog(`rank data = ${obj}`);
+          setpLog(`rank data = ${obj.nick}`);
 
           //setLog(obj.email);
         } catch (e) {
