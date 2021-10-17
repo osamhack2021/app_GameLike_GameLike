@@ -2,10 +2,8 @@ import React from 'react';
 import {View, Text, Button, Alert, StyleSheet} from 'react-native';
 import {useState, useEffect, useCallback, createRef} from 'react';
 import axios, {AxiosResponse} from 'axios';
-import {color} from 'native-base/lib/typescript/theme/styled-system';
-import {json} from 'stream/consumers';
-// import {ProfileData} from './Data/ProfileData';
-// default값들임, 데이터 불러왔으면 지우기
+import loadRanking from './Data/loadRanking';
+
 let nick: any;
 let email: any;
 let enlistDate: any;
@@ -64,6 +62,12 @@ export default function ProfileScreen() {
   };
 
   const onClickRankinfo = () => {
+    type RankData = {
+      nick: string;
+      dischargeDate: string;
+      exp: number;
+      level: number;
+    };
     axios
       .get('http://52.231.66.60/rank')
       .then(response => {
@@ -71,10 +75,15 @@ export default function ProfileScreen() {
           //setLog(JSON.stringify(response.data));
           const arr = JSON.parse(response.data);
 
-          setpLog(`RankInfo
-          ${arr[0]}
-          ${arr[1]}
-          ${arr[2]}`);
+          for (let i of arr) {
+            const t: RankData = {
+              nick: i.nick,
+              dischargeDate: i.dischargeDate,
+              exp: i.exp,
+              level: i.level,
+            };
+            setpLog(`${t}`);
+          }
 
           //setLog(obj.email);
         } catch (e) {
