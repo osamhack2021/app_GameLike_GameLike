@@ -11,6 +11,7 @@ var day = 'day';
 
 export default function ProfileScreen() {
   const [log, setLog] = useState('');
+  const [plog, setpLog] = useState('');
   const [testEmail, setTestEmail] = useState('cho@n.n'); // 일단 하드코딩
   //const testEmail = 'test@n.n';
 
@@ -27,16 +28,10 @@ export default function ProfileScreen() {
           var res = JSON.stringify(response);
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
-          let txt = '';
-          // 접근법 1
-          for (var i = 0; i < obj.length; i++) {
-            for (var key in obj[i]) {
-              // key값 가져오기
-              txt += key + ':' + obj[i][key];
-            }
-            txt += '<br>';
+          for (var key in obj) {
+            setLog('key: ' + key + ' / ' + obj[key]);
           }
-          setLog(`txt = ${txt}`);
+          setpLog(`${JSON.stringify(obj.key)}`);
           //setLog(obj.email);
         } catch (e) {
           setLog('일단 잘 됨');
@@ -80,7 +75,10 @@ export default function ProfileScreen() {
       <View style={styles.profileCom}>
         <Text style={styles.profileText}>Profile Component, {testEmail}</Text>
         <Button title="로그아웃" onPress={() => onClickLogout()} />
-        <Text style={styles.profileText}>{log}</Text>
+        <Text style={styles.profileText}>
+          {log}
+          {plog}
+        </Text>
       </View>
 
       <View style={styles.levelCom}>
