@@ -11,6 +11,7 @@ import textStyles from '../Styles/QuestTextStyles';
 import getDate from '../Times/getDate';
 import getTimeString from '../Times/getTimeString';
 import getTodayString from '../Times/getTodayString';
+import postGrowExp from '../../Level/postGrowExp';
 
 export function CurrentQuestScreen({
   navigation,
@@ -50,9 +51,11 @@ export function CurrentQuestScreen({
       detail: details,
     };
     postNewPerformedData(performed).then(() => {
-      setStartTime(performed.startTime);
-      setPerformedId(performed.id);
-      setIsPerforming(true);
+      postGrowExp('test@n.n', 8000).then(() => {
+        setStartTime(performed.startTime);
+        setPerformedId(performed.id);
+        setIsPerforming(true);
+      });
     });
   }, []);
 

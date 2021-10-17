@@ -2,8 +2,14 @@
 //     post:   id, endTime
 //     res:    성공 여부
 
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
+
+type PostData = {
+  userId: string;
+  startTime: string;
+  endTime: string;
+};
 
 export default function postPerformedEndtime(
   userId: string,
@@ -16,9 +22,17 @@ export default function postPerformedEndtime(
     endTime: endTime,
   };
   const ax = axios
-    .post('http://52.231.66.60/quest/updatePe', postData)
+    .post<PostData, AxiosResponse<any>>(
+      'http://52.231.66.60/quest/updatePe',
+      postData,
+    )
     .then(response => {
-      return true;
+      const res = response.data;
+      if (res.success) {
+        return true;
+      } else {
+        throw Error(res.message);
+      }
     })
     .catch(error => {
       if (error instanceof Error) {

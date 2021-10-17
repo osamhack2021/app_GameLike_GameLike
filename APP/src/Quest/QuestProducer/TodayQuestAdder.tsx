@@ -45,14 +45,15 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         userId: 'testid',
         date: today,
       };
-      postNewExpectedData(data);
 
-      //expected reload 요청
-      reloadTodayExpected().then(res => {
-        dispatch(replaceExpectedAction(res));
+      postNewExpectedData(data).then(res => {
+        //expected reload 요청
+        reloadTodayExpected()
+          .then(r => {
+            dispatch(replaceExpectedAction(r));
+          })
+          .then(() => nav.popToTop());
       });
-
-      nav.popToTop();
     },
     [fieldName, questName, dispatch],
   );

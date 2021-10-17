@@ -40,6 +40,11 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
             canPush = false;
           }
         }
+        for (let j of results) {
+          if (i.questName === j.questName && i.hashTag === j.hashTag) {
+            canPush = false;
+          }
+        }
         if (canPush) {
           results.push({...i});
         }
@@ -52,6 +57,7 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   const dispatch = useDispatch();
   const postExpected = useCallback(
     (data: ExpectedData.DataType) => {
+      data.date = getDateString();
       postNewExpectedData(data);
 
       reloadTodayExpected().then(res => {
@@ -63,7 +69,6 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
 
   return (
     <View>
-      <Text>{'log: ' + log}</Text>
       <Text>이 창에서 퀘스트를 선택하거나 추가해주세요</Text>
       <FlatList
         data={recentQuest}
