@@ -2,12 +2,9 @@
 .expo
 settings.json
 node_modules/
-<<<<<<< HEAD
 /SERVER/node_modules/
 /SERVER/keys/
 /SERVER/greenlock.d
 /node_modules/
 .expo
-=======
 *.hprof
->>>>>>> questEndScreen

@@ -1,14 +1,19 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, ScrollView, StyleSheet, Button, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Button,
+  Alert,
+  Image,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../Store';
 import {ExpectedData} from '../Quest/Datas';
-import axios from 'axios';
-import reloadExpected from '../connection/reloadExpected';
-import {reloadExpectedAction, replaceExpectedAction} from '../Store/Actions';
-import {reloadTodayExpected} from '../Quest/Datas/Connection';
 import loadUncompletedPerformed from '../Quest/Datas/Connection/loadUncompletedPerformed';
 import LevelComponent from '../Level/LevelComponent';
+import * as Style from '../Styles/HomeScreenStyles';
 
 //1. 처음 로드할 때 expected quests 가져와야함
 //(연습할 땐 db 대신 static에서 load, empty array와 ex array 만들어서 가져오기)
@@ -43,35 +48,38 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.profile}>
         <Text>Profile Component</Text>
       </View>
-      <View>
+      <View style={styles.level}>
         <LevelComponent />
       </View>
-      <View>
-        <Text>{topText}</Text>
-        <View>
-          <Text>Avatar</Text>
+      <View style={styles.questHome}>
+        <View style={styles.questTopView}>
+          <Text style={styles.questTopText}>{topText}</Text>
         </View>
-        <View>
-          <Button
-            title="퀘스트 수행하기"
-            disabled={!canQuestAdd}
-            onPress={() => {
-              navigation.navigate('TODAY');
-            }}
-          />
+        <View style={styles.questMiddleView}>
+          <View style={styles.questAvatarView}>
+            <Image
+              source={require('../../assets/images/avatar/avatar.png')}
+              style={styles.questAvatar}
+            />
+          </View>
+          <View style={styles.questButtonView}>
+            <Button
+              title="퀘스트 수행하기"
+              disabled={!canQuestAdd}
+              onPress={() => {
+                navigation.navigate('TODAY');
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+const styles = Style.homeStyle;
 
 export default HomeScreen;
