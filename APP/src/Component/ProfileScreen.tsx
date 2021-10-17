@@ -11,7 +11,7 @@ var day = 'day';
 
 export default function ProfileScreen() {
   const [log, setLog] = useState('');
-  const [testEmail, setTestEmail] = useState('test@n.n');
+  const [testEmail, setTestEmail] = useState('cho@n.n'); // 일단 하드코딩
   //const testEmail = 'test@n.n';
 
   const postData = {
@@ -28,7 +28,9 @@ export default function ProfileScreen() {
           var jsonData = JSON.stringify(response.data);
           var obj = JSON.parse(jsonData);
 
-          setLog(`key = ${obj.key} obj.email = ${obj.email} response = ${res}`);
+          setLog(
+            `email = ${obj.email} nick = ${obj.nick} enlistDate = ${obj.enlistDate} exp = ${obj.exp} level = ${obj.level}`,
+          );
           //setLog(obj.email);
         } catch (e) {
           setLog('일단 잘 됨');
