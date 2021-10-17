@@ -44,7 +44,9 @@ export default function ProfileScreen() {
             enlistDate = ${obj.user.enlistDate}
             dischargeDate = ${obj.user.dischargeDate}
             exp = ${obj.user.exp}
-            level = ${obj.user.level}`,
+            level = ${obj.user.level}
+            rank = ${obj.rank}
+            `,
           );
         } catch (e) {
           if (e instanceof Error) {
@@ -67,11 +69,10 @@ export default function ProfileScreen() {
       .then(response => {
         try {
           //setLog(JSON.stringify(response.data));
-          var res = JSON.stringify(response);
-          var jsonData = JSON.stringify(response.data);
-          var obj = JSON.parse(jsonData);
+          const arr = JSON.parse(response.data);
 
-          setpLog(`rank data = ${obj.nick}`);
+          setpLog(`RankInfo
+          ${arr}`);
 
           //setLog(obj.email);
         } catch (e) {
@@ -115,9 +116,9 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.profileCom}>
-        <Text style={styles.profileText}>Profile Component, {testEmail}</Text>
         <Button title="로그아웃" onPress={() => onClickLogout()} />
         <Text style={styles.profileText}>
+          Profile Component, {testEmail}
           {log}
           {plog}
         </Text>
