@@ -46,18 +46,28 @@ router.get('/profiles', isNotLoggedIn, async (req, res, next) => {
   //const { email } = req.body;
   const email = 'test@n.n'
   try {
-    const exUser = await User.findOne({ 
-      where: { email }, 
+    let exUser = await User.findAll({ 
+      //where: { email }, 
       attributes: [
         'nick', 'dischargeDate', 'exp', 'level',
-        [Sequelize.literal('RANK() OVER (ORDER BY exp))'), 'rank']
+        [Sequelize.literal('(RANK() OVER (ORDER BY exp DESC))'), 'rank']
       ], // (순위)
     });
+
+    for (let i of exUser){
+      if(i.email == email){
+        console.log(i.rank);
+      }
+    }
+    
+
+    
     if (!exUser) {
       res.json('no user founded');
     }
     else{
       const data = JSON.stringify(exUser);
+      console.log(exUser.email);
       res.json(data);
     }
   } catch (err) {
@@ -70,9 +80,11 @@ router.get('/profiles', isNotLoggedIn, async (req, res, next) => {
 router.get('/rank',/*isLoggedIn,*/ async (req, res, next) => {
   const { email } = req.body;
   try {
-    const exUser = await User.findAll({
-      attributes: ['name', 'date'],
-       order: [['exp', 'DESC']],
+    const exUser = await User.findAll({ 
+      attributes: [
+        'nick', 'dischargeDate', 'exp', 'level',
+        [Sequelize.literal('(RANK() OVER (ORDER BY exp DESC))'), 'rank']
+      ], // (순위)
     });
     const data = JSON.stringify(exUser);
     res.json(data);

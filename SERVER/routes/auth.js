@@ -20,7 +20,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
       password: hash,
 	  enlistDate,
 	  dischargeDate,
-	  exp : 10,
+	  exp : 16,
 	  level : 1
     });
     return res.redirect('/');
