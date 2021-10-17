@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Text, Button, Alert, StyleSheet} from 'react-native';
 import {useState, useEffect, useCallback, createRef} from 'react';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {color} from 'native-base/lib/typescript/theme/styled-system';
+import {json} from 'stream/consumers';
 // import {ProfileData} from './Data/ProfileData';
 // default값들임, 데이터 불러왔으면 지우기
 var nick: any;
@@ -22,26 +23,31 @@ export default function ProfileScreen() {
 
   const onClickUserinfo = () => {
     axios
-      .post('http://52.231.66.60/profiles', postData)
+      .post<{email: string}, AxiosResponse<string>>(
+        'http://52.231.66.60/profiles',
+        postData,
+      )
       .then(response => {
         try {
           //setLog(JSON.stringify(response.data));
-          var jsonData = JSON.stringify(response.data);
+          var jsonData = response.data;
           var obj = JSON.parse(jsonData);
-          for (let i of obj) {
-            nick = i.nick;
-            email = i.email;
-            enlistDate = i.enlistDate;
-            dischargeDate = i.dischargeDate;
-            exp = i.exp;
-            level = i.level;
-          }
+          nick = obj.user.nick;
+          email = obj.user.email;
+          enlistDate = obj.user.enlistDate;
+          dischargeDate = obj.user.dischargeDate;
+          exp = obj.user.exp;
+          level = obj.user.level;
           setLog(
-            `just nick = ${obj.nick} user nick = ${response.data.email} obj = ${obj}`,
+            `just nick = ${obj.user.nick} user nick = ${obj.user.email} obj = ${obj}`,
           );
+          //setLog(JSON.stringify(obj.user));
+          //setLog(jsonData);
           //setLog(obj.email);
         } catch (e) {
-          setLog('일단 잘 됨');
+          if (e instanceof Error) {
+            setLog('일단 잘 됨: ' + e.message);
+          }
         }
       })
       .catch(error => {
