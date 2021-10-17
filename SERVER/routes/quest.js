@@ -29,8 +29,7 @@ router.post('/createEx', async (req, res, next) => {
     date,
     userId
   } = req.body;
-  try {
-    //const exQuest = await Expected.findOne({ where: { questName } });    
+  try {    
     const expected = await Expected.create({
       questName: questName,
       hashTag: hashTag,
@@ -41,13 +40,11 @@ router.post('/createEx', async (req, res, next) => {
     res.json({
       message: "Expected Create SUCCESS!", success: true
     });
-    //return res.redirect('/');
   } catch (error) {
     console.error(error);
     res.json({
       message: "Expected Create FAILED!", success: false
     });
-    //return next(error);
   }
 });
 
@@ -76,13 +73,11 @@ router.post('/createPe', async (req, res, next) => {
     res.json({
       message: "Performed Create SUCCESS!", success: true, id: performed.id
     });
-    //return res.redirect('/');
   } catch (error) {
     console.error(error);
     res.json({
       message: "Perfomred Create FAILED!", success: false, id: -1
     });
-    //return next(error);
   }
 });
 
@@ -125,7 +120,6 @@ router.post('/expectedToday', async (req, res, next) => {
 router.post('/updatePe', async (req, res, next) => { // 프로필 닉네임 수정예제
   const { userId, startTime, endTime } = req.body;
   try {
-    // const performed = await Performed.update({where})
     await Performed.update({ endTime: req.body.endTime }, {
       where: {
         userId: req.body.userId,
@@ -169,26 +163,20 @@ router.get('/performedE', async (req, res, next) => {
 });
 
 // peopleWith 프로토타입
-router.get('/complete', async (req, res, next) => {
-  //const { hashTag , userId} = req.body;
-  const hashTag = 'dwgkia';
-  const userId = 'test@n.n'
+router.post('/complete', async (req, res, next) => {
+  const { hashTag} = req.body;
   try {
     const performed = await Performed.findAll({
-      where: { hashTag: hashTag },
-      attributes: [
-        [Sequelize.literal('DISTINCT', sequelize.col('userId')), userId]
-      ]
+      where: {hashTag : hashTag},
+      attributes:
+      [[Sequelize.fn('DISTINCT', Sequelize.col('userId')), 'userId']]
     });
-    const cnt = await Performed.count({where: {hashTag: hashTag}, distinct: 'userId'});
     const length = performed.length;
-    // const data = JSON.stringify(performed);
-    res.json({ peopleWith: length , cnt: cnt});
-    console.log(length+ " " + cnt);
+    res.json({ peopleWith: length});
+    console.log(performed+ " " +length+ " " + cnt);
   } catch (err) {
     console.error(err);
     res.json(err);
-    //next(err);
   }
 });
 
@@ -198,11 +186,6 @@ router.post('/updateExp', async (req, res, next) => { // 프로필 닉네임 수
   try {
     // const performed = await Performed.update({where})
     await User.increment({exp: req.body.exp}, {where : {email : email}});
-    // await User.update({ exp: sequelize.literal('') }, {
-    //   where: {
-    //     email: req.body.email
-    //   }
-    // });
     res.json({
       message: "User exp Update SUCCESS!", success: true
     });
