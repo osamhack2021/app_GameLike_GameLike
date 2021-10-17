@@ -11,7 +11,8 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   try {
     const exUser = await User.findOne({ where: { email } });
     if (exUser) {
-      return res.redirect('/join?error=exist');
+		res.send({message: '이미 존재하는 회원입니다', isExist: true});
+      //return res.redirect('/join?error=exist');
     }
     const hash = await bcrypt.hash(password, 12);
     await User.create({
@@ -20,10 +21,10 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
       password: hash,
 	  enlistDate,
 	  dischargeDate,
-	  exp : 16,
+	  exp : 30,
 	  level : 1
     });
-    return res.redirect('/');
+	res.send({message: '회원가입을 축하드립니다!', isExist: false});
   } catch (error) {
     console.error(error);
     return next(error);
@@ -47,8 +48,7 @@ router.post('/profiles', isLoggedIn, async (req, res, next) => {
 	try {
 	  const exUser = await User.findOne({ where: { email } 
 	});
-	  if (exUser) {
-		res.json('no user founded');
+	  if (exUser) {		
 		const data = JSON.stringify(exUser);
 		res.json(data);
 	  }
