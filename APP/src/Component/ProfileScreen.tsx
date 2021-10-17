@@ -14,13 +14,13 @@ export default function ProfileScreen() {
   const [testEmail, setTestEmail] = useState('test@n.n');
   //const testEmail = 'test@n.n';
 
+  const postData = {
+    email: testEmail,
+  };
+
   const onClickUserinfo = () => {
     axios
-      .post('http://52.231.66.60/auth/profiles', null, {
-        params: {
-          email: testEmail,
-        },
-      })
+      .post('http://52.231.66.60/auth/profiles', postData)
       .then(response => {
         try {
           setLog(JSON.stringify(response.data));
