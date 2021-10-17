@@ -1,19 +1,9 @@
-import React, {useCallback, useMemo, useState, FC, useEffect} from 'react';
-import {
-  FlatList,
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import React, {useCallback, useState, useEffect} from 'react';
+import {FlatList, Text, View, Button} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import insertExpected from 'src/connection/insertExpected';
-import loadRecentQuests from '../Datas/Connection/loadRecentExpected';
 import {AppState, replaceExpectedAction} from '../../Store';
-import {ExpectedData, QuestData} from '../Datas';
+import {ExpectedData} from '../Datas';
 import loadRecentExpected from '../Datas/Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
 import postNewExpectedData from '../Datas/Connection/postNewExpectedData';

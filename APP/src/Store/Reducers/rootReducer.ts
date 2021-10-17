@@ -1,4 +1,3 @@
-import {AppState} from '../AppState';
 import {combineReducers} from 'redux';
 import {expectedDatasReducer} from './expectedDatasReducer';
 import {levelReducer} from './levelReducer';

@@ -1,15 +1,12 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {FlatList, Text, TextInput, View, StyleSheet, Alert} from 'react-native';
-import ExpectedElement from './ExpectedElement';
-import textStyles from '../Styles/QuestTextStyles';
-import {ExpectedData, QuestData} from '../Datas';
+import React, {useCallback, useState} from 'react';
+import {Text, TextInput, View, StyleSheet, Alert} from 'react-native';
+import {ExpectedData} from '../Datas';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import getDateString from '../Times/getDateString';
 import {replaceExpectedAction} from '../../Store/Actions';
 import postNewExpectedData from '../Datas/Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Datas/Connection';
-import {todayQuestSelectorStyles} from '../../Styles/TodayQuestSelectorStyles';
 import {todayQuestAdderStyles} from '../../Styles/TodayQuestAdderStyles';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음

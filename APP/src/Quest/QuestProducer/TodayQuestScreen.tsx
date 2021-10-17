@@ -1,25 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  Text,
-  View,
-  StyleSheet,
-  Alert,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Text, View} from 'react-native';
 import ExpectedElement from './ExpectedElement';
 import textStyles from '../Styles/QuestTextStyles';
 import {ExpectedData, QuestData} from '../Datas';
-import TodayQuestSelector from './TodayQuestSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../Store';
 import {replaceExpectedAction} from '../../Store/Actions';
-import {useNavigation} from '@react-navigation/core';
-import getDateFullString from '../Times/getDateFullString';
-import getDate from '../Times/getDate';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import axios from 'axios';
-import reloadExpected from '../../connection/reloadExpected';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import getTodayString from '../Times/getTodayString';
 import {reloadTodayExpected} from '../Datas/Connection';
 import {todayQuestScreenStyle} from '../../Styles/TodayQuestScreenStyles';
