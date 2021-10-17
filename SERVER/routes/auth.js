@@ -42,7 +42,7 @@ router.get('/join', async(req, res, next) => {
 	  }
 });
 
-router.post('/profiles', isNotLoggedIn, async (req, res, next) => {
+router.post('/profiles', isLoggedIn, async (req, res, next) => {
 	const { email } = req.body;
 	try {
 	  const exUser = await User.findOne({ where: { email } 
