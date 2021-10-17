@@ -174,10 +174,14 @@ router.post('/complete', async (req, res, next) => {
   try {
     const performed = await Performed.findAll({
       where: { hashTag: req.body.hashTag },
+      attributes: [
+        [Sequelize.fn('DISTINCT', sequelize.col('userId')), 'userId']
+      ]
     });
     const length = performed.length;
     // const data = JSON.stringify(performed);
     res.json({ peopleWith: length });
+    console.log(length);
   } catch (err) {
     console.error(err);
     res.json(err);
