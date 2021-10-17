@@ -24,7 +24,7 @@ const ExpectedElement: FC<QuestByTimeProps> = ({
   return (
     <View style={styles.view}>
       <View>
-        <Text>{'#' + hashTag}</Text>
+        <Text style={styles.hashTagText}>{'#' + hashTag}</Text>
       </View>
       <TouchableOpacity
         style={styles.tco}
@@ -38,7 +38,14 @@ const ExpectedElement: FC<QuestByTimeProps> = ({
 
 const styles = StyleSheet.create({
   view: {marginHorizontal: 20, marginVertical: 10},
-  tco: {width: '100%', height: 75, borderColor: '#000000', borderWidth: 3},
+  hashTagText: {color: '#fafafa'},
+  tco: {
+    width: '100%',
+    height: 75,
+    borderColor: '#000000',
+    borderWidth: 3,
+    backgroundColor: '#fafafa',
+  },
 });
 
 export default ExpectedElement;

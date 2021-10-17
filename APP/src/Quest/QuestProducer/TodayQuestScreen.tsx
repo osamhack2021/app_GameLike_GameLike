@@ -22,6 +22,7 @@ import axios from 'axios';
 import reloadExpected from '../../connection/reloadExpected';
 import getTodayString from '../Times/getTodayString';
 import {reloadTodayExpected} from '../Datas/Connection';
+import {todayQuestScreenStyle} from '../../Styles/TodayQuestScreenStyles';
 
 const ex: QuestData.DataType = {
   id: 0,
@@ -58,38 +59,50 @@ export default function TodayQuestScreen({
   }, [dispatch]);
 
   return (
-    <View>
-      <Text>{'log: ' + log}</Text>
-      <Text style={textStyles.small}>{todayStr}</Text>
-      <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
-      <FlatList
-        data={expects}
-        renderItem={ri => (
-          <ExpectedElement
-            name={ri.item.questName}
-            hashTag={ri.item.hashTag}
-            onPress={() => navigation.navigate('CURRENT', {expected: ri.item})}
-          />
-        )}
-      />
-      <TouchableOpacity
-        style={styles.tco}
-        onPress={() => {
-          navigation.navigate('SELECTOR');
-        }}>
-        <Text>오늘의 퀘스트 추가하기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.tco}
-        onPress={() => {
-          navigation.goBack();
-        }}>
-        <Text>완료</Text>
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.topView}>
+        <Text style={textStyles.small}>{todayStr}</Text>
+        <Text style={textStyles.normal}>오늘의 퀘스트를 정해볼까요?</Text>
+        <View style={styles.centerView}>
+          <View style={styles.tcoView}>
+            <TouchableOpacity
+              style={styles.tco}
+              onPress={() => {
+                navigation.navigate('SELECTOR');
+              }}>
+              <Text>오늘의 퀘스트 추가하기</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+      <View style={styles.middleView}>
+        <FlatList
+          data={expects}
+          renderItem={ri => (
+            <ExpectedElement
+              name={ri.item.questName}
+              hashTag={ri.item.hashTag}
+              onPress={() =>
+                navigation.navigate('CURRENT', {expected: ri.item})
+              }
+            />
+          )}
+        />
+      </View>
+
+      <View style={styles.bottomView}>
+        <View style={styles.tcoView}>
+          <TouchableOpacity
+            style={styles.tco}
+            onPress={() => {
+              navigation.goBack();
+            }}>
+            <Text>완료</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  tco: {height: 50, borderWidth: 1, alignContent: 'center'},
-});
+const styles = todayQuestScreenStyle;
