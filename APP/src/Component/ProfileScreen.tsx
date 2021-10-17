@@ -62,30 +62,12 @@ export default function ProfileScreen() {
   };
 
   const onClickRankinfo = () => {
-    type RankData = {
-      nick: string;
-      dischargeDate: string;
-      exp: number;
-      level: number;
-    };
     axios
       .get('http://52.231.66.60/rank')
       .then(response => {
         try {
-          //setLog(JSON.stringify(response.data));
+          setLog(JSON.stringify(response.data));
           const arr = JSON.parse(response.data);
-
-          for (let i of arr) {
-            const t: RankData = {
-              nick: i.nick,
-              dischargeDate: i.dischargeDate,
-              exp: i.exp,
-              level: i.level,
-            };
-            setpLog(`${t}`);
-          }
-
-          //setLog(obj.email);
         } catch (e) {
           setpLog('일단 잘 됨');
         }
