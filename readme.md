@@ -25,9 +25,6 @@
  - Node.js 
  - express
  - MySQL
- - Docker
- - docker-compose
- - dockerize
  
 ### Front-end
  - typescript
@@ -37,6 +34,11 @@
  - axios
  - babel
  - eslint
+ 
+### Cloud / Infra
+ - Docker
+ - docker-compose
+ - dockerize
 
 ## 설치 안내 (Installation Process)
 ```bash
@@ -58,7 +60,7 @@ $ yarn start or npm run start
 ## 팀 정보 (Team Information)
 - 백승훈 (bagzaru3690@gmail.com), Github Id: bagzaru
 - 조현수 (), Github Id: ChoHyeonSu
-- 이헌우 (), Github Id: wannaBpark
+- 이헌우 (leehun456@ajou.ac.kr), Github Id: wannaBpark
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
  * [MIT](https://github.com/osamhack2021/app_web_GameLike_GameLike/blob/master/license.md)
