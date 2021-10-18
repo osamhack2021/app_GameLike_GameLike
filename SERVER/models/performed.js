@@ -1,31 +1,39 @@
 const Sequelize = require('sequelize');
 
-module.exports = class expectedQuest extends Sequelize.Model {
+module.exports = class Performed extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      name: {
-        type: Sequelize.STRING(30),
+      questName: {
+        type: Sequelize.STRING(40),
         allowNull: false,
         unique: false,
+      },
+      hashTag: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
       },
       date: {
         type: Sequelize.STRING(30),
         allowNull: false,
       },
-      startDate: {
+      startTime: {
+        type: Sequelize.STRING(30),
+        allowNull: false,
+      },
+      endTime: {
         type: Sequelize.STRING(30),
         allowNull: true,
       },
-      endDate: {
-        type: Sequelize.STRING(30),
-        allowNull: true,
+      detail: {
+        type: Sequelize.STRING(40),
+        allowNull : true,
+      },
+      userId: {
+        type: Sequelize.STRING(40),
+        allowNull: false,
       },
       isPerformed: {
         type: Sequelize.BOOLEAN,
-        allowNull: true,
-      },
-      userId: {
-        type: Sequelize.INTEGER,
         allowNull: true,
       },
       isPublic: {
@@ -36,8 +44,8 @@ module.exports = class expectedQuest extends Sequelize.Model {
       sequelize,
       timestamps: true,
       underscored: false,
-      modelName: 'performedQuest',
-      tableName: 'performedquests',
+      modelName: 'Performed',
+      tableName: 'performed',
       paranoid: true,
       charset: 'utf8',
       collate: 'utf8_general_ci',
@@ -45,5 +53,6 @@ module.exports = class expectedQuest extends Sequelize.Model {
   }
 
   static associate(db) {
+    db.Performed.belongsToMany(db.Hashtag, { through: 'PerformedHashTag' });
   }
 };

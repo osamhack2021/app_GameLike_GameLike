@@ -7,19 +7,24 @@ const User = require('../models/user');
 const router = express.Router();
 
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
-  const { email, nick, password } = req.body;
+  const { email, nick, password, enlistDate, dischargeDate } = req.body;
   try {
     const exUser = await User.findOne({ where: { email } });
     if (exUser) {
-      return res.redirect('/join?error=exist');
+		res.send({message: '이미 존재하는 회원입니다', isExist: true});
+      //return res.redirect('/join?error=exist');
     }
     const hash = await bcrypt.hash(password, 12);
     await User.create({
       email,
       nick,
       password: hash,
+	  enlistDate,
+	  dischargeDate,
+	  exp : 30,
+	  level : 1
     });
-    return res.redirect('/');
+	res.send({message: '회원가입을 축하드립니다!', isExist: false});
   } catch (error) {
     console.error(error);
     return next(error);
@@ -38,6 +43,25 @@ router.get('/join', async(req, res, next) => {
 	  }
 });
 
+router.post('/profiles', isLoggedIn, async (req, res, next) => {
+	const { email } = req.body;
+	try {
+	  const exUser = await User.findOne({ where: { email } 
+	});
+	  if (exUser) {		
+		const data = JSON.stringify(exUser);
+		res.json(data);
+	  }
+	  else{
+		const data = JSON.stringify(exUser);
+		res.json(data);
+	  }
+	} catch (err) {
+	  console.log(err);
+	  next(err);
+	}
+});
+
 router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
     if (authError) {
@@ -48,13 +72,22 @@ router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
 		res.send(false);
 		//return res.redirect(`/?loginError=${info.message}`);
     }
-    return req.login(user, (loginError) => {
+    return req.login(user, async (loginError) => {
       if (loginError) {
         console.error(loginError);
 		//res.send(false);
         //return next(loginError);
       }
 	  else{
+		//   try{
+		// 	  const exUser = await User.findAll({});
+		// 	  const data = JSON.stringify(exUser);
+		// 	  res.send(data);
+		//   } catch(error){
+		// 	  console.log(error);
+		// 	  next(error);
+		//   }	
+		  
 	  	res.send(true);
 	  }
       //return res.redirect('/');
@@ -66,7 +99,7 @@ router.post('/login', /*isNotLoggedIn,*/ (req, res, next) => {
 router.get('/logout', isLoggedIn, (req, res)=>{
 	req.logout(); // req에서 지워준다
 	req.session.destroy(); // 세션 지우기
-	res.send('Logout complete!!!');
+	res.send(true);
 	//res.redirect('/');
 });
 
