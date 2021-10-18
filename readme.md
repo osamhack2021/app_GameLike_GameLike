@@ -1,33 +1,42 @@
-### 본 페이지는 샘플입니다. 아래의 *[샘플 양식에 포함되어 있는 항목은 필수 기재사항]*   입니다.
-해당 내용은 모두 예시이며 설명이 부족하거나 추가하고싶은 부분이 있으면 개발자님이 추가해서 작성하셔도 무관합니다. (동영상, 이미지, 텍스트 적용 전부 자유)
+# GameLike
+![Logo](https://raw.githubusercontent.com/osamhack2021/app_web_GameLike_GameLike/master/logo.png?token=AFO66GTBZHV776LQYFH47LLBOYQOI)
 
-
-# Project name or Logo
-![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
-
-프로젝트명 또는 프로젝트 로고 이미지 **(택1)**
-
-## 프로잭트 소개
-- 설명 기입
+## 프로젝트 소개
+ 많은 장병들이 군대에서 목표를 세우고, 그것을 달성하려고 노력합니다. 그를 위한 개인 정비 시간은 평일 3시간, 주말엔 12시간씩 주어집니다. 하지만 귀찮아서, 쉬어야 해서, 게임하느라 등등등 실제 개인 정비 시간을 계획한 대로 효율적으로 사용하기는 쉽지 않습니다. 
+ 
+ GameLike는 장병들이 게임을 하듯 자신의 목표를 설정하고, 할 일을 계획하여 달성할 수 있도록 도와주는 플랫폼입니다. 자신의 목표를 설정하고, 목표 달성을 위해 계획을 세우고, 계획을 실천할 수 있게 도와줍니다. 그리고 계획을 잘 수행할 때 마다 더 성취감을 얻을 수 있고 다른 사람과 경쟁할 수 있게 하는 플랫폼입니다.
 
 
 ## 기능 설명
- - 설명 기입
+### 기능 구조
+
+(순서도 사진 첨부)
+ 퀘스트 탭에서 퀘스트를 제작하고, 수행할 수 있습니다.
+ 퀘스트를 수행하면 경험치를 획득하고, 경험치가 일정량 이상 모이면 레벨업이 가능합니다.
+ 프로필과 순위를 통해 나의 레벨과 다른 사람의 레벨을 확인할 수 있습니다.
+ 
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
-* ECMAScript 6 지원 브라우저 사용
-* 권장: Google Chrome 버젼 77 이상
+* 안드로이드 버전 10(Q) 이상 사용
 
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
- -  nodejs, php, java 등 서버 언어 버전 
- - express, laravel, sptring boot 등 사용한 프레임워크 
- - DB 등 사용한 다른 프로그램 
+ - javascript
+ - Node.js 
+ - express
+ - MySQL
+ - Docker
+ - docker-compose
+ - dockerize
  
 ### Front-end
- -  react.js, vue.js 등 사용한 front-end 프레임워크 
- -  UI framework
- - 기타 사용한 라이브러리
+ - typescript
+ - react.js
+ - react-native
+ - redux
+ - axios
+ - babel
+ - eslint
 
 ## 설치 안내 (Installation Process)
 ```bash
@@ -47,11 +56,12 @@ $ yarn start or npm run start
  샘플 에디터 [https://stackedit.io/app#](https://stackedit.io/app#)
  
 ## 팀 정보 (Team Information)
-- hong gil dong (hong999@gmail.com), Github Id: gildong999
-- kim su ji (suji999@gmail.com), Github Id: suji999
+- 백승훈 (bagzaru3690@gmail.com), Github Id: bagzaru
+- 조현수 (), Github Id: ChoHyeonSu
+- 이헌우 (), Github Id: wannaBpark
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
- * [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
+ * [MIT](https://github.com/osamhack2021/app_web_GameLike_GameLike/blob/master/license.md)
 
 This project is licensed under the terms of the MIT license.
 
