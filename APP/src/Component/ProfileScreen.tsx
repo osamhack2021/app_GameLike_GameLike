@@ -10,13 +10,13 @@ let enlistDate: any;
 let dischargeDate: any;
 let exp: any;
 let level: any;
-export default function ProfileScreen() {
+export default function ProfileScreen(props: any) {
   const [log, setLog] = useState('');
   const [plog, setpLog] = useState('');
-  const [testEmail, setTestEmail] = useState('cho@n.n'); // 일단 하드코딩
+  const [testEmail, setTestEmail] = useState(''); // 일단 하드코딩
   // const result: ProfileData.UserData[] = [];
   const postData = {
-    email: testEmail,
+    email: props.propsEmail,
   };
 
   const onClickUserinfo = () => {
@@ -112,9 +112,8 @@ export default function ProfileScreen() {
       <View style={styles.profileCom}>
         <Button title="로그아웃" onPress={() => onClickLogout()} />
         <Text style={styles.profileText}>
-          Profile Component, {testEmail}
+          Profile Component, {props.propsEmail}
           {log}
-          {plog}
         </Text>
       </View>
 
