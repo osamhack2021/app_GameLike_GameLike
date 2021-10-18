@@ -11,7 +11,7 @@ export default function loadUncompletedPerformed() {
 
   const ax = axios
     .get('http://52.231.66.60/quest/performedE')
-    .then(response => {
+    .then((response: any) => {
       try {
         const arr = JSON.parse(response.data);
 
@@ -38,7 +38,7 @@ export default function loadUncompletedPerformed() {
         return null;
       }
     })
-    .catch(error => {
+    .catch((error: any) => {
       if (error instanceof Error) {
         Alert.alert('error: ' + error.message);
       } else {

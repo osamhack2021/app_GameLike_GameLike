@@ -26,7 +26,7 @@ export default function postNewExpectedData(insertData: ExpectedData.DataType) {
       'http://52.231.66.60/quest/createEx',
       postData,
     )
-    .then(response => {
+    .then((response: any) => {
       //Alert.alert('pnedlog:' + JSON.stringify(response.data));
       //const res = JSON.parse(response.data);
       const res = response.data;
@@ -36,7 +36,7 @@ export default function postNewExpectedData(insertData: ExpectedData.DataType) {
         throw Error(res.message);
       }
     })
-    .catch(error => {
+    .catch((error: any) => {
       completed = false;
       if (error instanceof Error) {
         Alert.alert('pned: ' + error.message);

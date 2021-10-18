@@ -11,7 +11,7 @@ export default async function loadRecentExpected(setLog: any) {
   const result: ExpectedData.DataType[] = [];
   const ax = axios
     .get('http://52.231.66.60/quest/expected')
-    .then(response => {
+    .then((response: any) => {
       setLog(JSON.stringify(response.data));
       //데이터 반환하기
       try {
@@ -32,7 +32,7 @@ export default async function loadRecentExpected(setLog: any) {
       }
       return result;
     })
-    .catch(error => {
+    .catch((error: any) => {
       if (error instanceof Error) {
         setLog('error: ' + error.message);
       } else {

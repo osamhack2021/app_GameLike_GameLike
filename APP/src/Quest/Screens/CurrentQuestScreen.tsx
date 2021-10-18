@@ -11,6 +11,7 @@ import getTodayString from '../Times/getTodayString';
 import postGrowExp from '../../Level/Connections/postGrowExp';
 import {QuestEndScreenProps} from './QuestEndScreen';
 import get2Digits from '../Times/get2Digits';
+import loadDongjeob from '../Connection/loadDongjeob';
 
 export function CurrentQuestScreen({
   navigation,
@@ -34,8 +35,15 @@ export function CurrentQuestScreen({
   const [startTime, setStartTime] = useState('');
   const [detailText, setDetailText] = useState('');
 
+  const [runWithStr, setRunWithStr] = useState('');
+
   const onStart = useCallback(
-    (exp: ExpectedData.DataType, details: string, performing: boolean) => {
+    (
+      exp: ExpectedData.DataType,
+      details: string,
+      performing: boolean,
+      hash: string,
+    ) => {
       //1. 데이터 제작하기
       //2. 서버로 전송하기
       //3. then 넘어오면 수행 시작
@@ -57,6 +65,14 @@ export function CurrentQuestScreen({
         setStartTime(performed.startTime);
         setPerformedId(performed.id);
         setIsPerforming(true);
+
+        loadDongjeob(exp.hashTag, 'baek@n.n').then(res => {
+          if (res > 0) {
+            setRunWithStr(res + '명이 같이 ' + hash + ' 중이에요!');
+          } else {
+            setRunWithStr('');
+          }
+        });
       });
     },
     [],
@@ -132,11 +148,8 @@ export function CurrentQuestScreen({
     setDetailText(text);
   }, []);
 
-  const runWith = 12;
-  const runWithStr = runWith + '명이 같이 ' + hashTagText + ' 중이에요!';
   return (
     <View>
-      <Text>{log} </Text>
       <Text style={textStyles.small}>{todayStr}</Text>
       <View>
         <Text style={textStyles.small}>지금 할 일은?</Text>
@@ -161,7 +174,7 @@ export function CurrentQuestScreen({
         <Button
           title="수행 시작!"
           onPress={() => {
-            onStart(expected, detailText, isPerfoming);
+            onStart(expected, detailText, isPerfoming, hashTagText);
           }}
         />
         <Button

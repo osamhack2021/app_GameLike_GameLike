@@ -26,7 +26,7 @@ export default function postPerformedEndtime(
       'http://52.231.66.60/quest/updatePe',
       postData,
     )
-    .then(response => {
+    .then((response: any) => {
       const res = response.data;
       if (res.success) {
         return true;
@@ -34,7 +34,7 @@ export default function postPerformedEndtime(
         throw Error(res.message);
       }
     })
-    .catch(error => {
+    .catch((error: any) => {
       if (error instanceof Error) {
         Alert.alert('error: ' + error.message);
       } else {

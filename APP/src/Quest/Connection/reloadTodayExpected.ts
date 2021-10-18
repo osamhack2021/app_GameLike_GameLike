@@ -22,7 +22,7 @@ export async function reloadTodayExpected() {
         date: date,
       },
     )
-    .then(response => {
+    .then((response: any) => {
       try {
         const arr = JSON.parse(response.data);
 
@@ -42,7 +42,7 @@ export async function reloadTodayExpected() {
       //Alert.alert(JSON.stringify(result));
       return result;
     })
-    .catch(error => {
+    .catch((error: any) => {
       if (error instanceof Error) {
         Alert.alert('error: ' + error.message);
       } else {

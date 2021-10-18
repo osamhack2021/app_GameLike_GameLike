@@ -31,7 +31,7 @@ export default async function postNewPerformedData(
       'http://52.231.66.60/quest/createPe',
       postData,
     )
-    .then(response => {
+    .then((response: any) => {
       const res = response.data;
       if (res.success) {
         return true;
@@ -39,7 +39,7 @@ export default async function postNewPerformedData(
         throw Error(res.message);
       }
     })
-    .catch(error => {
+    .catch((error: any) => {
       if (error instanceof Error) {
         Alert.alert('error: ' + error.message);
       } else {
