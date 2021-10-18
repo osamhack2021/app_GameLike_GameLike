@@ -23,11 +23,6 @@ router.get('/home', async (req, res, next) => {
   try {
     const isExists = true;
     const exQuests = await Expected.findAll({
-      // include: {
-      //    model: User,
-      //    attributes: ['id', 'nick'],
-      // },
-      // order: [['createdAt', 'DESC']],
     });
     if (exQuests.length == 0) {
       isExists = false;
@@ -71,21 +66,11 @@ router.post('/profiles', isLoggedIn, async (req, res, next) => {
     console.log(err);
     next(err);
   }
-
-  // let exUser = await User.findAll({ 
-  //   //where: { email }, 
-  //   attributes: [
-  //     'nick', 'dischargeDate', 'exp', 'level',
-  //     [Sequelize.literal('(RANK() OVER (ORDER BY exp DESC))'), 'rank']
-  //   ], // (순위)
-  // });
 });
 
 
 // 랭킹 페이지
 router.get('/rank', isLoggedIn, async (req, res, next) => {
-  //const { email } = req.body;
-  // const email = 'test@n.n';
   try {
     const exUser = await User.findAll({
       attributes: [
@@ -120,7 +105,6 @@ router.get('/', async (req, res, next) => {
       },
       order: [['createdAt', 'DESC']],
     });
-    //console.log(posts.length);
     res.render('main', {
       title: 'NodeBird',
       twits: posts,

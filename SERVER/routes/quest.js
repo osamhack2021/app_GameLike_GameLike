@@ -173,7 +173,7 @@ router.post('/complete', async (req, res, next) => {
     });
     const length = performed.length;
     res.json({ peopleWith: length});
-    console.log(performed+ " " +length+ " " + cnt);
+    console.log(performed);
   } catch (err) {
     console.error(err);
     res.json(err);
