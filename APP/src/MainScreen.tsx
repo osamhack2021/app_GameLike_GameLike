@@ -7,12 +7,10 @@ import ProfileScreen from './Component/ProfileScreen';
 import DungeonScreen from './Component/DungeonScreen';
 import {useState} from 'react';
 
-// import Icon from 'react-native-vector-icons/Ionicons';
-
 const Tab = createBottomTabNavigator();
 
-export default function MainScreen(props: any) {
-  const [propsEmail, setPropsEmail] = useState(`${props.userEmail}`);
+export default function MainScreen() {
+  //const [propsEmail, setPropsEmail] = useState(`${props.userEmail}`);
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
