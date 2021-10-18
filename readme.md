@@ -41,10 +41,19 @@
  - dockerize
 
 ## 설치 안내 (Installation Process)
+
+<p>step1. GameLike 저장소를 클론합니다.</p>
+
+
 ```bash
-$ git clone git주소
-$ yarn or npm install
-$ yarn start or npm run start
+$ git clone https://github.com/osamhack2021/app_web_GameLike_GameLike.git
+```
+<br>
+<p>step2. 클론된 폴더에서 서버 패키지를 설치합니다</p>
+```bash
+$ cd SERVER/
+$ docker pull mysql
+$ sudo docker-compose up --build
 ```
 
 ## 프로젝트 사용법 (Getting Started)
