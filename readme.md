@@ -53,7 +53,7 @@ $ git clone https://github.com/osamhack2021/app_web_GameLike_GameLike.git
 <p>step2. 클론된 폴더에서 서버 패키지를 설치합니다</p>
 
 ```bash
-$ cd SERVER/
+$ cd app_web_GameLike_GameLike/SERVER/
 $ docker pull mysql
 $ sudo docker-compose up --build
 ```
