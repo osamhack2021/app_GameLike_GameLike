@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, {useEffect, useCallback, useState, createRef} from 'react';
+=======
+import React, {useCallback, useState} from 'react';
+>>>>>>> ccc37bc7f69ab988c399a5ea725e6a531f21fe69
 import {
   StyleSheet,
   View,

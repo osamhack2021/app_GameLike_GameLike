@@ -68,7 +68,6 @@ export default function ProfileScreen() {
       .then(response => {
         try {
           setpLog(JSON.stringify(response.data));
-          const arr = JSON.parse(response.data);
         } catch (e) {
           setpLog('일단 잘 됨');
         }
