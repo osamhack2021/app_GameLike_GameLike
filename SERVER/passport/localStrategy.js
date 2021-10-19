@@ -17,8 +17,7 @@ module.exports = () => {
 				if(result){
 					done(null, exUser);
 				} else{
-					done(null, false, {message: '비밀번호가 일치하지 않습니다.'});
-					// 이메일 비밀번호 조합이 맞지않습니다.로 바꾸면 보안 중요.
+					done(null, false, {message: '이메일 비밀번호 조합이 맞지않습니다'});
 				}
 			} else{
 				done(null, false, {message: '가입되지 않은 회원입니다.'});
@@ -29,4 +28,3 @@ module.exports = () => {
 		}
 	}));
 };
-// 마지막 세미콜론, find -> findOne로 바꾸니 오류 해결

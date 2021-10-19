@@ -45,17 +45,7 @@ module.exports = class Quest extends Sequelize.Model {
   }
 
   static associate(db) {
-    /*db.Quest.belongsTo(db.User, {
-      foreignKey: 'creatorId', targetKey: 'id'
-    });*/
-    db.Quest.belongsTo(db.Field, {
-      //foreignKey: 'fieldName', targetKey: 'name'
-    });
-
+    db.Quest.belongsTo(db.Field, {});
     db.Quest.belongsToMany(db.Hashtag, { through: 'QuestHashtag' });
-    /*db.Quest.belongsToMany(db.User, {
-      through : 'Like', 
-      as: 'Liker',
-    });*/
   }
 };

@@ -59,9 +59,6 @@ module.exports = class User extends Sequelize.Model {
 
   static associate(db) {
     db.User.hasMany(db.Post);
-    /*db.User.hasMany(db.Quest, {
-     // foreignKey: 'creatorId', sourceKey: 'id'
-    });*/
 
     db.User.belongsToMany(db.User, {
       foreignKey: 'followingId',
@@ -74,7 +71,6 @@ module.exports = class User extends Sequelize.Model {
       through: 'Follow',
     });
     db.User.belongsToMany(db.Post, {through : 'Like'});
-    //db.User.belongsToMany(db.Quest, {through: 'Like'});
     db.User.belongsToMany(db.Field, {through: 'FieldUser'});
   }
 };

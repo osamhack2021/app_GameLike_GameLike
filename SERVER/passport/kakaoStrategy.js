@@ -31,7 +31,3 @@ module.exports = () => {
     }
   }));
 };
-
-// 1. /auth/kakao
-// 2. 카카오 로그인
-// 3. /auth/kakao/callback
