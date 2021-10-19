@@ -54,9 +54,10 @@ $ git clone https://github.com/osamhack2021/app_web_GameLike_GameLike.git
 <br>
 <p>step2. docker-compose 설정을 진행합니다.</p>
 
-// SERVER/docker-compose.yml 파일을 본인 환경에 맞게 수정합니다.
-// 컨테이너 명, 포트 정보, DB 이름과 유저, 비밀번호를 수정합니다.
-// 기본 포트 (서버 : 80, DB: 3306)
+    // SERVER/docker-compose.yml 파일을 본인 환경에 맞게 수정합니다.
+    // 컨테이너 명, 포트 정보, DB 정보를 수정합니다.
+    // 기본 포트 (서버 : 80, DB: 3306)
+    
 <br>
 
 <p>step3. 클론된 폴더로 이동하여 docker-compose로 컨테이너를 빌드 후 실행합니다.</p>
