@@ -27,20 +27,13 @@ const passportConfig = require('./passport');
 const app = express();
 passportConfig(); //패스포트 설정
 
-// const credentials = {
-//   key : privateKey,
-//   cert : certificate,
-//   ca : ca
-// };
-
 app.set('port', process.env.PORT || 8001);
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
-app.set('view engine', 'html');
+/*app.set('view engine', 'html');
 nunjucks.configure('views', {
   express: app,
   watch: true,
-});
+});*/
+// 디버깅용 views html files
 
 sequelize.sync({force:false})
 	.then(()=>{
@@ -52,9 +45,8 @@ sequelize.sync({force:false})
 
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public'))); // main.css
-app.use('/img', express.static(path.join(__dirname, 'uploads'))); // /img/abc.png
-// express static 미들웨어로 실제 주소(/uploads) 와 접근주소(/img) 다르게 가능
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname, 'uploads'))); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -69,7 +61,7 @@ app.use(session({
 }));
 
 app.use(flash());
-app.use(passport.initialize()); //passport는 express session보다 아래에.
+app.use(passport.initialize()); 
 app.use(passport.session());
 
 app.use('/', pageRouter);
@@ -91,19 +83,7 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-// https.createServer(credentials, app).listen(app.get('port'), () =>{
-//   console.log(app.get('port'), '번 포트에서 대기중');
-// });
-
-// require('greenlock-express').init({
-//   packageRoot: __dirname,
-//   configDir: './greenlock.d',
-//   maintainerEmail: 'leehun456@naver.com',
-// })
-//   .serve(app);
-
 app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기중');
 });
 
-//module.exports = app;
