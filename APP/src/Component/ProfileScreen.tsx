@@ -22,7 +22,7 @@ export default function ProfileScreen() {
   const onClickUserinfo = () => {
     axios
       .post<{email: string}, AxiosResponse<string>>(
-        'http://52.231.66.60/profiles',
+        'www.gamelike.best/profiles',
         postData,
       )
       .then(response => {
@@ -64,7 +64,7 @@ export default function ProfileScreen() {
 
   const onClickRankinfo = () => {
     axios
-      .get('http://52.231.66.60/rank')
+      .get('www.gamelike.best/rank')
       .then(response => {
         try {
           setpLog(JSON.stringify(response.data));
@@ -83,7 +83,7 @@ export default function ProfileScreen() {
 
   const onClickLogout = () => {
     axios
-      .get('http://52.231.66.60/auth/logout')
+      .get('www.gamelike.best/auth/logout')
       .then(response => {
         try {
           setLog(`로그아웃 성공이오 ${JSON.stringify(response.data)}`);
