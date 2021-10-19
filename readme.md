@@ -66,8 +66,7 @@ $ cd app_web_GameLike_GameLike/SERVER/
 $ docker pull mysql
 $ sudo docker-compose up --build
 ```
-
-<p>비고. 오류 발생 시 대처법</p>
+<br>
 
 #### 이미 사용중인 포트일 경우
 ```bash
