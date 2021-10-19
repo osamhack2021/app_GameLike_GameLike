@@ -52,12 +52,34 @@
 $ git clone https://github.com/osamhack2021/app_web_GameLike_GameLike.git
 ```
 <br>
-<p>step2. 클론된 폴더에서 서버 패키지를 설치합니다</p>
+<p>step2. docker-compose 설정을 진행합니다.</p>
+
+// SERVER/docker-compose.yml 파일을 본인 환경에 맞게 수정합니다.
+// 컨테이너 명, 포트 정보, DB 이름과 유저, 비밀번호를 수정합니다.
+// 기본 포트 (서버 : 80, DB: 3306)
+<br>
+
+<p>step3. 클론된 폴더로 이동하여 docker-compose로 컨테이너를 빌드 후 실행합니다.</p>
 
 ```bash
 $ cd app_web_GameLike_GameLike/SERVER/
 $ docker pull mysql
 $ sudo docker-compose up --build
+```
+
+<p>비고. 오류 발생 시 대처법</p>
+
+#### 이미 사용중인 포트일 경우
+```bash
+// 해당 프로세스의 ID를 lsof 명령어로 확인후 종료시킵니다.
+$ sudo lsof -i tcp:포트명
+$ sudo kill -9 PID(프로세스아이디)
+```
+#### Mysql이 실행중이거나 권한이 없을 경우
+```bash
+// 각각 서비스를 종료시키거나 해당 유저에 권한을 부여합니다.
+$ service mysql stop
+$ sudo usermod -aG docker ${USER}
 ```
 
 ## 프로젝트 사용법 (Getting Started)
