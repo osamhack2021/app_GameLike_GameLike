@@ -21,13 +21,13 @@
 
 ## 기술 스택 (Technique Used) 
 ### Server(back-end)
- - [javascript]
+ - javascript
  - [Node.js](https://nodejs.org/ko/)
  - [express](https://expressjs.com/ko/)
  - [MySQL](https://www.mysql.com/)
  
 ### Front-end
- - [typescript](https://www.typescriptlang.org/)
+ - typescript
  - [react.js](https://reactjs.org/)
  - [react-native](https://reactnative.dev/)
  - [redux](https://ko.redux.js.org/)
