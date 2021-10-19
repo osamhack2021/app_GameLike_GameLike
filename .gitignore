@@ -7,6 +7,11 @@ node_modules/
 /SERVER/greenlock.d
 /SERVER/.env
 /SERVER/config/
+/SERVER/logger.js
+/SERVER/error.log
+/SERVER/.greenlockrc
+/SERVER/combined.log
+/SERVER/public
 /node_modules/
 .expo
 *.hprof
