@@ -17,7 +17,7 @@ export async function reloadTodayExpected() {
 
   const ax = axios
     .post<DateWrapper, AxiosResponse<string>>(
-      'http://52.231.66.60/quest/expectedToday',
+      'www.gamelike.best/quest/expectedToday',
       {
         date: date,
       },

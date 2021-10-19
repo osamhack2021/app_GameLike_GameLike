@@ -19,7 +19,7 @@ export default function postGrowExp(userId: string, growExp: number) {
   };
   const ax = axios
     .post<PostData, AxiosResponse<any>>(
-      'http://52.231.66.60/quest/updateExp',
+      'www.gamelike.best/quest/updateExp',
       postData,
     )
     .then(response => {

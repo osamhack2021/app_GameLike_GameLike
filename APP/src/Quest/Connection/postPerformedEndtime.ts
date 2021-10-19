@@ -23,7 +23,7 @@ export default function postPerformedEndtime(
   };
   const ax = axios
     .post<PostData, AxiosResponse<any>>(
-      'http://52.231.66.60/quest/updatePe',
+      'www.gamelike.best/quest/updatePe',
       postData,
     )
     .then((response: any) => {
