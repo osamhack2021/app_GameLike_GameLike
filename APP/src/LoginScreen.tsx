@@ -20,7 +20,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickLogin = () => {
     axios
-      .post('http://52.231.66.60/auth/login', null, {
+      .post('www.gamelike.best/login', null, {
         params: {
           email: userEmail,
           password: userPassword,
@@ -49,7 +49,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickKakaoLogin = () => {
     axios
-      .get('http://52.231.66.60/auth/kakao')
+      .get('www.gamelike.best/auth/kakao')
       .then(response => {
         Alert.alert('then');
         try {
