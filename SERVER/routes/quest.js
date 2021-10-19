@@ -14,13 +14,6 @@ const router = express.Router();
 
 const expectedLimit = 20;
 
-//1번 : O
-//2번 : O
-//3번 : O
-//4번 : O
-//5번 : O
-//6번 : O
-
 // 3번 Expected 생성
 router.post('/createEx', async (req, res, next) => {
   const {
@@ -117,7 +110,7 @@ router.post('/expectedToday', async (req, res, next) => {
 });
 
 // 5번 Performed endTime 수정
-router.post('/updatePe', async (req, res, next) => { // 프로필 닉네임 수정예제
+router.post('/updatePe', async (req, res, next) => { 
   const { userId, startTime, endTime } = req.body;
   try {
     await Performed.update({ endTime: req.body.endTime }, {
@@ -158,7 +151,6 @@ router.get('/performedE', async (req, res, next) => {
   } catch (err) {
     console.error(err);
     res.json(err);
-    //next(err);
   }
 });
 
@@ -173,7 +165,6 @@ router.post('/complete', async (req, res, next) => {
     });
     const length = performed.length;
     res.json({ peopleWith: length});
-    console.log(performed);
   } catch (err) {
     console.error(err);
     res.json(err);
@@ -181,10 +172,9 @@ router.post('/complete', async (req, res, next) => {
 });
 
 // 7번 update Exp
-router.post('/updateExp', async (req, res, next) => { // 프로필 닉네임 수정예제
+router.post('/updateExp', async (req, res, next) => { 
   const { email, exp } = req.body;
   try {
-    // const performed = await Performed.update({where})
     await User.increment({exp: req.body.exp}, {where : {email : email}});
     res.json({
       message: "User exp Update SUCCESS!", success: true
@@ -211,7 +201,7 @@ router.post('/updateExp', async (req, res, next) => { // 프로필 닉네임 수
 
 /*
 // 퀘스트 수정
-router.post('/edit', async(req, res, next) =>{ // 프로필 닉네임 수정예제
+router.post('/edit', async(req, res, next) =>{
   try {
     await Quest.update({ nick: req.body.nick }, {
       where: { id: req.user.id },

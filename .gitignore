@@ -11,7 +11,7 @@ node_modules/
 /SERVER/error.log
 /SERVER/.greenlockrc
 /SERVER/combined.log
-/SERVER/public
+/SERVER/public/
 /node_modules/
 .expo
 *.hprof

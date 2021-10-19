@@ -33,10 +33,6 @@ router.get('/home', async (req, res, next) => {
     next(err);
   }
 });
-// 프로필 페이지
-router.get('/profile', isLoggedIn, (req, res) => {
-  res.render('profile', { title: '내 정보 - NodeBird', user: req.user });
-});
 
 // 테스트용 프로필 페이지, 상단 정보 리턴
 router.post('/profiles', isLoggedIn, async (req, res, next) => {
