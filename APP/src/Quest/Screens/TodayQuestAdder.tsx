@@ -1,29 +1,30 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {FlatList, Text, TextInput, View, StyleSheet, Alert} from 'react-native';
-import QuestByTime from '../Modules/QuestByTime';
-import textStyles from '../Styles/QuestTextStyles';
-import {QuestData} from '../Datas';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppState} from '../../Store';
-import {replaceTodayQuestsAction} from '../../Store';
+import React, {useCallback, useState} from 'react';
+import {
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
+import {ExpectedData} from '../Datas';
+import {useDispatch} from 'react-redux';
+import getDateString from '../Times/getDateString';
+import {replaceExpectedAction} from '../../Store/Actions';
+import postNewExpectedData from '../Connection/postNewExpectedData';
+import {reloadTodayExpected} from '../Connection';
+import {todayQuestAdderStyles} from '../../Styles/TodayQuestAdderStyles';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
-export default function TodayQuestAdder({
-  navigation,
-  route,
-}: {
-  navigation: any;
-  route: any;
-}) {
-  const {index} = route.params;
+export default function TodayQuestAdder({navigation}: {navigation: any}) {
   const [questName, setQuest] = useState('');
   const [fieldName, setField] = useState('');
   const dispatch = useDispatch();
+  const [log, setLog] = useState('');
 
-  const quests = useSelector<AppState, QuestData.DataType[]>(
-    state => state.questDatas.todayDatas,
-  );
+  // const quests = useSelector<AppState, ExpectedData.DataType[]>(
+  //   state => state.questDatas.todayDatas,
+  // );
 
   //퀘스트 추가 버튼을 눌렀을 경우
   //1. 입력 데이터 검증
@@ -41,35 +42,46 @@ export default function TodayQuestAdder({
         Alert.alert('분야 이름을 입력해주세요!');
         return;
       }
-      //기존 redux 내 quest 배열을 replace할 배열 생성
-      const cquests = [...quests];
-      cquests[index] = {
-        ...cquests[index],
-        name: questName,
-        fieldName: fieldName,
+      const today = getDateString();
+      const data: ExpectedData.DataType = {
+        id: -1,
+        questName: questName,
+        hashTag: fieldName,
+        userId: 'testid',
+        date: today,
       };
-      //redux dispatch
-      dispatch(replaceTodayQuestsAction(cquests));
-      nav.popToTop();
+
+      postNewExpectedData(data).then((res: any) => {
+        //expected reload 요청
+        reloadTodayExpected()
+          .then(r => {
+            dispatch(replaceExpectedAction(r));
+          })
+          .then(() => nav.popToTop());
+      });
     },
-    [dispatch, fieldName, questName, index, quests],
+    [fieldName, questName, dispatch],
   );
 
   return (
-    <View>
-      <View>
-        <Text>추가할 퀘스트의 정보를 입력해주세요</Text>
+    <View style={styles.container}>
+      <View style={styles.topView}>
+        <Text style={styles.topText}>추가할 퀘스트의 정보를 입력해주세요</Text>
       </View>
-      <TextInput
-        value={questName}
-        placeholder="퀘스트 이름"
-        onChangeText={text => setQuest(text)}
-      />
-      <TextInput
-        value={fieldName}
-        placeholder="#분야"
-        onChangeText={text => setField(text)}
-      />
+      <View style={styles.container}>
+        <TextInput
+          style={styles.textInput}
+          value={questName}
+          placeholder="퀘스트 이름 입력"
+          onChangeText={text => setQuest(text)}
+        />
+        <TextInput
+          style={styles.textInput}
+          value={fieldName}
+          placeholder="#분야 입력"
+          onChangeText={text => setField(text)}
+        />
+      </View>
       <TouchableOpacity
         style={styles.tco}
         onPress={() => {
@@ -81,7 +93,4 @@ export default function TodayQuestAdder({
   );
 }
 
-const styles = StyleSheet.create({
-  view: {marginHorizontal: 20, marginVertical: 10},
-  tco: {width: '100%', height: 75, borderColor: '#000000', borderWidth: 3},
-});
+const styles = todayQuestAdderStyles;

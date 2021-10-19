@@ -4,33 +4,33 @@ module.exports = class Quest extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       name: {
-        type: Sequelize.STRING(15),
+        type: Sequelize.STRING(30),
         allowNull: false,
-        unique: true,
+        unique: false,
       },
-      fieldId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      estimatedTime: {
-        type: Sequelize.INTEGER,
+      date: {
+        type: Sequelize.STRING(30),
         allowNull: false,
       },
-      createdDate: {
-        type: Sequelize.DATE,
-        allowNull: false,
+      startDate: {
+        type: Sequelize.STRING(30),
+        allowNull: true,
       },
-      creatorId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+      endDate: {
+        type: Sequelize.STRING(30),
+        allowNull: true,
       },
-      isRepeat: {
+      isPerformed: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
       },
       isPublic: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
       },
     }, {
       sequelize,
@@ -45,11 +45,17 @@ module.exports = class Quest extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Quest.belongsTo(db.User);
+    /*db.Quest.belongsTo(db.User, {
+      foreignKey: 'creatorId', targetKey: 'id'
+    });*/
+    db.Quest.belongsTo(db.Field, {
+      //foreignKey: 'fieldName', targetKey: 'name'
+    });
+
     db.Quest.belongsToMany(db.Hashtag, { through: 'QuestHashtag' });
-    db.Quest.belongsToMany(db.User, {
+    /*db.Quest.belongsToMany(db.User, {
       through : 'Like', 
       as: 'Liker',
-    });
+    });*/
   }
 };

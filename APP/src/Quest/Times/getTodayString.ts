@@ -1,7 +1,7 @@
 import get2Digits from './get2Digits';
 import getDayFromNumber from './getDayFromNumber';
 
-export default function getTodayString(date: Date) {
+export default function getTodayString(date: Date = new Date()) {
   return (
     date.getFullYear() +
     '년 ' +

@@ -1,4 +1,4 @@
-import {QuestData} from '../Quest/Datas';
+import {ExpectedData} from '../Quest/Datas';
 
 export type User = {
   name: string;
@@ -6,18 +6,13 @@ export type User = {
   password: string;
 };
 
-export type QuestScreenState = {
-  prevTaskChecked: boolean;
-  todayTaskChecked: boolean;
-};
-
-export type QuestDatas = {
-  todayDatas: QuestData.DataType[];
+export type Level = {
+  exp: number;
 };
 
 export type AppState = {
   //loggedIn: boolean;
   //loggedUser: User;
-  questScreenState: QuestScreenState;
-  questDatas: QuestDatas;
+  expectedDatas: ExpectedData.DataType[];
+  level: Level;
 };

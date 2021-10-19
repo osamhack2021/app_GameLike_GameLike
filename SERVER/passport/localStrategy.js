@@ -29,3 +29,4 @@ module.exports = () => {
 		}
 	}));
 };
+// 마지막 세미콜론, find -> findOne로 바꾸니 오류 해결
