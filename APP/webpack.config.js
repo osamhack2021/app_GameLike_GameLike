@@ -9,6 +9,12 @@ const HTMLWebpackPluginConfig = new HTMLWebpckPlugin({
 });
 
 module.exports = {
+  loaders: [
+    {
+      test: /\.(gif|svg|jpg|png)$/,
+      loader: 'file-loader',
+    },
+  ],
   entry: path.join(__dirname, 'index.web.js'), //웹 전용 index.web.js 사용
   //entry: path.join(__dirname, 'index.js'),    //웹 앱 코드 같을 때
   output: {

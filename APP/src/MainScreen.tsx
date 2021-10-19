@@ -6,6 +6,7 @@ import TodayNavigator from './Quest/Screens/TodayNavigator';
 const Stack = createStackNavigator();
 
 export default function MainScreen() {
+  //const [propsEmail, setPropsEmail] = useState(`${props.userEmail}`);
   return (
     <Stack.Navigator
       initialRouteName="HOME"
