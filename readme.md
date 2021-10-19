@@ -43,6 +43,8 @@
 
 ## 설치 안내 (Installation Process)
 
+### 서버 패키지 설치 방법
+
 <p>step1. GameLike 저장소를 클론합니다.</p>
 
 
