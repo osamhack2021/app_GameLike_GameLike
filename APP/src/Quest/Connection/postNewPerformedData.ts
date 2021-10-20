@@ -28,7 +28,7 @@ export default async function postNewPerformedData(
   };
   const ax = axios
     .post<PostData, AxiosResponse<any>>(
-      'http://52.231.66.60/quest/createPe',
+      'www.gamelike.best/quest/createPe',
       postData,
     )
     .then((response: any) => {

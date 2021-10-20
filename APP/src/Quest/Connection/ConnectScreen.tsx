@@ -14,7 +14,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
     Alert.alert('콜백 시작!');
     try {
       axios
-        .get('http://52.231.66.60/auth/join')
+        .get('www.gamelike.best/auth/join')
         .then(response => {
           Alert.alert('then');
           try {
@@ -42,7 +42,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
   }, []);
   const axPost = useCallback((e, n, p) => {
     axios
-      .post('http://52.231.66.60/auth/join', {
+      .post('www.gamelike.best/auth/join', {
         email: e,
         nick: n,
         password: p,

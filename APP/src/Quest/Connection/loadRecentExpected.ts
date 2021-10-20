@@ -10,7 +10,7 @@ import {ExpectedData} from '../Datas';
 export default async function loadRecentExpected(setLog: any) {
   const result: ExpectedData.DataType[] = [];
   const ax = axios
-    .get('http://52.231.66.60/quest/expected')
+    .get('www.gamelike.best/quest/expected')
     .then((response: any) => {
       setLog(JSON.stringify(response.data));
       //데이터 반환하기

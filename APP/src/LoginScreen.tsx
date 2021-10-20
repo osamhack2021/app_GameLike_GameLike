@@ -10,25 +10,17 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import MainScreen from './MainScreen';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
   const [plog, setPLog] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
-  const passwordInputRef = createRef();
-  /*
-  const gotoMain = () => {
-    navigation.navigate('MAIN');
-  };
-*/
 
   const onClickLogin = () => {
     axios
-      .post('http://52.231.66.60/auth/login', null, {
+      .post('www.gamelike.best/login', null, {
         params: {
           email: userEmail,
           password: userPassword,
@@ -57,7 +49,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickKakaoLogin = () => {
     axios
-      .get('http://52.231.66.60/auth/kakao')
+      .get('www.gamelike.best/auth/kakao')
       .then(response => {
         Alert.alert('then');
         try {

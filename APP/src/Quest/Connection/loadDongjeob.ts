@@ -9,7 +9,7 @@ export default async function loadDongjeob(hashTag: string, userId: string) {
   const result: ExpectedData.DataType[] = [];
   const ax = axios
     .post<{hashTag: string; userId: string}, AxiosResponse<any>>(
-      'http://52.231.66.60/quest/complete',
+      'www.gamelike.best/quest/complete',
       {hashTag: hashTag},
     )
     .then((response: any) => {

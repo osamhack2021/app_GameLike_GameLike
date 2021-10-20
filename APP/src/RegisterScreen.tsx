@@ -24,7 +24,7 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
 
   const onClickRegister = useCallback((e, p, n, en, dis) => {
     axios
-      .post('http://52.231.66.60/auth/join', {
+      .post('www.gamelike.best/auth/join', {
         email: e,
         password: p,
         nick: n,

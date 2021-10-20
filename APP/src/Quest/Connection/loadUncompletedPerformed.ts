@@ -10,7 +10,7 @@ export default function loadUncompletedPerformed() {
   const result: PerformedData.DataType[] = [];
 
   const ax = axios
-    .get('http://52.231.66.60/quest/performedE')
+    .get('www.gamelike.best/quest/performedE')
     .then((response: any) => {
       try {
         const arr = JSON.parse(response.data);

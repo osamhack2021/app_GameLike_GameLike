@@ -22,7 +22,6 @@ router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
     console.log(req.body, req.file);
     res.json({url: `/img/${req.file.filename}` });
 });
-//img = input id = img html참고
 
 const upload2 = multer();
 router.post('/', isLoggedIn, upload2.none(), async (req,res, next)=>{
@@ -35,8 +34,6 @@ router.post('/', isLoggedIn, upload2.none(), async (req,res, next)=>{
         });
         const hashtags = req.body.content.match(/#[^\s]*/g);
         if(hashtags){
-            // 안녕하세요 #노드 #익스프레스
-            //hashtags = {#노드, #익스프레스} 
             const result = await Promise.all(hashtags.map(tag=> Hashtag.findOrCreate({
                 //DB에 있으면 찾고 없으면 새로 생성
                 where: {title: tag.slice(1).toLowerCase() },
@@ -50,8 +47,8 @@ router.post('/', isLoggedIn, upload2.none(), async (req,res, next)=>{
         next(error);
     }
 });
-//사진을 안올릴경우
 
+//사진을 안올릴경우
 router.get('/hashtag', async(req, res, next) => {
     const query = req.query.hashtag;
     if(!query){
@@ -96,7 +93,6 @@ router.delete('/:id/like', async (req, res, next) =>{
     }
 });
 
-// delete /post twitId
 router.delete('/:id', async (req, res, next) => {
     try{
         await Post.destroy({ where: { id : req.params.id, UserId: req.user.id}});
@@ -106,12 +102,5 @@ router.delete('/:id', async (req, res, next) => {
         next(error);
     }
 });
-
-/*{% set like = (twit) and (likerIdList.includes(req.User.id) ) %}
-      {% if not like and user  %}
-      <button class="like">좋아요</button>
-      {% elif user and like %}
-      <button class="unlike">좋아요 취소</button>
-      {% endif %}*/
 
 module.exports = router;
