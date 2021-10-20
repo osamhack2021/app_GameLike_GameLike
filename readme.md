@@ -45,6 +45,11 @@
 
 ### 서버 패키지 설치 방법
 
+<p>step0. Docker / docker-compose 설치를 진행합니다.</p>
+
+ - [Get Docker](https://docs.docker.com/get-docker/)
+ - [Get docker-compose](https://github.com/docker/compose/releases)
+
 <p>step1. GameLike 저장소를 클론합니다.</p>
 
 
