@@ -1,5 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {QuestEndStyles} from '../Styles/QuestEndStyles';
+import textStyles from '../Styles/QuestTextStyles';
+import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
 
 export type QuestEndScreenProps = {
   questName: string;
@@ -20,16 +23,26 @@ export default function QuestEndScreen({
   //획득 경험치
   //레벨 게이지
   return (
-    <View>
-      <View>
-        <Text>{'퀘스트 명: ' + data.questName}</Text>
+    <View style={todayQuestScreenStyles.container}>
+      <View style={[{flex: 1}, QuestEndStyles.mg]}>
+        <View style={QuestEndStyles.textView}>
+          <Text style={textStyles.sn}>{'퀘스트 명: ' + data.questName}</Text>
+        </View>
+        <View style={QuestEndStyles.textView}>
+          <Text style={textStyles.sn}>{'수행 시간: ' + data.takenTime}</Text>
+        </View>
+        <View style={QuestEndStyles.textView}>
+          <Text style={textStyles.sn}>{'획득 경험치: ' + data.takenExp}</Text>
+        </View>
       </View>
-      <View>
-        <Text>{'수행 시간: ' + data.takenTime}</Text>
-      </View>
-      <View>
-        <Text>{'획득 경험치: ' + data.takenExp}</Text>
+      <View style={todayQuestScreenStyles.bottomView}>
+        <TouchableOpacity
+          style={todayQuestScreenStyles.endButton}
+          onPress={() => navigation.goBack()}>
+          <Text style={todayQuestScreenStyles.questAddText}>뒤로</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
+const styles = QuestEndStyles;

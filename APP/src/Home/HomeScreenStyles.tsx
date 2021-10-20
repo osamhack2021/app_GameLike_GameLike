@@ -5,7 +5,7 @@ export const homeStyle = StyleSheet.create({
     flex: 1,
   },
   profile: {
-    height: 50,
+    height: 80,
   },
   level: {
     height: 90,
@@ -14,6 +14,7 @@ export const homeStyle = StyleSheet.create({
   },
   questHome: {
     flex: 1,
+    backgroundColor: '#fff9c4',
     borderTopWidth: 2,
     borderTopColor: '#90a4ae',
   },
@@ -37,8 +38,9 @@ export const homeStyle = StyleSheet.create({
     alignItems: 'center',
   },
   questAvatar: {
-    width: 100,
-    height: 200,
+    width: 50,
+    height: 100,
+    marginBottom: 30,
   },
   questButtonView: {
     flex: 0.5,

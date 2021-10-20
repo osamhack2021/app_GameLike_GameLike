@@ -7,7 +7,8 @@ import loadRecentExpected from '../Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
 import postNewExpectedData from '../Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Connection';
-import {todayQuestSelectorStyles} from '../../Styles/TodayQuestSelectorStyles';
+import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
+import textStyles from '../Styles/QuestTextStyles';
 
 const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   const [recentQuest, setRecent] = useState<ExpectedData.DataType[]>([]);
@@ -60,14 +61,25 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   return (
     <View style={styles.container}>
       <View style={styles.topView}>
-        <Text>이 창에서 퀘스트를 선택하거나 추가해주세요</Text>
+        <Text style={textStyles.normal}>
+          이 창에서 기존 퀘스트를 선택해주세요
+        </Text>
+        <View style={{alignItems: 'center'}}>
+          <TouchableOpacity
+            style={styles.questAddButton}
+            onPress={() => navigation.navigate('ADDER')}>
+            <Text style={styles.questAddText}>신규 퀘스트 추가</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+
       <View style={styles.middleView}>
         <FlatList
           data={recentQuest}
           renderItem={ri => (
             <Button
-              title={ri.item.questName + ' #' + ri.item.hashTag}
+              title={'(#' + ri.item.hashTag + ') ' + ri.item.questName}
+              color="e0e0e0"
               onPress={() => {
                 postExpected(ri.item);
 
@@ -80,21 +92,15 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
 
       <View style={styles.bottomView}>
         <TouchableOpacity
-          style={styles.tco}
-          onPress={() => navigation.navigate('ADDER')}>
-          <Text>퀘스트 추가</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.tco}
+          style={styles.endButton}
           onPress={() => navigation.goBack()}>
-          <Text>뒤로</Text>
+          <Text style={styles.questAddText}>뒤로</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const styles = todayQuestSelectorStyles;
+const styles = todayQuestScreenStyles;
 
 export default TodayQuestSelector;

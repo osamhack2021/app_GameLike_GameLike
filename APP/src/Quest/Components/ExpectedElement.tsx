@@ -37,13 +37,13 @@ const ExpectedElement: FC<QuestByTimeProps> = ({
 
 const styles = StyleSheet.create({
   view: {marginHorizontal: 20, marginVertical: 10},
-  hashTagText: {color: '#fafafa'},
+  hashTagText: {color: '#000000', fontFamily: 'NotoSansKR-Medium'},
   tco: {
     width: '100%',
     height: 75,
     borderColor: '#000000',
-    borderWidth: 3,
-    backgroundColor: '#fafafa',
+    borderRadius: 8,
+    backgroundColor: '#e0e0e0',
   },
 });
 
