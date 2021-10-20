@@ -10,6 +10,7 @@ import {
   Modal,
   ScrollView,
   Button,
+  ImageBackground,
   Alert,
 } from 'react-native';
 import axios from 'axios';
@@ -41,62 +42,73 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
   }, []);
 
   return (
-    <View style={styles.Container}>
-      <View style={styles.SectionStyle}>
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={UserEmail => setUserEmail(UserEmail)}
-          placeholder="이메일"
-        />
-      </View>
+    <View style={styles.back}>
+      <ImageBackground
+        source={require('../assets/images/background/background.png')}
+        style={styles.bg}>
+        <View style={styles.Container}>
+          <View style={styles.SectionStyle}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={UserEmail => setUserEmail(UserEmail)}
+              placeholder="이메일"
+              placeholderTextColor="white"
+            />
+          </View>
 
-      <View style={styles.SectionStyle}>
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={UserPassword => setUserPassword(UserPassword)}
-          placeholder="비밀번호"
-        />
-      </View>
+          <View style={styles.SectionStyle}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={UserPassword => setUserPassword(UserPassword)}
+              placeholder="비밀번호"
+              placeholderTextColor="white"
+            />
+          </View>
 
-      <View style={styles.SectionStyle}>
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={UserNickname => setUserNickname(UserNickname)}
-          placeholder="이름"
-        />
-      </View>
+          <View style={styles.SectionStyle}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={UserNickname => setUserNickname(UserNickname)}
+              placeholder="이름"
+              placeholderTextColor="white"
+            />
+          </View>
 
-      <View style={styles.SectionStyle}>
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={UserenDate => setUserenDate(UserenDate)}
-          placeholder="입대일자"
-        />
-      </View>
+          <View style={styles.SectionStyle}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={UserenDate => setUserenDate(UserenDate)}
+              placeholder="입대일자"
+              placeholderTextColor="white"
+            />
+          </View>
 
-      <View style={styles.SectionStyle}>
-        <TextInput
-          style={styles.inputStyle}
-          onChangeText={UserdisDate => setUserdisDate(UserdisDate)}
-          placeholder="전역일자"
-        />
-      </View>
+          <View style={styles.SectionStyle}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={UserdisDate => setUserdisDate(UserdisDate)}
+              placeholder="전역일자"
+              placeholderTextColor="white"
+            />
+          </View>
 
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        activeOpacity={0.5}
-        onPress={() => {
-          onClickRegister(
-            userEmail,
-            userPassword,
-            userNickname,
-            userenDate,
-            userdisDate,
-          );
-        }}>
-        <Text style={styles.buttonTextStyle}>회원가입</Text>
-        <Text>{plog}</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            activeOpacity={0.5}
+            onPress={() => {
+              onClickRegister(
+                userEmail,
+                userPassword,
+                userNickname,
+                userenDate,
+                userdisDate,
+              );
+            }}>
+            <Text style={styles.buttonTextStyle}>회원가입</Text>
+            <Text>{plog}</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -104,9 +116,13 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
 export default RegisterScreen;
 
 const styles = StyleSheet.create({
-  Container: {
+  back: {
     flex: 1,
-    backgroundColor: '#307ecc',
+  },
+  bg: {},
+  Container: {
+    width: '100%',
+    height: '100%',
   },
   SectionStyle: {
     flexDirection: 'row',
@@ -130,7 +146,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonTextStyle: {
-    color: '#FFFFFF',
+    color: '#29434e',
     paddingVertical: 10,
     fontSize: 16,
   },
@@ -142,6 +158,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 30,
     borderColor: '#dadae8',
+    textDecorationColor: '#000000',
   },
   errorTextStyle: {
     color: 'red',
