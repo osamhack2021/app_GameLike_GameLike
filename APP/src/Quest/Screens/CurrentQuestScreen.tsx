@@ -63,7 +63,7 @@ export function CurrentQuestScreen({
         try {
           let jsonData = response.data;
           let obj = JSON.parse(jsonData);
-          Alert.alert(jsonData);
+          //Alert.alert(jsonData);
           const exp = obj.user.exp;
           const [lv, x] = getLevelFromExp(exp);
           //Alert.alert(exp);
@@ -205,7 +205,7 @@ export function CurrentQuestScreen({
         <Text style={textStyles.small}>{hashTagText}</Text>
       </View>
       <View>
-        <Text>{runWithStr}</Text>
+        <Text style={{color: 'white'}}>{runWithStr}</Text>
       </View>
       <View>
         <Text>{/*수행 시간*/}</Text>

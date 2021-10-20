@@ -102,6 +102,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
             returnKeyType="next"
             underlineColorAndroid="#f000"
             blurOnSubmit={false}
+            secureTextEntry={true}
           />
           <View>
             {errortext !== '' ? <Text>{errortext}</Text> : null}

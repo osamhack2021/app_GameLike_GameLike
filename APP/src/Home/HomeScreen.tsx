@@ -76,6 +76,15 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
               }}
             />
           </View>
+          <View style={styles.logoutView}>
+            <Button
+              color="#ef5350"
+              title="로그아웃"
+              onPress={() => {
+                navigation.replace('LOGIN');
+              }}
+            />
+          </View>
         </View>
       </View>
     </View>

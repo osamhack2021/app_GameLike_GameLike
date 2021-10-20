@@ -31,7 +31,7 @@ const TodayQuestSelector = ({navigation}: {navigation: any}) => {
   //해당 엘리먼트 클릭하면 퀘스트 추가됨(서버로 데이터 보냄)
   useEffect(() => {
     loadRecentExpected(setLog, userData.email).then(datas => {
-      Alert.alert(userData.email);
+      //Alert.alert(userData.email);
       const results: ExpectedData.DataType[] = [];
       for (let i of datas) {
         let canPush = true;

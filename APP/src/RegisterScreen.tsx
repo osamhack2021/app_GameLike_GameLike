@@ -13,7 +13,7 @@ import {
   ImageBackground,
   Alert,
 } from 'react-native';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {serverurl} from './serverurl';
 
 const RegisterScreen = ({navigation}: {navigation: any}) => {
@@ -26,7 +26,7 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
 
   const onClickRegister = useCallback((e, p, n, en, dis) => {
     axios
-      .post(serverurl + '/auth/join', {
+      .post<any, AxiosResponse<any>>(serverurl + '/auth/join', {
         email: e,
         password: p,
         nick: n,
@@ -36,7 +36,11 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
       })
       .then(response => {
         setPLog(JSON.stringify(response.data));
-        navigation.pop();
+        if (response.data.isExist === false) {
+          Alert.alert('이미 존재하는 회원입니다.');
+        } else {
+          //navigation.pop();
+        }
       })
       .catch(error => {
         setPLog(JSON.stringify(error));
@@ -107,7 +111,9 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
               );
             }}>
             <Text style={styles.buttonTextStyle}>회원가입</Text>
-            <Text>{plog}</Text>
+            <ScrollView>
+              <Text>{plog}</Text>
+            </ScrollView>
           </TouchableOpacity>
         </View>
       </ImageBackground>

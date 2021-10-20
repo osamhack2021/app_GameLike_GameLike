@@ -48,4 +48,8 @@ export const homeStyle = StyleSheet.create({
     justifyContent: 'flex-start',
     //alignItems: 'center',
   },
+  logoutView: {
+    width: 200,
+    height: 50,
+  },
 });
