@@ -28,27 +28,12 @@ export default function App() {
             initialRouteName="MAIN"
             screenOptions={{
               animationEnabled: false, // hack
+              headerShown: false,
             }}>
-            <Stack.Screen
-              name="START"
-              component={StartScreen}
-              options={{title: '시작화면'}}
-            />
-            <Stack.Screen
-              name="LOGIN"
-              component={LoginScreen}
-              options={{title: '로그인화면'}}
-            />
-            <Stack.Screen
-              name="MAIN"
-              component={MainScreen}
-              options={{title: '메인화면'}}
-            />
-            <Stack.Screen
-              name="REGISTER"
-              component={RegisterScreen}
-              options={{title: '회원가입'}}
-            />
+            <Stack.Screen name="START" component={StartScreen} />
+            <Stack.Screen name="LOGIN" component={LoginScreen} />
+            <Stack.Screen name="MAIN" component={MainScreen} />
+            <Stack.Screen name="REGISTER" component={RegisterScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ReduxProvider>
