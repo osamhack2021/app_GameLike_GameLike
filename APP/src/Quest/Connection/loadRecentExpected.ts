@@ -2,18 +2,20 @@
 //     get:
 //     res:    expected data 최신순으로 20개 가져오기
 
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
 import getDateString from '../Times/getDateString';
 import {ExpectedData} from '../Datas';
 import {serverurl} from '../../serverurl';
 
-export default async function loadRecentExpected(setLog: any) {
+export default async function loadRecentExpected(setLog: any, userId: string) {
   const result: ExpectedData.DataType[] = [];
   const ax = axios
-    .get(serverurl + '/quest/expected')
+    .post<{email: string}, AxiosResponse<any>>(serverurl + '/quest/expected', {
+      email: userId,
+    })
     .then((response: any) => {
-      setLog(JSON.stringify(response.data));
+      //Alert.alert(JSON.stringify(response.data));
       //데이터 반환하기
       try {
         const arr = JSON.parse(response.data);
@@ -24,7 +26,7 @@ export default async function loadRecentExpected(setLog: any) {
             questName: i.questName,
             hashTag: i.hashTag,
             date: i.date,
-            userId: 'test@n.n',
+            userId: userId,
           };
           result.push(t);
         }

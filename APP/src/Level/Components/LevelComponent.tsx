@@ -13,11 +13,6 @@ export function LevelComponent() {
   const userExp = useSelector<AppState, number>(state => state.level.exp);
   const [lv, exp] = getLevelFromExp(userExp);
   const maxExp = getLevelUpExpByLevel(lv);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(growExpAction(8000));
-  }, [dispatch]);
 
   return (
     <View style={styles.container}>

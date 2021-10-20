@@ -1,14 +1,15 @@
 import React, {useCallback, useState} from 'react';
 import {Text, View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import {ExpectedData} from '../Datas';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import getDateString from '../Times/getDateString';
 import {replaceExpectedAction} from '../../Store/Actions';
 import postNewExpectedData from '../Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Connection';
-import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
-import textStyles from '../Styles/QuestTextStyles';
+import {todayQuestScreenStyles} from '../Styles/todayQuestScreenStyles';
+import textStyles from '../Styles/questTextStyles';
 import {TextInput} from 'react-native-paper';
+import {AppState, User} from 'src/Store';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
 export default function TodayQuestAdder({navigation}: {navigation: any}) {
@@ -16,6 +17,7 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
   const [fieldName, setField] = useState('');
   const dispatch = useDispatch();
   const [log, setLog] = useState('');
+  const userData = useSelector<AppState, User>(state => state.user);
 
   // const quests = useSelector<AppState, ExpectedData.DataType[]>(
   //   state => state.questDatas.todayDatas,
@@ -46,16 +48,16 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
         date: today,
       };
 
-      postNewExpectedData(data).then((res: any) => {
+      postNewExpectedData(data, userData.email).then((res: any) => {
         //expected reload 요청
-        reloadTodayExpected()
+        reloadTodayExpected(userData.email)
           .then(r => {
             dispatch(replaceExpectedAction(r));
           })
           .then(() => nav.popToTop());
       });
     },
-    [fieldName, questName, dispatch],
+    [fieldName, questName, dispatch, userData],
   );
 
   return (

@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppState} from '../Store';
+import {AppState, User} from '../Store';
 import {ExpectedData} from '../Quest/Datas';
 import loadUncompletedPerformed from '../Quest/Connection/loadUncompletedPerformed';
 import LevelComponent from '../Level/Components/LevelComponent';
@@ -31,6 +31,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   const [canQuestAdd, setCanQuestAdd] = useState(true);
   const [canDoQuest, setCanDoQuest] = useState(true);
   const [log, setLog] = useState('');
+  const userData = useSelector<AppState, User>(state => state.user);
 
   //expected reload 요청
   const datas = useSelector<AppState, ExpectedData.DataType[]>(
@@ -38,7 +39,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   );
   useEffect(() => {
     //dispatch(replaceExpectedAction(reloadTodayExpected()));/
-    loadUncompletedPerformed().then(res => {
+    loadUncompletedPerformed(userData.email).then(res => {
       if (res !== null) {
         setLog(JSON.stringify(res));
       } else {

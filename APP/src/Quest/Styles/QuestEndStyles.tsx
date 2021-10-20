@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const QuestEndStyles = StyleSheet.create({
+export const questEndStyles = StyleSheet.create({
   textView: {
     alignItems: 'center',
     justifyContent: 'center',

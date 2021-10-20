@@ -3,8 +3,11 @@ import {View, Text, Button, Alert, StyleSheet} from 'react-native';
 import {useState, useEffect, useCallback, createRef} from 'react';
 import axios, {AxiosResponse} from 'axios';
 import loadRanking from './Data/loadRanking';
-import {getLevelFromExp} from 'src/Level/Functions/LevelFunctions';
+import {getLevelFromExp} from '../Level/Functions/LevelFunctions';
 import {serverurl} from '../serverurl';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAction} from '../Store/Actions/userActions';
+import {AppState, loginExpAction} from '../Store';
 
 let nick: any;
 let email: any;
@@ -18,12 +21,16 @@ export default function ProfileScreen() {
   const [discharge, setDischarge] = useState('2022년 9월 22일');
   const [level, setLevel] = useState(1);
   const [rank, setRank] = useState(0);
+
+  const dispatch = useDispatch();
+
   // const result: ProfileData.UserData[] = [];
+  const loadedEmail = useSelector<AppState, string>(state => state.user.email);
   const postData = {
-    email: testEmail,
+    email: loadedEmail,
   };
 
-  const onClickUserinfo = () => {
+  const onClickUserinfo = (dsp: any) => {
     axios
       .post<{email: string}, AxiosResponse<string>>(
         serverurl + '/profiles',
@@ -40,18 +47,23 @@ export default function ProfileScreen() {
           const exp = obj.user.exp;
           const [lv, x] = getLevelFromExp(exp);
           setLevel(lv);
-          setLog(
-            `
-            UserInfo
-            nick = ${obj.user.nick} 
-            email = ${obj.user.email} 
-            enlistDate = ${obj.user.enlistDate}
-            dischargeDate = ${obj.user.dischargeDate}
-            exp = ${obj.user.exp}
-            level = ${obj.user.level}
-            rank = ${obj.rank}
-            `,
+          // Alert.alert(
+          //   `
+          //   nick = ${obj.user.nick}
+          //   email = ${obj.user.email}
+          //   dischargeDate = ${obj.user.dischargeDate}
+          //   exp = ${obj.user.exp}
+          //   `,
+          // );
+          dispatch(
+            loginAction(
+              obj.user.email,
+              obj.user.nick,
+              obj.user.enlistDate,
+              obj.user.dischargeDate,
+            ),
           );
+          dispatch(loginExpAction(obj.user.exp));
         } catch (e) {
           if (e instanceof Error) {
             setLog('일단 잘 됨: ' + e.message);
@@ -106,7 +118,7 @@ export default function ProfileScreen() {
   };
 
   useEffect(() => {
-    onClickUserinfo();
+    onClickUserinfo(dispatch);
     onClickRankinfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

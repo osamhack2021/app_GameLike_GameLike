@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, TouchableOpacity} from 'react-native';
 import ExpectedElement from '../Components/ExpectedElement';
-import textStyles from '../Styles/QuestTextStyles';
+import textStyles from '../Styles/questTextStyles';
 import {ExpectedData} from '../Datas';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppState} from '../../Store';
+import {AppState, User} from '../../Store';
 import {replaceExpectedAction} from '../../Store/Actions';
 import getTodayString from '../Times/getTodayString';
 import {reloadTodayExpected} from '../Connection';
-import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
+import {todayQuestScreenStyles} from '../Styles/todayQuestScreenStyles';
 import {QuestEndScreenProps} from './QuestEndScreen';
 
 const during = 30; //각 퀘스트당 몇 분 진행할지
@@ -25,6 +25,7 @@ export default function TodayQuestScreen({
   const todayStr = getTodayString(new Date());
   const dispatch = useDispatch();
   const [log, setLog] = useState('');
+  const userData = useSelector<AppState, User>(state => state.user);
 
   const expects = useSelector<AppState, ExpectedData.DataType[]>(
     state => state.expectedDatas,
@@ -32,7 +33,7 @@ export default function TodayQuestScreen({
 
   //expected reload 요청
   useEffect(() => {
-    reloadTodayExpected().then(res => {
+    reloadTodayExpected(userData.email).then(res => {
       dispatch(replaceExpectedAction(res));
     });
   }, [dispatch]);
@@ -79,9 +80,9 @@ export default function TodayQuestScreen({
                 takenExp: 30,
                 takenTime: '조금',
               };
-              navigation.replace('QUESTEND', {props: pr});
+              //navigation.replace('QUESTEND', {props: pr});
 
-              //navigation.goBack();
+              navigation.goBack();
             }}>
             <Text style={styles.questAddText}>완료</Text>
           </TouchableOpacity>

@@ -7,7 +7,7 @@ import {Alert} from 'react-native';
 import {serverurl} from '../../serverurl';
 import {PerformedData} from '../Datas';
 
-export default function loadUncompletedPerformed() {
+export default function loadUncompletedPerformed(userId: string) {
   const result: PerformedData.DataType[] = [];
 
   const ax = axios
@@ -22,7 +22,7 @@ export default function loadUncompletedPerformed() {
             questName: i.questName,
             hashTag: i.hashTag,
             date: i.date,
-            userId: 'test@n.n',
+            userId: userId,
             startTime: i.startTime,
             endTime: i.startTime,
             detail: i.detail,

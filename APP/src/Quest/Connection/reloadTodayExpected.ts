@@ -12,7 +12,7 @@ type DateWrapper = {
   date: string;
 };
 
-export async function reloadTodayExpected() {
+export async function reloadTodayExpected(userId: string) {
   const date = getDateString();
   const result: ExpectedData.DataType[] = [];
 
@@ -21,6 +21,7 @@ export async function reloadTodayExpected() {
       serverurl + '/quest/expectedToday',
       {
         date: date,
+        email: userId,
       },
     )
     .then((response: any) => {
@@ -33,7 +34,7 @@ export async function reloadTodayExpected() {
             questName: i.questName,
             hashTag: i.hashTag,
             date: i.date,
-            userId: 'test@n.n',
+            userId: userId,
           };
           result.push(t);
         }

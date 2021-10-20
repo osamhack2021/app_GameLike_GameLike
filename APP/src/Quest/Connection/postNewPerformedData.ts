@@ -18,6 +18,7 @@ type PostData = {
 
 export default async function postNewPerformedData(
   insertData: PerformedData.DataType,
+  userId: string,
 ) {
   const postData = {
     questName: insertData.questName,
@@ -25,7 +26,7 @@ export default async function postNewPerformedData(
     date: insertData.date,
     startTime: insertData.startTime,
     detail: insertData.detail,
-    userId: 'test@n.n',
+    userId: userId,
   };
   const ax = axios
     .post<PostData, AxiosResponse<any>>(serverurl + '/quest/createPe', postData)

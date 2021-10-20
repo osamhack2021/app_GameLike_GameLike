@@ -14,13 +14,16 @@ type PostData = {
 };
 
 //     res:    성공 여부
-export default function postNewExpectedData(insertData: ExpectedData.DataType) {
+export default function postNewExpectedData(
+  insertData: ExpectedData.DataType,
+  userId: string,
+) {
   let completed = false;
   const postData = {
     questName: insertData.questName,
     hashTag: insertData.hashTag,
     date: insertData.date,
-    userId: 'test@n.n',
+    userId: userId,
   };
   const ax = axios
     .post<PostData, AxiosResponse<any>>(serverurl + '/quest/createEx', postData)

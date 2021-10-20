@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {serverurl} from './serverurl';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAction} from './Store/Actions/userActions';
+import {AppState} from './Store';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
@@ -20,9 +23,11 @@ export default function LoginScreen({navigation}: {navigation: any}) {
   const [userPassword, setUserPassword] = useState('');
   const [errortext, setErrortext] = useState('');
 
+  const dispatch = useDispatch();
+
   const onClickLogin = () => {
     axios
-      .post(serverurl + '/login', null, {
+      .post(serverurl + '/auth/login', null, {
         params: {
           email: userEmail,
           password: userPassword,
@@ -32,6 +37,8 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         if (res.data) {
           try {
             setPLog(`로그인 성공 ${res.data}`);
+
+            dispatch(loginAction(userEmail, '', '', ''));
             navigation.replace('MAIN');
           } catch (e) {
             if (e instanceof Error) {

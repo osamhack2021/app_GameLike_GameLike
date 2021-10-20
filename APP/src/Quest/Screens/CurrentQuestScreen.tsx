@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
-import {Button, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {Alert, Button, Text, View} from 'react-native';
+import {useDispatch, useSelector, useStore} from 'react-redux';
 import {ExpectedData, PerformedData} from '../Datas';
 import postPerformedEndtime from '../Connection/postPerformedEndtime';
 import postNewPerformedData from '../Connection/postNewPerformedData';
@@ -11,10 +11,14 @@ import postGrowExp from '../../Level/Connections/postGrowExp';
 import {QuestEndScreenProps} from './QuestEndScreen';
 import get2Digits from '../Times/get2Digits';
 import loadDongjeob from '../Connection/loadDongjeob';
-import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
-import {textStyles} from '../Styles/QuestTextStyles';
-import {currentQuestStyles} from '../Styles/CurrentQuestStyles';
+import {todayQuestScreenStyles} from '../Styles/todayQuestScreenStyles';
+import {textStyles} from '../Styles/questTextStyles';
+import {currentQuestStyles} from '../Styles/currentQuestStyles';
 import {TextInput} from 'react-native-paper';
+import {AppState, loginExpAction, User} from '../../Store';
+import axios, {AxiosResponse} from 'axios';
+import {getLevelFromExp} from '../../Level/Functions/LevelFunctions';
+import {serverurl} from '../../serverurl';
 
 export function CurrentQuestScreen({
   navigation,
@@ -48,6 +52,36 @@ export function CurrentQuestScreen({
   const [detailText, setDetailText] = useState('');
 
   const [runWithStr, setRunWithStr] = useState('');
+  const userData = useSelector<AppState, User>(state => state.user);
+
+  const onClickUserinfo = useCallback(() => {
+    axios
+      .post<{email: string}, AxiosResponse<string>>(serverurl + '/profiles', {
+        email: userData.email,
+      })
+      .then(response => {
+        try {
+          let jsonData = response.data;
+          let obj = JSON.parse(jsonData);
+          Alert.alert(jsonData);
+          const exp = obj.user.exp;
+          const [lv, x] = getLevelFromExp(exp);
+          //Alert.alert(exp);
+          dispatch(loginExpAction(obj.user.exp));
+        } catch (e) {
+          if (e instanceof Error) {
+            setLog('일단 잘 됨: ' + e.message);
+          }
+        }
+      })
+      .catch(error => {
+        if (error instanceof Error) {
+          setLog(error.message);
+        } else {
+          setLog('에러다 에러');
+        }
+      });
+  }, [dispatch, userData]);
 
   const onStart = useCallback(
     (
@@ -55,6 +89,7 @@ export function CurrentQuestScreen({
       details: string,
       performing: boolean,
       hash: string,
+      user: User,
     ) => {
       //1. 데이터 제작하기
       //2. 서버로 전송하기
@@ -68,17 +103,17 @@ export function CurrentQuestScreen({
         questName: exp.questName,
         hashTag: exp.hashTag,
         date: getTodayString(curDate),
-        userId: 'testid',
+        userId: user.email,
         startTime: getTimeString(curDate),
         endTime: getTimeString(curDate),
         detail: details,
       };
-      postNewPerformedData(performed).then(() => {
+      postNewPerformedData(performed, user.email).then(() => {
         setStartTime(performed.startTime);
         setPerformedId(performed.id);
         setIsPerforming(true);
 
-        loadDongjeob(exp.hashTag, 'baek@n.n').then(res => {
+        loadDongjeob(exp.hashTag, user.email).then(res => {
           if (res > 0) {
             setRunWithStr(res + '명이 같이 ' + hash + ' 중이에요!');
           } else {
@@ -139,7 +174,7 @@ export function CurrentQuestScreen({
 
       postPerformedEndtime(userIdValue, startTimeValue, endTimeValue).then(
         () => {
-          postGrowExp('test@n.n', resultExp).then(() => {
+          postGrowExp(userData.email, resultExp).then(() => {
             setIsPerforming(false);
             setLog(userIdValue + ',' + startTimeValue + ',' + endTimeValue);
             const pr: QuestEndScreenProps = {
@@ -148,12 +183,13 @@ export function CurrentQuestScreen({
               takenTime: duringCompute(startTimeValue, endTimeValue),
             };
             //Alert.alert('성공, 경험치: ' + resultExp);
+            onClickUserinfo();
             nav.replace('QUESTEND', {props: pr});
           });
         },
       );
     },
-    [expCompute, duringCompute, expected],
+    [expCompute, duringCompute, expected, userData],
   );
 
   const onDetailChanged = useCallback(text => {
@@ -186,7 +222,7 @@ export function CurrentQuestScreen({
         <Button
           title="수행 시작!"
           onPress={() => {
-            onStart(expected, detailText, isPerfoming, hashTagText);
+            onStart(expected, detailText, isPerfoming, hashTagText, userData);
           }}
           disabled={isPerfoming}
         />
@@ -196,7 +232,7 @@ export function CurrentQuestScreen({
             color="#ff1744"
             onPress={() => {
               onEnd(
-                'test@n.n',
+                userData.email,
                 startTime,
                 getTimeString(),
                 isPerfoming,
