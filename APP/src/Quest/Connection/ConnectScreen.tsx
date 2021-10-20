@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Text, View, Button, Alert} from 'react-native';
 import axios from 'axios';
 import {TextInput} from 'react-native-gesture-handler';
+import {serverurl} from '../../serverurl';
 
 export default function ConnectScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
@@ -14,7 +15,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
     Alert.alert('콜백 시작!');
     try {
       axios
-        .get('www.gamelike.best/auth/join')
+        .get(serverurl + '/auth/join')
         .then(response => {
           Alert.alert('then');
           try {
@@ -42,7 +43,7 @@ export default function ConnectScreen({navigation}: {navigation: any}) {
   }, []);
   const axPost = useCallback((e, n, p) => {
     axios
-      .post('www.gamelike.best/auth/join', {
+      .post(serverurl + '/auth/join', {
         email: e,
         nick: n,
         password: p,

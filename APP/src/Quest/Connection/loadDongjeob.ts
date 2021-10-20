@@ -4,12 +4,13 @@ import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
 import getDateString from '../Times/getDateString';
 import {ExpectedData} from '../Datas';
+import {serverurl} from '../../serverurl';
 
 export default async function loadDongjeob(hashTag: string, userId: string) {
   const result: ExpectedData.DataType[] = [];
   const ax = axios
     .post<{hashTag: string; userId: string}, AxiosResponse<any>>(
-      'www.gamelike.best/quest/complete',
+      serverurl + '/quest/complete',
       {hashTag: hashTag},
     )
     .then((response: any) => {

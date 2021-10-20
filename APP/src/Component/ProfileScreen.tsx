@@ -4,6 +4,7 @@ import {useState, useEffect, useCallback, createRef} from 'react';
 import axios, {AxiosResponse} from 'axios';
 import loadRanking from './Data/loadRanking';
 import {getLevelFromExp} from 'src/Level/Functions/LevelFunctions';
+import {serverurl} from '../serverurl';
 
 let nick: any;
 let email: any;
@@ -25,7 +26,7 @@ export default function ProfileScreen() {
   const onClickUserinfo = () => {
     axios
       .post<{email: string}, AxiosResponse<string>>(
-        'www.gamelike.best/profiles',
+        serverurl + '/profiles',
         postData,
       )
       .then(response => {
@@ -68,7 +69,7 @@ export default function ProfileScreen() {
 
   const onClickRankinfo = () => {
     axios
-      .get('www.gamelike.best/rank')
+      .get(serverurl + '/rank')
       .then(response => {
         try {
           setpLog(JSON.stringify(response.data));
@@ -87,7 +88,7 @@ export default function ProfileScreen() {
 
   const onClickLogout = () => {
     axios
-      .get('www.gamelike.best/auth/logout')
+      .get(serverurl + '/auth/logout')
       .then(response => {
         try {
           setLog(`로그아웃 성공이오 ${JSON.stringify(response.data)}`);

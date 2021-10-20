@@ -4,13 +4,14 @@
 
 import axios from 'axios';
 import {Alert} from 'react-native';
+import {serverurl} from '../../serverurl';
 import {PerformedData} from '../Datas';
 
 export default function loadUncompletedPerformed() {
   const result: PerformedData.DataType[] = [];
 
   const ax = axios
-    .get('www.gamelike.best/quest/performedE')
+    .get(serverurl + '/quest/performedE')
     .then((response: any) => {
       try {
         const arr = JSON.parse(response.data);

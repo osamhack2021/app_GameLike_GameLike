@@ -1,6 +1,7 @@
 //증가할 exp값 보냄
 import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
+import {serverurl} from '../../serverurl';
 
 type PostData = {
   email: string;
@@ -19,7 +20,7 @@ export default function postGrowExp(userId: string, growExp: number) {
   };
   const ax = axios
     .post<PostData, AxiosResponse<any>>(
-      'www.gamelike.best/quest/updateExp',
+      serverurl + '/quest/updateExp',
       postData,
     )
     .then(response => {

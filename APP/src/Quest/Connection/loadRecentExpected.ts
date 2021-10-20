@@ -6,11 +6,12 @@ import axios from 'axios';
 import {Alert} from 'react-native';
 import getDateString from '../Times/getDateString';
 import {ExpectedData} from '../Datas';
+import {serverurl} from '../../serverurl';
 
 export default async function loadRecentExpected(setLog: any) {
   const result: ExpectedData.DataType[] = [];
   const ax = axios
-    .get('www.gamelike.best/quest/expected')
+    .get(serverurl + '/quest/expected')
     .then((response: any) => {
       setLog(JSON.stringify(response.data));
       //데이터 반환하기

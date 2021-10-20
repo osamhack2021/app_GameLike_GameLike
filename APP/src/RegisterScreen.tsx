@@ -14,6 +14,7 @@ import {
   Alert,
 } from 'react-native';
 import axios from 'axios';
+import {serverurl} from './serverurl';
 
 const RegisterScreen = ({navigation}: {navigation: any}) => {
   const [userEmail, setUserEmail] = useState('');
@@ -25,7 +26,7 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
 
   const onClickRegister = useCallback((e, p, n, en, dis) => {
     axios
-      .post('www.gamelike.best/auth/join', {
+      .post(serverurl + '/auth/join', {
         email: e,
         password: p,
         nick: n,

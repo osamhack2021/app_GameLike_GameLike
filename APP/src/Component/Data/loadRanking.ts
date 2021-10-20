@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Alert} from 'react-native';
+import {serverurl} from '../../serverurl';
 
 export default async function loadRanking(setLog: any) {
   type RankData = {
@@ -10,7 +11,7 @@ export default async function loadRanking(setLog: any) {
   };
   const result: RankData[] = [];
   const ax = axios
-    .get('http://52.231.66.60/rank')
+    .get(serverurl + '/rank')
     .then(response => {
       setLog(JSON.stringify(response.data));
       //데이터 반환하기

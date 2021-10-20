@@ -3,6 +3,7 @@
 
 import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
+import {serverurl} from '../../serverurl';
 import {ExpectedData} from '../Datas';
 
 type PostData = {
@@ -22,10 +23,7 @@ export default function postNewExpectedData(insertData: ExpectedData.DataType) {
     userId: 'test@n.n',
   };
   const ax = axios
-    .post<PostData, AxiosResponse<any>>(
-      'www.gamelike.best/quest/createEx',
-      postData,
-    )
+    .post<PostData, AxiosResponse<any>>(serverurl + '/quest/createEx', postData)
     .then((response: any) => {
       //Alert.alert('pnedlog:' + JSON.stringify(response.data));
       //const res = JSON.parse(response.data);

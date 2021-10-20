@@ -4,6 +4,7 @@
 
 import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
+import {serverurl} from '../../serverurl';
 
 type PostData = {
   userId: string;
@@ -22,10 +23,7 @@ export default function postPerformedEndtime(
     endTime: endTime,
   };
   const ax = axios
-    .post<PostData, AxiosResponse<any>>(
-      'www.gamelike.best/quest/updatePe',
-      postData,
-    )
+    .post<PostData, AxiosResponse<any>>(serverurl + '/quest/updatePe', postData)
     .then((response: any) => {
       const res = response.data;
       if (res.success) {

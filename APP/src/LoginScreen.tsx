@@ -11,6 +11,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
+import {serverurl} from './serverurl';
 
 export default function LoginScreen({navigation}: {navigation: any}) {
   const [log, setLog] = useState('');
@@ -21,7 +22,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickLogin = () => {
     axios
-      .post('http://www.gamelike.best/login', null, {
+      .post(serverurl + '/login', null, {
         params: {
           email: userEmail,
           password: userPassword,
@@ -36,7 +37,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
             if (e instanceof Error) {
               Alert.alert(e.message);
             } else {
-              Alert.alert('뭘까');
+              Alert.alert('로그인 실패');
             }
           }
         } else {
@@ -50,7 +51,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
 
   const onClickKakaoLogin = () => {
     axios
-      .get('www.gamelike.best/auth/kakao')
+      .get(serverurl + '/auth/kakao')
       .then(response => {
         Alert.alert('then');
         try {

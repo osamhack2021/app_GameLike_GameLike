@@ -6,6 +6,7 @@ import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
 import getDateString from '../Times/getDateString';
 import {ExpectedData} from '../Datas';
+import {serverurl} from '../../serverurl';
 
 type DateWrapper = {
   date: string;
@@ -17,7 +18,7 @@ export async function reloadTodayExpected() {
 
   const ax = axios
     .post<DateWrapper, AxiosResponse<string>>(
-      'www.gamelike.best/quest/expectedToday',
+      serverurl + '/quest/expectedToday',
       {
         date: date,
       },

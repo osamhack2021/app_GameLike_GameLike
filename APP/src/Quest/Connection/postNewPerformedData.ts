@@ -4,6 +4,7 @@
 
 import axios, {AxiosResponse} from 'axios';
 import {Alert} from 'react-native';
+import {serverurl} from '../../serverurl';
 import {PerformedData} from '../Datas';
 
 type PostData = {
@@ -27,10 +28,7 @@ export default async function postNewPerformedData(
     userId: 'test@n.n',
   };
   const ax = axios
-    .post<PostData, AxiosResponse<any>>(
-      'www.gamelike.best/quest/createPe',
-      postData,
-    )
+    .post<PostData, AxiosResponse<any>>(serverurl + '/quest/createPe', postData)
     .then((response: any) => {
       const res = response.data;
       if (res.success) {
