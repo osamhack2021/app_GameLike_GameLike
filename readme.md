@@ -45,8 +45,10 @@
 ## 설치 안내 (Installation Process)
 
 ### 안드로이드 어플리케이션 설치 방법
- - [설치](https://github.com/osamhack2021/app_GameLike_GameLike/raw/master/APP/release/GameLike.apk)
- - 안드로이드 스마트폰에서 위 링크로 들어가 apk 파일을 설치합니다.
+ - [설치](https://github.com/osamhack2021/app_GameLike_GameLike/raw/master/APP(FE)/release/GameLike.apk)
+ - 안드로이드 환경에서 위 링크로 들어가 apk 파일을 설치합니다.
+ - [디버그](https://github.com/osamhack2021/app_GameLike_GameLike/raw/master/APP(FE)/debug/app-debug.apk)
+ - 만약 맨 위 설치파일이 잘 작동하지 않으면 위 디버그 링크로 들어가 apk 파일을 설치합니다.
  
 ### 서버 패키지 설치 방법
 
