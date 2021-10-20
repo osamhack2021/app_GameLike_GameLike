@@ -96,20 +96,20 @@ $ sudo usermod -aG docker ${USER}
 ## 프로젝트 사용법 (Getting Started)
 **마크다운 문법을 이용하여 자유롭게 기재**
 
- (로그인 사진)
+![Login](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/Login.png?raw=true)
  * 로그인 화면에서 아이디, 비밀번호를 입력해 로그인이 가능합니다.
  * 아이디가 없다면 회원가입도 가능합니다.
 
- (홈 화면 사진)
+![Home](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/Home.png?raw=true)
  * 홈 화면 상단에서는 자신의 닉네임, 레벨을 확인 가능합니다. 
  * 중단에서는 레벨 바를 통해 현재 경험치, 레벨을 확인 가능합니다. 
  * 하단에서는 수행 버튼을 눌러 퀘스트 화면으로 넘어갈 수 있습니다.
 
- (퀘스트 화면 사진)
+![QuestMain](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/Quest1.png?raw=true)
  * 퀘스트 화면에서 오늘 할 퀘스트를 추가할 수 있습니다.
  * 또는 오늘 할 퀘스트를 선택하여 실행할 수 있습니다.
 
- (퀘스트 진행 사진) 
+![QuestProgress](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/Quest2.png?raw=true)
  * 퀘스트 시작을 눌러 퀘스트를 진행할 수 있습니다.
  * 퀘스트 종료를 누르면 퀘스트가 종료되고 오늘 한 퀘스트를 돌아볼 수 있습니다.
  
