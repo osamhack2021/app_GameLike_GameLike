@@ -36,6 +36,7 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
       })
       .then(response => {
         setPLog(JSON.stringify(response.data));
+        navigation.pop();
       })
       .catch(error => {
         setPLog(JSON.stringify(error));

@@ -32,7 +32,7 @@ export default function LoginScreen({navigation}: {navigation: any}) {
         if (res.data) {
           try {
             setPLog(`로그인 성공 ${res.data}`);
-            navigation.navigate('MAIN');
+            navigation.replace('MAIN');
           } catch (e) {
             if (e instanceof Error) {
               Alert.alert(e.message);
