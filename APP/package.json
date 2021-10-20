@@ -14,10 +14,6 @@
     "start-react": "webpack serve --config ./webpack.config.js --mode development"
   },
   "dependencies": {
-<<<<<<< HEAD
-
-=======
->>>>>>> style
     "@babel/preset-typescript": "^7.15.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.6",
@@ -26,11 +22,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-native": "^0.65.8",
     "axios": "^0.23.0",
-<<<<<<< HEAD
-
-=======
     "http-proxy-middleware": "^2.0.1",
->>>>>>> style
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-gesture-handler": "^1.10.3",
