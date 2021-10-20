@@ -12,7 +12,6 @@ import RegisterScreen from './src/RegisterScreen';
 
 import {Provider as ReduxProvider, useSelector} from 'react-redux';
 import {AppState, makeStore} from './src/Store';
-import HomeScreen from './src/Component/HomeScreen';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ProfileScreen from './src/Component/ProfileScreen';
 

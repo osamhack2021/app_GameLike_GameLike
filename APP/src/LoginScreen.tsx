@@ -106,7 +106,6 @@ export default function LoginScreen({navigation}: {navigation: any}) {
           />
           <View>
             {errortext !== '' ? <Text>{errortext}</Text> : null}
-            <Button title="카카오로그인" onPress={() => onClickKakaoLogin()} />
             <Button title="로그인" onPress={() => onClickLogin()} />
             <Button
               title="회원가입"
