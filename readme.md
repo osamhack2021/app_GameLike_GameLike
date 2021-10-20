@@ -11,9 +11,10 @@
 ### 기능 구조
 
 (순서도 사진 첨부)
- 퀘스트 탭에서 퀘스트를 제작하고, 수행할 수 있습니다.
- 퀘스트를 수행하면 경험치를 획득하고, 경험치가 일정량 이상 모이면 레벨업이 가능합니다.
- 프로필과 순위를 통해 나의 레벨과 다른 사람의 레벨을 확인할 수 있습니다.
+ * 퀘스트 탭에서 퀘스트를 제작하고, 수행할 수 있습니다.
+ * 퀘스트를 수행하면 경험치를 획득하고, 경험치가 일정량 이상 모이면 레벨업이 가능합니다.
+ * 개인 정비 시간에 어떤 일을 수행할 때마다, 퀘스트 수행 버튼을 눌러 경험치를 획득할 수 있습니다.
+ * 어떤 일을 종료하게 된다면, 퀘스트 종료를 눌러 끝낼 수 있습니다.
  
 
 ## 컴퓨터 구성 / 필수 조건 안내 (Prerequisites)
@@ -43,6 +44,10 @@
 
 ## 설치 안내 (Installation Process)
 
+### 안드로이드 어플리케이션 설치 방법
+ - [설치](https://github.com/osamhack2021/app_GameLike_GameLike/raw/master/APP/release/GameLike.apk)
+ - 안드로이드 스마트폰에서 위 링크로 들어가 apk 파일을 설치합니다.
+ 
 ### 서버 패키지 설치 방법
 
 <p>step0. Docker / docker-compose 설치를 진행합니다.</p>
@@ -62,6 +67,7 @@ $ git clone https://github.com/osamhack2021/app_web_GameLike_GameLike.git
     // SERVER/docker-compose.yml 파일을 본인 환경에 맞게 수정합니다.
     // 컨테이너 명, 포트 정보, DB 정보를 수정합니다.
     // 기본 포트 (서버 : 80, DB: 3306)
+    // 10/27 (수) 까지 제공된 VM에서만 서버 설정이 유효합니다.
     
 <br>
 
@@ -90,6 +96,23 @@ $ sudo usermod -aG docker ${USER}
 ## 프로젝트 사용법 (Getting Started)
 **마크다운 문법을 이용하여 자유롭게 기재**
 
+![Login](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/Login.png?raw=true)
+ * 로그인 화면에서 아이디, 비밀번호를 입력해 로그인이 가능합니다.
+ * 아이디가 없다면 회원가입도 가능합니다.
+
+![Home](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/HomeScreen.png?raw=true)
+ * 홈 화면 상단에서는 자신의 닉네임, 레벨을 확인 가능합니다. 
+ * 중단에서는 레벨 바를 통해 현재 경험치, 레벨을 확인 가능합니다. 
+ * 하단에서는 수행 버튼을 눌러 퀘스트 화면으로 넘어갈 수 있습니다.
+
+![QuestMain](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/Quest1.png?raw=true)
+ * 퀘스트 화면에서 오늘 할 퀘스트를 추가할 수 있습니다.
+ * 또는 오늘 할 퀘스트를 선택하여 실행할 수 있습니다.
+
+![QuestProgress](https://github.com/osamhack2021/app_GameLike_GameLike/blob/master/Quest2.png?raw=true)
+ * 퀘스트 시작을 눌러 퀘스트를 진행할 수 있습니다.
+ * 퀘스트 종료를 누르면 퀘스트가 종료되고 오늘 한 퀘스트를 돌아볼 수 있습니다.
+ 
 잘 모를 경우
 구글 검색 - 마크다운 문법
 [https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017](https://post.naver.com/viewer/postView.nhn?volumeNo=24627214&memberNo=42458017)
