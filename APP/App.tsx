@@ -25,7 +25,7 @@ export default function App() {
       <ReduxProvider store={store}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="MAIN"
+            initialRouteName="START"
             screenOptions={{
               animationEnabled: false, // hack
               headerShown: false,

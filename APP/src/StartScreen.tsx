@@ -1,24 +1,41 @@
 import * as React from 'react';
-import {StyleSheet, Button, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Button,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+} from 'react-native';
 
 const StartScreen = ({navigation}: {navigation: any}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.yellow}>Game Like</Text>
-      <Button
-        title="TOUCH THE SCREEN"
-        onPress={() => navigation.navigate('LOGIN')}
-      />
+    <View style={styles.back}>
+      <ImageBackground
+        source={require('../assets/images/background/background.png')}
+        style={styles.bg}>
+        <View style={styles.container}>
+          <Image source={require('../assets/images/ui/logo_pure.png')} />
+          <Button
+            title="TOUCH THE Button"
+            onPress={() => navigation.navigate('LOGIN')}
+          />
+        </View>
+      </ImageBackground>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  back: {
     flex: 1,
+  },
+  bg: {},
+  container: {
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#EDB0B0',
   },
   blue: {
     color: '#5E8BE4',
