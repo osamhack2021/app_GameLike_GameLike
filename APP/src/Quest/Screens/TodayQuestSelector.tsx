@@ -7,7 +7,7 @@ import loadRecentExpected from '../Connection/loadRecentExpected';
 import getDateString from '../Times/getDateString';
 import postNewExpectedData from '../Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Connection';
-import {todayQuestScreenStyles} from '../../Styles/TodayQuestScreenStyles';
+import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
 import textStyles from '../Styles/QuestTextStyles';
 
 const TodayQuestSelector = ({navigation}: {navigation: any}) => {

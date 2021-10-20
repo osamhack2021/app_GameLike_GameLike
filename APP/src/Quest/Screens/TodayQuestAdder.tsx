@@ -6,8 +6,7 @@ import getDateString from '../Times/getDateString';
 import {replaceExpectedAction} from '../../Store/Actions';
 import postNewExpectedData from '../Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Connection';
-import {todayQuestAdderStyles} from '../../Styles/TodayQuestAdderStyles';
-import {todayQuestScreenStyles} from '../../Styles/TodayQuestScreenStyles';
+import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
 import textStyles from '../Styles/QuestTextStyles';
 import {TextInput} from 'react-native-paper';
 
@@ -71,7 +70,6 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
           underlineColor="#000000"
           outlineColor="#000000"
           selectionColor="#000000"
-          style={styles.textInput}
           value={questName}
           placeholder="퀘스트 이름 입력"
           onChangeText={text => setQuest(text)}
@@ -81,7 +79,6 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
             underlineColor="#000000"
             outlineColor="#000000"
             selectionColor="#000000"
-            style={styles.textInput}
             value={fieldName}
             placeholder="#분야 입력"
             onChangeText={text => setField(text)}

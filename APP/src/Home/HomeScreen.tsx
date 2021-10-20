@@ -13,7 +13,7 @@ import {AppState} from '../Store';
 import {ExpectedData} from '../Quest/Datas';
 import loadUncompletedPerformed from '../Quest/Connection/loadUncompletedPerformed';
 import LevelComponent from '../Level/Components/LevelComponent';
-import * as Style from '../Styles/HomeScreenStyles';
+import * as Style from './HomeScreenStyles';
 import ProfileScreen from '../Component/ProfileScreen';
 
 //1. 처음 로드할 때 expected quests 가져와야함

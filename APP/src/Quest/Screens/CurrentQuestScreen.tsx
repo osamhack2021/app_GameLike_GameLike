@@ -1,10 +1,9 @@
 import React, {useCallback, useState} from 'react';
-import {Button, Text, View, TextInput} from 'react-native';
+import {Button, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {ExpectedData, PerformedData} from '../Datas';
 import postPerformedEndtime from '../Connection/postPerformedEndtime';
 import postNewPerformedData from '../Connection/postNewPerformedData';
-import textStyles from '../Styles/QuestTextStyles';
 import getDate from '../Times/getDate';
 import getTimeString from '../Times/getTimeString';
 import getTodayString from '../Times/getTodayString';
@@ -12,6 +11,10 @@ import postGrowExp from '../../Level/Connections/postGrowExp';
 import {QuestEndScreenProps} from './QuestEndScreen';
 import get2Digits from '../Times/get2Digits';
 import loadDongjeob from '../Connection/loadDongjeob';
+import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
+import {textStyles} from '../Styles/QuestTextStyles';
+import {currentQuestStyles} from '../Styles/CurrentQuestStyles';
+import {TextInput} from 'react-native-paper';
 
 export function CurrentQuestScreen({
   navigation,
@@ -24,7 +27,16 @@ export function CurrentQuestScreen({
   const [log, setLog] = useState('');
   const todayStr = getTodayString();
   const dispatch = useDispatch();
-  const expected = route.params.expected;
+
+  let expected: any;
+  try {
+    expected = route.params.expected;
+  } catch (e) {
+    expected = {
+      hashTag: 'error',
+      questName: '퀘스트를 불러오지 못했습니다.',
+    };
+  }
 
   const hashTagText =
     expected.hashTag !== '' ? '#' + expected.hashTag : '퀘스트를 생성해주세요!';
@@ -136,7 +148,7 @@ export function CurrentQuestScreen({
               takenTime: duringCompute(startTimeValue, endTimeValue),
             };
             //Alert.alert('성공, 경험치: ' + resultExp);
-            nav.navigate('QUESTEND', {props: pr});
+            nav.replace('QUESTEND', {props: pr});
           });
         },
       );
@@ -149,9 +161,9 @@ export function CurrentQuestScreen({
   }, []);
 
   return (
-    <View>
+    <View style={todayQuestScreenStyles.container}>
       <Text style={textStyles.small}>{todayStr}</Text>
-      <View>
+      <View style={styles.topView}>
         <Text style={textStyles.small}>지금 할 일은?</Text>
         <Text style={textStyles.normal}>{taskStr}</Text>
         <Text style={textStyles.small}>{hashTagText}</Text>
@@ -165,32 +177,40 @@ export function CurrentQuestScreen({
       <View>
         <TextInput
           value={detailText}
-          placeholder="설명을 적어주세요"
+          placeholder="이 퀘스트의 세부 설명을 적어주세요"
           onChangeText={onDetailChanged}
           editable={!isPerfoming}
         />
       </View>
-      <View>
+      <View style={currentQuestStyles.buttonView}>
         <Button
           title="수행 시작!"
           onPress={() => {
             onStart(expected, detailText, isPerfoming, hashTagText);
           }}
+          disabled={isPerfoming}
         />
-        <Button
-          title="수행 종료.."
-          onPress={() => {
-            onEnd(
-              'test@n.n',
-              startTime,
-              getTimeString(),
-              isPerfoming,
-              navigation,
-            );
-          }}
-        />
+        <View style={styles.button}>
+          <Button
+            title="수행 종료.."
+            color="#ff1744"
+            onPress={() => {
+              onEnd(
+                'test@n.n',
+                startTime,
+                getTimeString(),
+                isPerfoming,
+                navigation,
+              );
+            }}
+            disabled={!isPerfoming}
+          />
+        </View>
       </View>
     </View>
   );
 }
+
+const questStyles = todayQuestScreenStyles;
+const styles = currentQuestStyles;
 export default CurrentQuestScreen;

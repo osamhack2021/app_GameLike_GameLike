@@ -8,7 +8,8 @@ import {AppState} from '../../Store';
 import {replaceExpectedAction} from '../../Store/Actions';
 import getTodayString from '../Times/getTodayString';
 import {reloadTodayExpected} from '../Connection';
-import {todayQuestScreenStyles} from '../../Styles/TodayQuestScreenStyles';
+import {todayQuestScreenStyles} from '../Styles/TodayQuestScreenStyles';
+import {QuestEndScreenProps} from './QuestEndScreen';
 
 const during = 30; //각 퀘스트당 몇 분 진행할지
 
@@ -73,7 +74,14 @@ export default function TodayQuestScreen({
           <TouchableOpacity
             style={styles.endButton}
             onPress={() => {
-              navigation.goBack();
+              const pr: QuestEndScreenProps = {
+                questName: '테스트',
+                takenExp: 30,
+                takenTime: '조금',
+              };
+              navigation.replace('QUESTEND', {props: pr});
+
+              //navigation.goBack();
             }}>
             <Text style={styles.questAddText}>완료</Text>
           </TouchableOpacity>
