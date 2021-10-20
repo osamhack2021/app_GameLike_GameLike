@@ -67,6 +67,7 @@ $ git clone https://github.com/osamhack2021/app_web_GameLike_GameLike.git
     // SERVER/docker-compose.yml 파일을 본인 환경에 맞게 수정합니다.
     // 컨테이너 명, 포트 정보, DB 정보를 수정합니다.
     // 기본 포트 (서버 : 80, DB: 3306)
+    // 10/27 (수) 까지 제공된 VM에서만 서버 설정이 유효합니다.
     
 <br>
 
