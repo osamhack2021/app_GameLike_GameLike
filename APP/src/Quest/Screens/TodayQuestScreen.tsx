@@ -8,7 +8,7 @@ import {AppState} from '../../Store';
 import {replaceExpectedAction} from '../../Store/Actions';
 import getTodayString from '../Times/getTodayString';
 import {reloadTodayExpected} from '../Connection';
-import {todayQuestScreenStyle} from '../../Styles/TodayQuestScreenStyles';
+import {todayQuestScreenStyles} from '../../Styles/TodayQuestScreenStyles';
 
 const during = 30; //각 퀘스트당 몇 분 진행할지
 
@@ -44,11 +44,11 @@ export default function TodayQuestScreen({
         <View style={styles.centerView}>
           <View style={styles.tcoView}>
             <TouchableOpacity
-              style={styles.tco}
+              style={styles.questAddButton}
               onPress={() => {
                 navigation.navigate('SELECTOR');
               }}>
-              <Text>오늘의 퀘스트 추가하기</Text>
+              <Text style={styles.questAddText}>오늘의 퀘스트 추가하기</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -71,11 +71,11 @@ export default function TodayQuestScreen({
       <View style={styles.bottomView}>
         <View style={styles.tcoView}>
           <TouchableOpacity
-            style={styles.tco}
+            style={styles.endButton}
             onPress={() => {
               navigation.goBack();
             }}>
-            <Text>완료</Text>
+            <Text style={styles.questAddText}>완료</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -83,4 +83,4 @@ export default function TodayQuestScreen({
   );
 }
 
-const styles = todayQuestScreenStyle;
+const styles = todayQuestScreenStyles;

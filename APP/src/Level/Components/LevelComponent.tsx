@@ -7,6 +7,7 @@ import {
   getLevelFromExp,
   getLevelUpExpByLevel,
 } from '../Functions/LevelFunctions';
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 export function LevelComponent() {
   const userExp = useSelector<AppState, number>(state => state.level.exp);
@@ -19,14 +20,16 @@ export function LevelComponent() {
   }, [dispatch]);
 
   return (
-    <View>
-      <View>
-        <Text>레벨 정보</Text>
-        <Text>(계급)</Text>
+    <View style={styles.container}>
+      <View style={styles.levelIcon}>
+        <Text style={styles.levelText}>{'Lv.' + lv}</Text>
       </View>
-      <View>
-        <Text>{'Lv.' + lv}</Text>
-        <Text>{'경험치: ' + exp + '/' + maxExp}</Text>
+      <View style={styles.rightView}>
+        <Text style={styles.expText}>{'경험치: ' + exp + '/' + maxExp}</Text>
+        <View style={styles.expBar}>
+          <View style={{flex: exp, backgroundColor: '#00e676'}} />
+          <View style={{flex: maxExp - exp, backgroundColor: '#ffffff'}} />
+        </View>
       </View>
     </View>
   );
@@ -35,6 +38,41 @@ export function LevelComponent() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#102027',
+  },
+
+  levelIcon: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#446280',
+    marginLeft: 20,
+  },
+  levelText: {
+    fontFamily: 'NotoSansKR-Bold',
+    fontSize: 16,
+    color: 'white',
+  },
+
+  rightView: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  expBar: {
+    width: '80%',
+    height: 20,
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#e2f1f8',
+  },
+  expText: {
+    fontSize: 13,
+    color: 'white',
+    marginBottom: 5,
   },
 });
 

@@ -1,12 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {
-  Text,
-  TextInput,
-  View,
-  StyleSheet,
-  Alert,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import {ExpectedData} from '../Datas';
 import {useDispatch} from 'react-redux';
 import getDateString from '../Times/getDateString';
@@ -14,6 +7,9 @@ import {replaceExpectedAction} from '../../Store/Actions';
 import postNewExpectedData from '../Connection/postNewExpectedData';
 import {reloadTodayExpected} from '../Connection';
 import {todayQuestAdderStyles} from '../../Styles/TodayQuestAdderStyles';
+import {todayQuestScreenStyles} from '../../Styles/TodayQuestScreenStyles';
+import textStyles from '../Styles/QuestTextStyles';
+import {TextInput} from 'react-native-paper';
 
 //아직 데이터를 selector에 반영하는 것은 저장 안했음
 export default function TodayQuestAdder({navigation}: {navigation: any}) {
@@ -66,31 +62,41 @@ export default function TodayQuestAdder({navigation}: {navigation: any}) {
   return (
     <View style={styles.container}>
       <View style={styles.topView}>
-        <Text style={styles.topText}>추가할 퀘스트의 정보를 입력해주세요</Text>
+        <Text style={textStyles.normal}>
+          추가할 퀘스트의 정보를 입력해주세요
+        </Text>
       </View>
       <View style={styles.container}>
         <TextInput
+          underlineColor="#000000"
+          outlineColor="#000000"
+          selectionColor="#000000"
           style={styles.textInput}
           value={questName}
           placeholder="퀘스트 이름 입력"
           onChangeText={text => setQuest(text)}
         />
-        <TextInput
-          style={styles.textInput}
-          value={fieldName}
-          placeholder="#분야 입력"
-          onChangeText={text => setField(text)}
-        />
+        <View style={{marginVertical: 5}}>
+          <TextInput
+            underlineColor="#000000"
+            outlineColor="#000000"
+            selectionColor="#000000"
+            style={styles.textInput}
+            value={fieldName}
+            placeholder="#분야 입력"
+            onChangeText={text => setField(text)}
+          />
+        </View>
       </View>
       <TouchableOpacity
-        style={styles.tco}
+        style={styles.endButton}
         onPress={() => {
           onQuestAdd(navigation);
         }}>
-        <Text>입력 완료</Text>
+        <Text style={styles.questAddText}>입력 완료</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-const styles = todayQuestAdderStyles;
+const styles = todayQuestScreenStyles;

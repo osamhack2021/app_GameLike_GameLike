@@ -14,6 +14,7 @@ import {ExpectedData} from '../Quest/Datas';
 import loadUncompletedPerformed from '../Quest/Connection/loadUncompletedPerformed';
 import LevelComponent from '../Level/Components/LevelComponent';
 import * as Style from '../Styles/HomeScreenStyles';
+import ProfileScreen from '../Component/ProfileScreen';
 
 //1. 처음 로드할 때 expected quests 가져와야함
 //(연습할 땐 db 대신 static에서 load, empty array와 ex array 만들어서 가져오기)
@@ -49,7 +50,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Text>Profile Component</Text>
+        <ProfileScreen />
       </View>
       <View style={styles.level}>
         <LevelComponent />
